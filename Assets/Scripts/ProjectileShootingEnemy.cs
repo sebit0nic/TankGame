@@ -26,9 +26,23 @@ public class ProjectileShootingEnemy : MonoBehaviour {
 	}
 
 	private void Update() {
+		//Check if player is in sight, otherwise move closer to player
+		bool playerInSight = false;
+		RaycastHit hit;
+		int layerMask = ~(1 << LayerMask.NameToLayer("Enemy"));
+		if (Physics.Raycast (barrelEnd.position, barrelEnd.transform.forward, out hit, 100.0f, layerMask)) {
+			if (hit.collider.gameObject.tag.Equals ("Player")) {
+				playerInSight = true;
+			}
+		}
+
 		distance = Vector3.Distance (transform.position, target.position);
-		if (distance < minMoveAwayDistance) {
+		if (!playerInSight) {
 			agent.ResetPath ();
+			agent.destination = target.position;
+		} else if (distance < minMoveAwayDistance) {
+			agent.ResetPath ();
+			//Move in the opposite direction of the player
 			agent.destination = (target.position - transform.position) * -10;
 		} else if (distance >= minMoveAwayDistance && distance < minStopDistance) {
 			agent.Stop ();
@@ -39,10 +53,13 @@ public class ProjectileShootingEnemy : MonoBehaviour {
 
 		Vector3 enemyToTarget = target.position - transform.position;
 		enemyToTarget.y = barrel.position.y;
+
 		Quaternion barrelRotation = Quaternion.LookRotation (enemyToTarget);
+		barrelRotation.x = 0;
+		barrelRotation.z = 0;
 		barrel.rotation = barrelRotation;
 
-		if (distance < minShootDistance && shootTimer < Time.time) {
+		if (distance < minShootDistance && shootTimer < Time.time && playerInSight) {
 			Rigidbody newProjectile = Instantiate (projectile, barrelEnd.position, barrelEnd.rotation) as Rigidbody;
 			newProjectile.AddForce (newProjectile.transform.forward * projectileSpeed, ForceMode.Force);
 			shootTimer = Time.time + shootFrequency;
