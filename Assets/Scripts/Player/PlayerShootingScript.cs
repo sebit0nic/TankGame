@@ -15,20 +15,14 @@ public class PlayerShootingScript : MonoBehaviour {
 
 	private LineRenderer thisLineRenderer;
 	private float shootTimer;
-	private float fillAmountTimer = 1f;
 
 	private void Awake() {
 		thisLineRenderer = GetComponent<LineRenderer> ();
 	}
 
 	private void Update() {
-		float fillAmount = weaponCooldown - fillAmountTimer;
-		if (fillAmount >= 1) {
-			cooldown.fillAmount = 1;
-		} else {
-			cooldown.fillAmount = fillAmount;
-		}
-		fillAmountTimer += Time.deltaTime;
+		float fillAmount = (shootTimer - Time.time) / weaponCooldown;
+		cooldown.fillAmount = fillAmount;
 	}
 
 	public void Shoot() {
@@ -40,7 +34,6 @@ public class PlayerShootingScript : MonoBehaviour {
 				break;
 			}
 			shootTimer = Time.time + weaponCooldown;
-			fillAmountTimer = 0.01f;
 		}
 	}
 
