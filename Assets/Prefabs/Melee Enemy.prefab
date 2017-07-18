@@ -122,6 +122,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
+  actorExplosion: {fileID: 1336831399472072, guid: dc78a72f546571e489c235c0377d1c4d,
+    type: 2}
+  basePoints: 5
 --- !u!195 &195572868219126776
 NavMeshAgent:
   m_ObjectHideFlags: 1

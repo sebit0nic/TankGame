@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ProjectileShootingEnemy : MonoBehaviour {
+public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 
 	public Transform target;
 	public Transform barrel;
 	public Transform barrelEnd;
+	public GameObject actorExplosion;
+	public int basePoints = 20;
 	public float minStopDistance = 15;
 	public float minMoveAwayDistance = 7;
 
@@ -20,6 +22,12 @@ public class ProjectileShootingEnemy : MonoBehaviour {
 	private NavMeshAgent agent;
 	private float distance;
 	private float shootTimer;
+
+	private GameManager gameManager;
+
+	private void Awake() {
+		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager>();
+	}
 
 	private void Start() {
 		agent = GetComponent<NavMeshAgent> ();
@@ -64,5 +72,11 @@ public class ProjectileShootingEnemy : MonoBehaviour {
 			newProjectile.AddForce (newProjectile.transform.forward * projectileSpeed, ForceMode.Force);
 			shootTimer = Time.time + shootFrequency;
 		}
+	}
+
+	public void HitByProjectile() {
+		Instantiate (actorExplosion, transform.position, Quaternion.identity);
+		gameManager.NotifyEnemyDestroyed (basePoints);
+		Destroy (gameObject);
 	}
 }

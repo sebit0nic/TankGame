@@ -37,11 +37,17 @@ public class Combometer : MonoBehaviour {
 	public void ComboDown() {
 		if (currentCombo != 1) {
 			currentCombo--;
-			comboDropTimer = Time.time + comboDropTime;
+			if (currentCombo != 1) {
+				comboDropTimer = Time.time + comboDropTime;
+			}
 		} else {
 			radialCombometer.fillAmount = 1;
 		}
 
 		comboText.text = "x" + currentCombo;
+	}
+
+	public int GetCurrentCombo() {
+		return currentCombo;
 	}
 }

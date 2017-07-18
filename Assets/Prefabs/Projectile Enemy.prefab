@@ -381,6 +381,9 @@ MonoBehaviour:
   target: {fileID: 0}
   barrel: {fileID: 4492348001580140}
   barrelEnd: {fileID: 4665919639839966}
+  actorExplosion: {fileID: 1336831399472072, guid: dc78a72f546571e489c235c0377d1c4d,
+    type: 2}
+  basePoints: 10
   minStopDistance: 20
   minMoveAwayDistance: 15
   projectile: {fileID: 54714391828364632, guid: edf5d9d36105a4e4cb632ec355263353,

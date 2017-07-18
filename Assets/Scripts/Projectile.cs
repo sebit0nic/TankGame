@@ -18,8 +18,8 @@ public class Projectile : MonoBehaviour {
 		if (playerFired) {
 			if (other.gameObject.tag.Equals ("Enemy")) {
 				Instantiate (explosion, transform.position, Quaternion.identity);
-				Instantiate (actorExplosion, other.transform.position, Quaternion.identity);
-				Destroy (other.gameObject);
+
+				other.GetComponent<Enemy> ().HitByProjectile ();
 				Destroy (gameObject);
 			}
 		} else {
