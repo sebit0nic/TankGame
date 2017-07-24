@@ -1,0 +1,13 @@
+<Missions>
+	<Mission index="0">
+		<Highscore>200</Highscore>
+		<CoinReward>50</CoinReward>
+		<CompletedOnce>false</CompletedOnce>
+		<PrimaryTask>
+			<Description>Lorem ipsum</Description>
+			<EnemyCount>4</EnemyCount>
+			<TimeLimit>-1</TimeLimit>
+			<TimedSurvival>false</TimedSurvival>
+		</PrimaryTask>
+	</Mission>
+</Missions>

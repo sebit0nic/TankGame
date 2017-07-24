@@ -6,7 +6,7 @@ public class Healthbar : MonoBehaviour {
 
 	public GameObject[] healthSections;
 
-	public void UpdateHealthbar (int currentHealth) {
+	public void UpdateUI (int currentHealth) {
 		foreach (GameObject g in healthSections) {
 			g.SetActive (false);
 		}

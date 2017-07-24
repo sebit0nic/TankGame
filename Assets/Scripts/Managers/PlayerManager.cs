@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class PlayerManager : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
+	public Healthbar healthbar;
+
+	private int currentHealth;
+
+	private void Awake() {
+		healthbar.UpdateUI (currentHealth);
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+
+	public void NotifyPlayerHit(int health) {
+		currentHealth = health;
+		healthbar.UpdateUI (currentHealth);
 	}
 }

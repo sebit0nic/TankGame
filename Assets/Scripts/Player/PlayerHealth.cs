@@ -5,11 +5,9 @@ using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour {
 
-	public int currentHealth = 3;
-	public float invincibleTime = 1f;
-	public Healthbar healthbar;
+	public int currentHealth = 5;
+	public float invincibleTime = 0.5f;
 	public GameObject actorExplosion;
-	public GameObject shield;
 
 	private GameManager gameManager;
 	private float invincibilityTimer;
@@ -24,7 +22,6 @@ public class PlayerHealth : MonoBehaviour {
 	private void Update() {
 		if (invincibilityTimer < Time.time) {
 			isInvincible = false;
-			shield.SetActive (false);
 		}
 	}
 
@@ -35,12 +32,11 @@ public class PlayerHealth : MonoBehaviour {
 
 			invincibilityTimer = Time.time + invincibleTime;
 			isInvincible = true;
-			shield.SetActive (true);
 		}
 	}
 
 	private void UpdateText() {
-		healthbar.UpdateHealthbar (currentHealth);
+		gameManager.NotifyPlayerHit (currentHealth);
 		if (currentHealth == 0) {
 			Instantiate (actorExplosion, transform.position, Quaternion.identity);
 			gameManager.NotifyPlayerDestroyed ();

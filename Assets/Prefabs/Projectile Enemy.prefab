@@ -386,7 +386,7 @@ MonoBehaviour:
   basePoints: 10
   minStopDistance: 20
   minMoveAwayDistance: 15
-  projectile: {fileID: 54714391828364632, guid: edf5d9d36105a4e4cb632ec355263353,
+  projectile: {fileID: 54714391828364632, guid: 7171c5e449c1fe4459c44955f8c48ae5,
     type: 2}
   minShootDistance: 50
   shootFrequency: 2

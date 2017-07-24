@@ -39,6 +39,6 @@ public class PlayerShootingScript : MonoBehaviour {
 
 	public void UpdateTargetingLine(RaycastHit floorHit) {
 		thisLineRenderer.SetPosition (0, new Vector3 (barrelEnd.position.x, barrelEnd.position.y, barrelEnd.position.z));
-		thisLineRenderer.SetPosition (1, new Vector3 (floorHit.point.x, barrelEnd.position.y, floorHit.point.z));
+		thisLineRenderer.SetPosition (1, new Vector3 (floorHit.point.x, floorHit.point.y, floorHit.point.z));
 	}
 }
