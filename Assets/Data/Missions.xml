@@ -5,7 +5,7 @@
 		<CompletedOnce>false</CompletedOnce>
 		<PrimaryTask>
 			<Description>Lorem ipsum</Description>
-			<EnemyCount>4</EnemyCount>
+			<EnemyCount>15</EnemyCount>
 			<TimeLimit>-1</TimeLimit>
 			<TimedSurvival>false</TimedSurvival>
 		</PrimaryTask>

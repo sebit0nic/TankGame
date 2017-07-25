@@ -21,6 +21,11 @@ public class ScoreManager : MonoBehaviour {
 		ComboUp ();
 	}
 
+	public void NotifyPlayerHit() {
+		currentCombo = 2;
+		ComboDown ();
+	}
+
 	private void Update() {
 		if (comboDropTimer < Time.time) {
 			ComboDown ();

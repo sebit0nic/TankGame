@@ -30,5 +30,6 @@ public class MissionManager : MonoBehaviour {
 
 	public void NotifyPlayerHit(int health) {
 		playerManager.NotifyPlayerHit (health);
+		scoreManager.NotifyPlayerHit ();
 	}
 }

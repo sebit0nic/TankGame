@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 
-	public Transform target;
 	public Transform barrel;
 	public Transform barrelEnd;
 	public GameObject actorExplosion;
@@ -24,9 +23,11 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 	private float shootTimer;
 
 	private GameManager gameManager;
+	private Transform target;
 
 	private void Awake() {
 		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager>();
+		target = GameObject.Find ("Player").transform;
 	}
 
 	private void Start() {
@@ -77,6 +78,6 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 	public void HitByProjectile() {
 		Instantiate (actorExplosion, transform.position, Quaternion.identity);
 		gameManager.NotifyEnemyDestroyed (basePoints);
-		Destroy (gameObject);
+		gameObject.SetActive (false);
 	}
 }

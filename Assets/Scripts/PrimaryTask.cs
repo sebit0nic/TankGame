@@ -13,7 +13,7 @@ public class PrimaryTask {
 	public float timeLimit;
 	public bool timedSurvival;
 
-	private float endTime;
+	private float startTime, endTime;
 	private GameManager gameManager;
 
 	public void Update() {
@@ -31,7 +31,7 @@ public class PrimaryTask {
 
 			gameManager.UpdateTimer (endTime - Time.time);
 		} else {
-			gameManager.UpdateTimer (Time.time);
+			gameManager.UpdateTimer (Time.time - startTime);
 		}
 	}
 
@@ -46,6 +46,7 @@ public class PrimaryTask {
 		}
 
 		this.gameManager = gameManager;
+		startTime = Time.time;
 	}
 
 	public void NotifyEnemyDestroyed() {
