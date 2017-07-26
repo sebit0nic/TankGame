@@ -76,6 +76,8 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void NotifyStopGame() {
-		Application.Quit ();
+		if (!Application.isEditor) {
+			System.Diagnostics.Process.GetCurrentProcess ().Kill ();
+		}
 	}
 }

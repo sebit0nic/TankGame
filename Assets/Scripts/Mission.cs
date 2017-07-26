@@ -13,8 +13,9 @@ public class Mission {
 	public PrimaryTask primaryTask;
 
 	public void Init(GameManager gameManager, int loadedLevel) {
+		TextAsset textAsset = (TextAsset)Resources.Load ("Missions");
 		XmlDocument doc = new XmlDocument ();
-		doc.Load (Application.dataPath + "/Data/Missions.xml");
+		doc.LoadXml (textAsset.text);
 		XmlNode root = doc.FirstChild;
 		XmlNode currentMission = null;
 
