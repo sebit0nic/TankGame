@@ -11,13 +11,15 @@ public class CameraFollow : MonoBehaviour {
 	private Vector3 offset;
 	private int floorMask;
 	private float camRayLength = 100f;
+	private GameManager gameManager;
 
 	private void Awake() {
+		offset = transform.position - target.position;
 		floorMask = LayerMask.GetMask ("Floor");
 	}
 
 	private void Start() {
-		offset = transform.position - target.position;
+		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager> ();
 	}
 
 	private void FixedUpdate() {
@@ -32,5 +34,9 @@ public class CameraFollow : MonoBehaviour {
 
 		Vector3 targetCamPos = target.position + offset + (playerToMouse * mouseDamper);
 		transform.position = Vector3.Lerp (transform.position, targetCamPos, smoothing * Time.deltaTime);
+	}
+
+	public void OutroAnimationFinished() {
+		gameManager.NotifyCameraOutroAnimationFinished ();
 	}
 }

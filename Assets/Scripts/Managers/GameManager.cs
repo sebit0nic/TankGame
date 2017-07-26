@@ -11,7 +11,10 @@ public class GameManager : MonoBehaviour {
 
 	public int loadedLevel = 0;
 	public GameObject gameOverPanel, missionSuccessfulPanel;
+	public Animator ingameMenuAnimator, ingameCameraAnimator;
 	public Text timerText;
+
+	private bool missionSuccessful;
 
 	private void Awake() {
 		LoadLevel (loadedLevel);
@@ -35,22 +38,39 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void NotifyPlayerDestroyed() {
-		Time.timeScale = 0;
-		gameOverPanel.SetActive (true);
+		Time.timeScale = 0.2f;
+		Time.fixedDeltaTime = 0.2f * 0.02f;
+		ingameMenuAnimator.SetTrigger ("OnOutro");
+		ingameCameraAnimator.SetTrigger ("OnOutro");
 	}
 
 	public void NotifyMissionSuccessful() {
-		Time.timeScale = 0;
-		missionSuccessfulPanel.SetActive (true);
+		Time.timeScale = 0.2f;
+		Time.fixedDeltaTime = 0.2f * 0.02f;
+		ingameMenuAnimator.SetTrigger ("OnOutro");
+		ingameCameraAnimator.SetTrigger ("OnOutro");
+		missionSuccessful = true;
 	}
 
 	public void NotifyMissionFailed() {
-		Time.timeScale = 0;
-		gameOverPanel.SetActive (true);
+		Time.timeScale = 0.2f;
+		Time.fixedDeltaTime = 0.2f * 0.02f;
+		ingameMenuAnimator.SetTrigger ("OnOutro");
+		ingameCameraAnimator.SetTrigger ("OnOutro");
+	}
+
+	public void NotifyCameraOutroAnimationFinished() {
+		Time.timeScale = 0f;
+		if (missionSuccessful) {
+			missionSuccessfulPanel.SetActive (true);
+		} else {
+			gameOverPanel.SetActive (true);
+		}
 	}
 
 	public void NotifyRestartScene() {
 		Time.timeScale = 1;
+		Time.fixedDeltaTime = 0.02f;
 		SceneManager.LoadScene (0, LoadSceneMode.Single);
 		missionManager.Init (this, loadedLevel);
 	}

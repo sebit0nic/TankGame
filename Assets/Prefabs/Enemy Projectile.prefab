@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4513625603180286}
   - component: {fileID: 33333132494433018}
   - component: {fileID: 23757473205366412}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 65990623690433384}
   - component: {fileID: 114488388753540146}
   - component: {fileID: 96145553379133268}
-  m_Layer: 10
+  m_Layer: 0
   m_Name: Enemy Projectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}

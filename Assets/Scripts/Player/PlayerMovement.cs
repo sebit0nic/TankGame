@@ -12,7 +12,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	private PlayerShootingScript playerShootingScript;
 	private Rigidbody thisRigidbody;
-	private int floorMask;
+	private int floorMask, obscuranceMask;
 	private float camRayLength = 100f;
 
 	private void Awake() {
@@ -20,20 +20,18 @@ public class PlayerMovement : MonoBehaviour {
 		thisRigidbody = GetComponent<Rigidbody> ();
 
 		floorMask = LayerMask.GetMask ("Floor");
+		obscuranceMask = LayerMask.GetMask ("Enemy", "Environment");
 	}
 
 	private void Update() {
-		if (Input.GetKeyDown (KeyCode.Mouse0)) {
+		if (Input.GetKey (KeyCode.Mouse0)) {
 			playerShootingScript.Shoot ();
 		}
-	}
 
-	private void FixedUpdate() {
-		Move ();
 		Turn ();
 	}
 
-	private void Move() {
+	private void FixedUpdate() {
 		float vertical = Input.GetAxis ("Vertical");
 		float horizontal = Input.GetAxis ("Horizontal");
 		Vector3 moveDirection = new Vector3 (horizontal, 0, vertical);
@@ -47,15 +45,22 @@ public class PlayerMovement : MonoBehaviour {
 
 	private void Turn() {
 		Ray camRay = Camera.main.ScreenPointToRay (Input.mousePosition);
+		Ray obscuranceRay = new Ray (barrelEnd.transform.position, barrelEnd.transform.forward);
 		RaycastHit floorHit;
+		RaycastHit obscuranceHit;
 
 		if (Physics.Raycast (camRay, out floorHit, camRayLength, floorMask)) {
 			Vector3 playerToMouse = floorHit.point - transform.position;
+			float playerToMouseDistance = Vector3.Distance (floorHit.point, transform.position);
 			playerToMouse.y = 0;
 			Quaternion newRotation = Quaternion.LookRotation (playerToMouse);
 			barrel.rotation = newRotation;
 
-			playerShootingScript.UpdateTargetingLine (floorHit);
+			if (Physics.Raycast (obscuranceRay, out obscuranceHit, playerToMouseDistance, obscuranceMask)) {
+				playerShootingScript.UpdateTargetingLine (obscuranceHit);
+			} else {
+				playerShootingScript.UpdateTargetingLine (floorHit);
+			}
 		}
 	}
 }

@@ -387,7 +387,7 @@ MonoBehaviour:
   minMoveAwayDistance: 20
   projectile: {fileID: 54714391828364632, guid: 7171c5e449c1fe4459c44955f8c48ae5,
     type: 2}
-  minShootDistance: 50
+  minShootDistance: 35
   shootFrequency: 3
   projectileSpeed: 1000
 --- !u!195 &195545267331144980
