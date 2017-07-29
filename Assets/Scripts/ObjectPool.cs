@@ -16,12 +16,16 @@ public class ObjectPool : MonoBehaviour {
 		sharedInstance = this;
 	}
 
+	public void Init(GameObject template) {
+		objectToPool = template;
+	}
+
 	private void Start() {
 		dynamicObjects = GameObject.Find ("Dynamic Objects");
 		pooledObjects = new List<GameObject> ();
 
 		for (int i = 0; i < amountToPool; i++) {
-			GameObject obj = (GameObject)Instantiate (objectToPool);
+			GameObject obj = (GameObject)Instantiate (objectToPool, Vector3.zero, Quaternion.identity);
 			obj.transform.parent = dynamicObjects.transform;
 			obj.SetActive (false);
 			pooledObjects.Add (obj);

@@ -502,7 +502,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 65
   orthographic: 0
   orthographic size: 11.75
   m_Depth: -1
@@ -1310,7 +1310,7 @@ GameObject:
   - component: {fileID: 485523096}
   m_Layer: 8
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Environment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -3005,7 +3005,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: MISSION SUCCESSFULL
+  m_Text: MISSION SUCCESSFUL
 --- !u!222 &1530336012
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3821,6 +3821,7 @@ GameObject:
   - component: {fileID: 2069063538}
   - component: {fileID: 2069063540}
   - component: {fileID: 2069063541}
+  - component: {fileID: 2069063542}
   - component: {fileID: 2069063539}
   m_Layer: 9
   m_Name: Player
@@ -3924,7 +3925,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 0}
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 0.2
+    widthMultiplier: 0.15
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -4014,8 +4015,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   barrelEnd: {fileID: 1305474870}
   projectileSpeed: 1000
-  weaponCooldown: 0.75
-  simpleMissileTemplate: {fileID: 54714391828364632, guid: 42c4b5f73269b534788143041d4e26d1,
-    type: 2}
-  currentWeaponType: 0
+  weaponCooldown: 2
+  currentWeaponType: 1
+  projectileTemplates:
+  - {fileID: 1509814728462766, guid: bbca62dff319efd429687ff9690d994d, type: 2}
+  - {fileID: 1412612971373340, guid: e7ce221f31f6fb147a1dca77f5b5e45c, type: 2}
   cooldown: {fileID: 252833973}
+--- !u!114 &2069063542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2069063534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdb88215e3a7f984ab212dbff928c070, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToPool: {fileID: 1886287320146862, guid: d0815f19634af4b4ba69e4c94420a1d6,
+    type: 2}
+  amountToPool: 3

@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: 195545267331144980}
   - component: {fileID: 54889057221618880}
   - component: {fileID: 114046807715745216}
+  - component: {fileID: 114876660257863038}
   m_Layer: 10
   m_Name: Projectile Enemy
   m_TagString: Enemy
@@ -385,11 +386,25 @@ MonoBehaviour:
   basePoints: 10
   minStopDistance: 30
   minMoveAwayDistance: 20
-  projectile: {fileID: 54714391828364632, guid: 7171c5e449c1fe4459c44955f8c48ae5,
+  projectile: {fileID: 54040912164438952, guid: b8f1fe6a37b9a274e94818fb3eb81a2d,
     type: 2}
   minShootDistance: 35
   shootFrequency: 3
   projectileSpeed: 1000
+--- !u!114 &114876660257863038
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1806248375579562}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdb88215e3a7f984ab212dbff928c070, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToPool: {fileID: 1654467384896416, guid: b8f1fe6a37b9a274e94818fb3eb81a2d,
+    type: 2}
+  amountToPool: 1
 --- !u!195 &195545267331144980
 NavMeshAgent:
   m_ObjectHideFlags: 1

@@ -24,10 +24,12 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 
 	private GameManager gameManager;
 	private Transform target;
+	private ObjectPool objectPool;
 
 	private void Awake() {
 		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager>();
 		target = GameObject.Find ("Player").transform;
+		objectPool = GetComponent<ObjectPool> ();
 	}
 
 	private void Start() {
@@ -69,8 +71,9 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 		barrel.rotation = barrelRotation;
 
 		if (distance < minShootDistance && shootTimer < Time.time && playerInSight) {
-			Rigidbody newProjectile = Instantiate (projectile, barrelEnd.position, barrelEnd.rotation) as Rigidbody;
-			newProjectile.AddForce (newProjectile.transform.forward * projectileSpeed, ForceMode.Force);
+			GameObject newProjectile = objectPool.GetPooledObjects();
+			newProjectile.SetActive (true);
+			newProjectile.GetComponent<SimpleMissile> ().Init (barrelEnd.position, barrelEnd.rotation, barrelEnd.transform.forward * projectileSpeed, ForceMode.Force);
 			shootTimer = Time.time + shootFrequency;
 		}
 	}
