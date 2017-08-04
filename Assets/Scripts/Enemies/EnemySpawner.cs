@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour {
 
-	public ObjectPool objectPool;
 	public int maxSpawnedEnemies = 5;
 	public float spawnRate = 3f;
 	public bool hasPlayerTrigger;
+	public GameObject[] activatedSpawner;
 
+	private ObjectPool objectPool;
 	private float spawnTimer;
+
+	private void Awake() {
+		objectPool = GetComponent<ObjectPool> ();
+	}
 
 	private void Start() {
 		if (!hasPlayerTrigger) {
@@ -25,6 +30,13 @@ public class EnemySpawner : MonoBehaviour {
 
 			spawnTimer = Time.time + spawnRate;
 			maxSpawnedEnemies--;
+		}
+
+		if (maxSpawnedEnemies == 0) {
+			for (int i = 0; i < activatedSpawner.Length; i++) {
+				activatedSpawner [i].SetActive (true);
+			}
+			gameObject.SetActive (false);
 		}
 	}
 }

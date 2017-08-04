@@ -6,13 +6,16 @@ public class BombExplosion : MonoBehaviour {
 
 	public float explosionRadius = 10;
 	public float expansionSpeed = 2.5f;
+	public float fireballLength = 0.5f;
 
 	private SphereCollider thisSphereCollider;
+	private MeshRenderer thisMeshRenderer;
 	private bool exploding;
 	private float initialRadius;
 
 	private void Awake() {
 		thisSphereCollider = GetComponent<SphereCollider> ();
+		thisMeshRenderer = GetComponent<MeshRenderer> ();
 		initialRadius = thisSphereCollider.radius;
 	}
 
@@ -20,6 +23,7 @@ public class BombExplosion : MonoBehaviour {
 		exploding = true;
 		thisSphereCollider.enabled = true;
 		thisSphereCollider.radius = initialRadius;
+		StartCoroutine (ShowFireball());
 	}
 
 	private void Update() {
@@ -37,5 +41,11 @@ public class BombExplosion : MonoBehaviour {
 		if (other.gameObject.tag.Equals ("Enemy")) {
 			other.GetComponent<Enemy> ().HitByProjectile ();
 		}
+	}
+
+	private IEnumerator ShowFireball() {
+		thisMeshRenderer.enabled = true;
+		yield return new WaitForSeconds (fireballLength);
+		thisMeshRenderer.enabled = false;
 	}
 }

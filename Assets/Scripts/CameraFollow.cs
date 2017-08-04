@@ -6,11 +6,12 @@ public class CameraFollow : MonoBehaviour {
 
 	public Transform target;
 	public float smoothing = 3f;
-	public float mouseDamper = 0.1f;
+	public float mouseDamper = 0.5f;
+	public Vector3 minPosition, maxPosition;
 
 	private Vector3 offset;
 	private int floorMask;
-	private float camRayLength = 100f;
+	private float camRayLength = 200f;
 	private GameManager gameManager;
 
 	private void Awake() {
@@ -34,6 +35,11 @@ public class CameraFollow : MonoBehaviour {
 
 		Vector3 targetCamPos = target.position + offset + (playerToMouse * mouseDamper);
 		transform.position = Vector3.Lerp (transform.position, targetCamPos, smoothing * Time.deltaTime);
+
+		transform.position = new Vector3 (
+			Mathf.Clamp(transform.position.x, minPosition.x, maxPosition.x),
+			Mathf.Clamp(transform.position.y, minPosition.y, maxPosition.y),
+			Mathf.Clamp(transform.position.z, minPosition.z, maxPosition.z));
 	}
 
 	public void OutroAnimationFinished() {

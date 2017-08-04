@@ -58,6 +58,8 @@ GameObject:
   - component: {fileID: 54101656499840150}
   - component: {fileID: 135215219920841190}
   - component: {fileID: 114580457115028736}
+  - component: {fileID: 33620987059456418}
+  - component: {fileID: 23397699344045240}
   m_Layer: 0
   m_Name: Explosion
   m_TagString: Untagged
@@ -101,11 +103,42 @@ Transform:
   m_GameObject: {fileID: 1725437636018474}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 15, y: 15, z: 15}
   m_Children: []
   m_Father: {fileID: 4170189165500282}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &23397699344045240
+MeshRenderer:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1725437636018474}
+  m_Enabled: 0
+  m_CastShadows: 0
+  m_ReceiveShadows: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_Materials:
+  - {fileID: 2100000, guid: 4b6d5c6c398ab25478660a7a25f2646a, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
 --- !u!23 &23421178003185670
 MeshRenderer:
   m_ObjectHideFlags: 1
@@ -143,6 +176,13 @@ MeshFilter:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1707650177042076}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!33 &33620987059456418
+MeshFilter:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1725437636018474}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!54 &54101656499840150
 Rigidbody:
@@ -198,8 +238,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18490e32dfe19224db9b015aed5545b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosionRadius: 10
-  expansionSpeed: 2.5
+  explosionRadius: 0.5
+  expansionSpeed: 5
+  fireballLength: 0.05
 --- !u!114 &114733754931563538
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -211,7 +252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aa00b478d2107a4e8d703a07a1319c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  countdown: 1
+  countdown: 0.75
 --- !u!135 &135215219920841190
 SphereCollider:
   m_ObjectHideFlags: 1
@@ -222,7 +263,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.015
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &135713187033514420
 SphereCollider:

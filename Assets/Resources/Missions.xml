@@ -10,4 +10,26 @@
 			<TimedSurvival>false</TimedSurvival>
 		</PrimaryTask>
 	</Mission>
+	<Mission index="1">
+		<Highscore>0</Highscore>
+		<CoinReward>0</CoinReward>
+		<CompletedOnce>false</CompletedOnce>
+		<PrimaryTask>
+			<Description>Complete basic training.</Description>
+			<EnemyCount>15</EnemyCount>
+			<TimeLimit>-1</TimeLimit>
+			<TimedSurvival>false</TimedSurvival>
+		</PrimaryTask>
+	</Mission>
+	<Mission index="2">
+		<Highscore>1000</Highscore>
+		<CoinReward>100</CoinReward>
+		<CompletedOnce>false</CompletedOnce>
+		<PrimaryTask>
+			<Description>Survive the oncoming wave of enemies. Your first real challenge.</Description>
+			<EnemyCount>30</EnemyCount>
+			<TimeLimit>-1</TimeLimit>
+			<TimedSurvival>false</TimedSurvival>
+		</PrimaryTask>
+	</Mission>
 </Missions>

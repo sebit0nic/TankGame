@@ -13,7 +13,7 @@ public class PlayerMovement : MonoBehaviour {
 	private PlayerShootingScript playerShootingScript;
 	private Rigidbody thisRigidbody;
 	private int floorMask, obscuranceMask;
-	private float camRayLength = 100f;
+	private float camRayLength = 200f;
 
 	private void Awake() {
 		playerShootingScript = GetComponent<PlayerShootingScript> ();
@@ -57,9 +57,9 @@ public class PlayerMovement : MonoBehaviour {
 			barrel.rotation = newRotation;
 
 			if (Physics.Raycast (obscuranceRay, out obscuranceHit, playerToMouseDistance, obscuranceMask)) {
-				playerShootingScript.UpdateTargetingLine (obscuranceHit);
+				playerShootingScript.UpdateTargetingLine (floorHit, obscuranceHit);
 			} else {
-				playerShootingScript.UpdateTargetingLine (floorHit);
+				playerShootingScript.UpdateTargetingLine (floorHit, floorHit);
 			}
 		}
 	}

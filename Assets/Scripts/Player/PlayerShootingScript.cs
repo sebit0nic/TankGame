@@ -12,6 +12,7 @@ public class PlayerShootingScript : MonoBehaviour {
 	public WeaponType currentWeaponType;
 	public GameObject[] projectileTemplates;
 	public Image cooldown;
+	public Color targetLineNormal, targetLineReloading;
 
 	private LineRenderer thisLineRenderer;
 	private float shootTimer;
@@ -55,29 +56,23 @@ public class PlayerShootingScript : MonoBehaviour {
 		}
 	}
 
-	public void UpdateTargetingLine(RaycastHit floorHit) {
+	public void UpdateTargetingLine(RaycastHit floorHit, RaycastHit obscuranceHit) {
+		switch (currentWeaponType) {
+		case WeaponType.simpleMissile:
+			thisLineRenderer.SetPosition (0, new Vector3 (barrelEnd.position.x, barrelEnd.position.y, barrelEnd.position.z));
+			thisLineRenderer.SetPosition (1, new Vector3 (obscuranceHit.point.x, barrelEnd.position.y, obscuranceHit.point.z));
+			break;
+		case WeaponType.bombShot:
+			CalculateBallisticVelocity (floorHit);
+			break;
+		}
+
 		if (shootTimer < Time.time) {
-			switch (currentWeaponType) {
-			case WeaponType.simpleMissile:
-				thisLineRenderer.SetPosition (0, new Vector3 (barrelEnd.position.x, barrelEnd.position.y, barrelEnd.position.z));
-				thisLineRenderer.SetPosition (1, new Vector3 (floorHit.point.x, barrelEnd.position.y, floorHit.point.z));
-				break;
-			case WeaponType.bombShot:
-				CalculateBallisticVelocity (floorHit);
-				break;
-			}
+			thisLineRenderer.startColor = targetLineNormal;
+			thisLineRenderer.endColor = targetLineNormal;
 		} else {
-			switch (currentWeaponType) {
-			case WeaponType.simpleMissile:
-				thisLineRenderer.SetPosition (0, Vector3.zero);
-				thisLineRenderer.SetPosition (1, Vector3.zero);
-				break;
-			case WeaponType.bombShot:
-				for (int i = 0; i < thisLineRenderer.numPositions; i++) {
-					thisLineRenderer.SetPosition (i, Vector3.zero);
-				}
-				break;
-			}
+			thisLineRenderer.startColor = targetLineReloading;
+			thisLineRenderer.endColor = targetLineReloading;
 		}
 	}
 
