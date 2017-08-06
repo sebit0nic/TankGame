@@ -16,7 +16,7 @@
 		<CompletedOnce>false</CompletedOnce>
 		<PrimaryTask>
 			<Description>Complete basic training.</Description>
-			<EnemyCount>15</EnemyCount>
+			<EnemyCount>1</EnemyCount>
 			<TimeLimit>-1</TimeLimit>
 			<TimedSurvival>false</TimedSurvival>
 		</PrimaryTask>
