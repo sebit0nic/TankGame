@@ -366,7 +366,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1.2, y: 1, z: 1.2}
   m_Center: {x: 0, y: 0.3, z: 0}
 --- !u!114 &114046807715745216
 MonoBehaviour:
@@ -384,11 +384,11 @@ MonoBehaviour:
   actorExplosion: {fileID: 1336831399472072, guid: dc78a72f546571e489c235c0377d1c4d,
     type: 2}
   basePoints: 10
-  minStopDistance: 30
-  minMoveAwayDistance: 20
+  minStopDistance: 40
+  minMoveAwayDistance: 35
   projectile: {fileID: 54040912164438952, guid: b8f1fe6a37b9a274e94818fb3eb81a2d,
     type: 2}
-  minShootDistance: 30
+  minShootDistance: 45
   shootFrequency: 3
   projectileSpeed: 1500
 --- !u!114 &114876660257863038
