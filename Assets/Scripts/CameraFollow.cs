@@ -13,6 +13,7 @@ public class CameraFollow : MonoBehaviour {
 	private int floorMask;
 	private float camRayLength = 200f;
 	private GameManager gameManager;
+	private bool followMouse = true;
 
 	private void Awake() {
 		offset = transform.position - target.position;
@@ -33,9 +34,14 @@ public class CameraFollow : MonoBehaviour {
 			playerToMouse.y = 0;
 		}
 
-		Vector3 targetCamPos = target.position + offset + (playerToMouse * mouseDamper);
-		transform.position = Vector3.Lerp (transform.position, targetCamPos, smoothing * Time.deltaTime);
+		Vector3 targetCamPos;
+		if (followMouse) {
+			targetCamPos = target.position + offset + (playerToMouse * mouseDamper);
+		} else {
+			targetCamPos = target.position + offset;
+		}
 
+		transform.position = Vector3.Lerp (transform.position, targetCamPos, smoothing * Time.deltaTime);
 		transform.position = new Vector3 (
 			Mathf.Clamp(transform.position.x, minPosition.x, maxPosition.x),
 			Mathf.Clamp(transform.position.y, minPosition.y, maxPosition.y),
@@ -44,5 +50,9 @@ public class CameraFollow : MonoBehaviour {
 
 	public void OutroAnimationFinished() {
 		gameManager.NotifyCameraOutroAnimationFinished ();
+	}
+
+	public void SetFollowMouse(bool newValue) {
+		followMouse = newValue;
 	}
 }

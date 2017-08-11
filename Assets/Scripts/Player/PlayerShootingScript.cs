@@ -41,7 +41,7 @@ public class PlayerShootingScript : MonoBehaviour {
 	}
 
 	public void Shoot() {
-		if (shootTimer < Time.time) {
+		if (shootTimer < Time.time && this.enabled) {
 			GameObject newProjectile = projectilePool.GetPooledObjects ();
 			newProjectile.SetActive (true);
 			switch (currentWeaponType) {
@@ -57,22 +57,24 @@ public class PlayerShootingScript : MonoBehaviour {
 	}
 
 	public void UpdateTargetingLine(RaycastHit floorHit, RaycastHit obscuranceHit) {
-		switch (currentWeaponType) {
-		case WeaponType.simpleMissile:
-			thisLineRenderer.SetPosition (0, new Vector3 (barrelEnd.position.x, barrelEnd.position.y, barrelEnd.position.z));
-			thisLineRenderer.SetPosition (1, new Vector3 (obscuranceHit.point.x, barrelEnd.position.y, obscuranceHit.point.z));
-			break;
-		case WeaponType.bombShot:
-			CalculateBallisticVelocity (floorHit);
-			break;
-		}
+		if (this.enabled) {
+			switch (currentWeaponType) {
+			case WeaponType.simpleMissile:
+				thisLineRenderer.SetPosition (0, new Vector3 (barrelEnd.position.x, barrelEnd.position.y, barrelEnd.position.z));
+				thisLineRenderer.SetPosition (1, new Vector3 (obscuranceHit.point.x, barrelEnd.position.y, obscuranceHit.point.z));
+				break;
+			case WeaponType.bombShot:
+				CalculateBallisticVelocity (floorHit);
+				break;
+			}
 
-		if (shootTimer < Time.time) {
-			thisLineRenderer.startColor = targetLineNormal;
-			thisLineRenderer.endColor = targetLineNormal;
-		} else {
-			thisLineRenderer.startColor = targetLineReloading;
-			thisLineRenderer.endColor = targetLineReloading;
+			if (shootTimer < Time.time) {
+				thisLineRenderer.startColor = targetLineNormal;
+				thisLineRenderer.endColor = targetLineNormal;
+			} else {
+				thisLineRenderer.startColor = targetLineReloading;
+				thisLineRenderer.endColor = targetLineReloading;
+			}
 		}
 	}
 
