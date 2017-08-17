@@ -13,7 +13,7 @@ public class MissionManager : MonoBehaviour {
 	private bool initDone = false;
 
 	public void Init(GameManager gameManager, int loadedLevel) {
-		mission.Init (gameManager, loadedLevel);
+		mission.Init (gameManager, loadedLevel, playerManager);
 		initDone = true;
 	}
 

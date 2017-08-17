@@ -7,9 +7,15 @@ public class PlayerManager : MonoBehaviour {
 	public Healthbar healthbar;
 
 	private int currentHealth;
+	private GameObject player;
 
 	private void Awake() {
 		healthbar.UpdateUI (currentHealth);
+		player = GameObject.Find ("Player").gameObject;
+	}
+
+	public void InitPosition (Vector3 startPosition) {
+		player.transform.position = startPosition;
 	}
 
 	public void NotifyPlayerHit(int health) {

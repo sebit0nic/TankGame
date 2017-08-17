@@ -41,7 +41,7 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 		bool playerInSight = false;
 		RaycastHit hit;
 		int layerMask = ~(1 << LayerMask.NameToLayer("Enemy"));
-		if (Physics.Raycast (barrelEnd.position, barrelEnd.transform.forward, out hit, 100.0f, layerMask)) {
+		if (Physics.Raycast (barrelEnd.position, barrelEnd.transform.forward, out hit, 200.0f, layerMask)) {
 			if (hit.collider.gameObject.tag.Equals ("Player")) {
 				playerInSight = true;
 			}

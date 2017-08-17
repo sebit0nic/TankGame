@@ -1,7 +1,7 @@
 <Missions>
 	<Mission index="0">
 		<Highscore>200</Highscore>
-		<CoinReward>50</CoinReward>
+		<ExperienceReward>50</ExperienceReward>
 		<CompletedOnce>false</CompletedOnce>
 		<PrimaryTask>
 			<Description>Lorem ipsum</Description>
@@ -12,24 +12,40 @@
 	</Mission>
 	<Mission index="1">
 		<Highscore>0</Highscore>
-		<CoinReward>0</CoinReward>
+		<ExperienceReward>0</ExperienceReward>
 		<CompletedOnce>false</CompletedOnce>
 		<PrimaryTask>
-			<Description>Complete basic training.</Description>
-			<EnemyCount>8</EnemyCount>
+			<Description>Complete this short training to learn the basics.</Description>
+			<EnemyCount>9</EnemyCount>
 			<TimeLimit>-1</TimeLimit>
 			<TimedSurvival>false</TimedSurvival>
 		</PrimaryTask>
 	</Mission>
 	<Mission index="2">
-		<Highscore>1000</Highscore>
-		<CoinReward>100</CoinReward>
+		<Highscore>1200</Highscore>
+		<ExperienceReward>100</ExperienceReward>
 		<CompletedOnce>false</CompletedOnce>
 		<PrimaryTask>
-			<Description>Survive the oncoming wave of enemies. Your first real challenge.</Description>
-			<EnemyCount>30</EnemyCount>
+			<Description>Destroy 20 tanks. Your first real challenge.</Description>
+			<EnemyCount>20</EnemyCount>
 			<TimeLimit>-1</TimeLimit>
 			<TimedSurvival>false</TimedSurvival>
+		</PrimaryTask>
+	</Mission>
+	<Mission index="3">
+		<Highscore>1000</Highscore>
+		<ExperienceReward>100</ExperienceReward>
+		<CompletedOnce>false</CompletedOnce>
+		<PlayerPosition>
+			<x>0</x>
+			<y>6</y>
+			<z>0</z>
+		</PlayerPosition>
+		<PrimaryTask>
+			<Description>One small platform. Dozens of enemies. One minute to survive.</Description>
+			<EnemyCount>-1</EnemyCount>
+			<TimeLimit>60</TimeLimit>
+			<TimedSurvival>true</TimedSurvival>
 		</PrimaryTask>
 	</Mission>
 </Missions>

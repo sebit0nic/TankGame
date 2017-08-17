@@ -19,6 +19,7 @@ public class BasicTutorialLevel : MonoBehaviour {
 		cameraFollow.SetFollowMouse (false);
 
 		playerShootingScript = GameObject.Find ("Player").GetComponent<PlayerShootingScript> ();
+		playerShootingScript.enabled = false;
 
 		for (int i = 0; i < disabledHUD.Length; i++) {
 			disabledHUD [i].SetActive (false);

@@ -25,7 +25,7 @@ public class ObjectPool : MonoBehaviour {
 		pooledObjects = new List<GameObject> ();
 
 		for (int i = 0; i < amountToPool; i++) {
-			GameObject obj = (GameObject)Instantiate (objectToPool, Vector3.zero, Quaternion.identity);
+			GameObject obj = (GameObject)Instantiate (objectToPool, transform.position, Quaternion.identity);
 			obj.transform.parent = dynamicObjects.transform;
 			obj.SetActive (false);
 			pooledObjects.Add (obj);
