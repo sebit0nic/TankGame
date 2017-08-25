@@ -19,7 +19,7 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 	public float projectileSpeed = 10;
 
 	private NavMeshAgent agent;
-	private float distance;
+	public float distance;
 	private float shootTimer;
 
 	private GameManager gameManager;
@@ -39,26 +39,32 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 	private void Update() {
 		//Check if player is in sight, otherwise move closer to player
 		bool playerInSight = false;
-		RaycastHit hit;
-		int layerMask = ~(1 << LayerMask.NameToLayer("Enemy"));
-		if (Physics.Raycast (barrelEnd.position, barrelEnd.transform.forward, out hit, 200.0f, layerMask)) {
-			if (hit.collider.gameObject.tag.Equals ("Player")) {
-				playerInSight = true;
+		distance = Vector3.Distance (transform.position, target.position);
+
+		if (distance < minShootDistance) {
+			RaycastHit hit;
+			int layerMask = ~(1 << LayerMask.NameToLayer("Enemy"));
+			if (Physics.Raycast (barrelEnd.position, barrelEnd.transform.forward, out hit, 100.0f, layerMask)) {
+				if (hit.collider.gameObject.tag.Equals ("Player")) {
+					playerInSight = true;
+				}
+			}
+
+			if (shootTimer < Time.time && playerInSight) {
+				GameObject newProjectile = objectPool.GetPooledObjects();
+				newProjectile.SetActive (true);
+				newProjectile.GetComponent<SimpleMissile> ().Init (barrelEnd.position, barrelEnd.rotation, barrelEnd.transform.forward * projectileSpeed, ForceMode.Force);
+				shootTimer = Time.time + shootFrequency;
 			}
 		}
 
-		distance = Vector3.Distance (transform.position, target.position);
-		if (!playerInSight) {
-			agent.ResetPath ();
-			agent.destination = target.position;
-		} else if (distance < minMoveAwayDistance) {
+		if (distance < minMoveAwayDistance) {
 			agent.ResetPath ();
 			//Move in the opposite direction of the player
 			agent.destination = (target.position - transform.position) * -10;
 		} else if (distance >= minMoveAwayDistance && distance < minStopDistance) {
 			agent.Stop ();
 		} else if (distance >= minStopDistance) {
-			agent.ResetPath ();
 			agent.destination = target.position;
 		}
 
@@ -69,13 +75,6 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 		barrelRotation.x = 0;
 		barrelRotation.z = 0;
 		barrel.rotation = barrelRotation;
-
-		if (distance < minShootDistance && shootTimer < Time.time && playerInSight) {
-			GameObject newProjectile = objectPool.GetPooledObjects();
-			newProjectile.SetActive (true);
-			newProjectile.GetComponent<SimpleMissile> ().Init (barrelEnd.position, barrelEnd.rotation, barrelEnd.transform.forward * projectileSpeed, ForceMode.Force);
-			shootTimer = Time.time + shootFrequency;
-		}
 	}
 
 	public void HitByProjectile() {
