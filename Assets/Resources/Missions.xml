@@ -36,13 +36,8 @@
 		<Highscore>1000</Highscore>
 		<ExperienceReward>100</ExperienceReward>
 		<CompletedOnce>false</CompletedOnce>
-		<PlayerPosition>
-			<x>0</x>
-			<y>6</y>
-			<z>0</z>
-		</PlayerPosition>
 		<PrimaryTask>
-			<Description>One small platform. Dozens of enemies. One minute to survive.</Description>
+			<Description>60 seconds of explosive enemies. Can you handle it?</Description>
 			<EnemyCount>-1</EnemyCount>
 			<TimeLimit>60</TimeLimit>
 			<TimedSurvival>true</TimedSurvival>

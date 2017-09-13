@@ -9,50 +9,59 @@ public class ExplodingEnemy : MonoBehaviour, Enemy {
 	public float timeToExplode = 1;
 	public BombExplosion bombExplosion;
 	public ParticleSystem[] explosionParticles;
+	public ParticleSystem fuseParticles;
 	public GameObject wheels;
 	public GameObject warningRadius;
+	public MeshRenderer thisMeshRenderer;
+	public Animator bodyAnimator;
 
 	private NavMeshAgent agent;
-	private MeshRenderer thisMeshRenderer;
 	private Rigidbody thisRigidbody;
 	private BoxCollider thisBoxcollider;
 	private SphereCollider thisSpherecollider;
 	private Transform target;
 	private float distance;
 	private float explosionTimer;
-	private bool explosionEngaged, canEngage = true;
+	private bool explosionEngaged, canEngage = true, exploded;
+	private bool firstInitiation = true;
 
 	private void Start() {
 		agent = GetComponent<NavMeshAgent> ();
-		thisMeshRenderer = GetComponent<MeshRenderer> ();
 		thisRigidbody = GetComponent<Rigidbody> ();
 		thisBoxcollider = GetComponent<BoxCollider> ();
 		thisSpherecollider = GetComponent<SphereCollider> ();
 		target = GameObject.Find ("Player").transform;
+
+		firstInitiation = false;
 	}
 
 	private void Update() {
-		if (!explosionEngaged) {
-			agent.destination = target.position;
-		}
-			
-		distance = Vector3.Distance (transform.position, target.position);
-		if (explosionEngaged && explosionTimer <= Time.time) {
-			bombExplosion.Explode ();
-			DisableComponents ();
-			transform.rotation = Quaternion.identity;
-
-			for (int i = 0; i < explosionParticles.Length; i++) {
-				explosionParticles [i].Play ();
+		if (!exploded) {
+			if (!explosionEngaged) {
+				agent.destination = target.position;
 			}
 
-			explosionEngaged = false;
-			StartCoroutine (ShowParticles ());
-		}
+			distance = Vector3.Distance (transform.position, target.position);
+			if (explosionEngaged && explosionTimer <= Time.time) {
+				bombExplosion.Explode ();
+				DisableComponents ();
+				transform.rotation = Quaternion.identity;
 
-		if (distance <= minExplosionDistance && !explosionEngaged && canEngage) {
-			EngageExplosion ();
-			canEngage = false;
+				for (int i = 0; i < explosionParticles.Length; i++) {
+					explosionParticles [i].Play ();
+				}
+
+				explosionEngaged = false;
+				thisSpherecollider.enabled = false;
+				fuseParticles.Stop ();
+				exploded = true;
+				StartCoroutine (ShowParticles ());
+			}
+
+			if (distance <= minExplosionDistance && !explosionEngaged && canEngage) {
+				EngageExplosion ();
+				canEngage = false;
+			}
 		}
 	}
 
@@ -65,6 +74,7 @@ public class ExplodingEnemy : MonoBehaviour, Enemy {
 
 	private void EngageExplosion() {
 		explosionEngaged = true;
+		bodyAnimator.SetBool ("Engaged", true);
 		explosionTimer = Time.time + timeToExplode;
 		if (agent.enabled) {
 			agent.ResetPath ();
@@ -84,12 +94,32 @@ public class ExplodingEnemy : MonoBehaviour, Enemy {
 
 	private void DisableComponents() {
 		thisMeshRenderer.enabled = false;
-		this.enabled = false;
 		warningRadius.SetActive (false);
 	}
 
 	private IEnumerator ShowParticles() {
 		yield return new WaitForSeconds (explosionParticles [0].main.startLifetime.constant);
 		gameObject.SetActive (false);
+	}
+
+	private void OnEnable() {
+		if (!firstInitiation) {
+			canEngage = true;
+			agent.enabled = true;
+
+			thisRigidbody.isKinematic = true;
+			thisRigidbody.useGravity = false;
+
+			thisBoxcollider.enabled = true;
+			wheels.SetActive (true);
+
+			thisMeshRenderer.enabled = true;
+			this.enabled = true;
+			warningRadius.SetActive (false);
+			fuseParticles.Play ();
+
+			exploded = false;
+			bodyAnimator.SetBool ("Engaged", false);
+		}
 	}
 }

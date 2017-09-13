@@ -15,23 +15,26 @@ public class PrimaryTask {
 
 	private float startTime, endTime;
 	private GameManager gameManager;
+	private bool taskDone;
 
 	public void Update() {
-		if (timeLimit != -1) {
-			if (timedSurvival) {
-				if (Time.time > endTime) {
-					gameManager.NotifyMissionSuccessful ();
+		if (!taskDone) {
+			if (timeLimit != -1) {
+				if (timedSurvival) {
+					if (Time.time > endTime) {
+						gameManager.NotifyMissionSuccessful ();
+						taskDone = true;
+					}
+				} else {
+					if (Time.time > endTime) {
+						gameManager.NotifyMissionFailed ();
+						taskDone = true;
+					}
 				}
+				gameManager.UpdateTimer (endTime - Time.time);
 			} else {
-				if (Time.time > endTime) {
-					//TODO: check if task has been completed yet (prevent last second failure of task)
-					gameManager.NotifyMissionFailed ();
-				}
+				gameManager.UpdateTimer (Time.time - startTime);
 			}
-
-			gameManager.UpdateTimer (endTime - Time.time);
-		} else {
-			gameManager.UpdateTimer (Time.time - startTime);
 		}
 	}
 
@@ -47,6 +50,7 @@ public class PrimaryTask {
 
 		this.gameManager = gameManager;
 		startTime = Time.time;
+		taskDone = false;
 	}
 
 	public void NotifyEnemyDestroyed() {
