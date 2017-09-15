@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BasicTutorialLevel : MonoBehaviour {
+public class BasicTutorialLevel : MonoBehaviour, Level {
 
 	public GameObject[] disabledHUD;
 	public Animator[] instructionKeys;
@@ -13,6 +13,14 @@ public class BasicTutorialLevel : MonoBehaviour {
 	private PlayerShootingScript playerShootingScript;
 	private float timeMoved, timeMovedExpected = 3;
 	private bool canAim;
+
+	public void OnLevelStart () {
+		
+	}
+
+	public void OnLevelEnd () {
+		
+	}
 
 	private void Start() {
 		cameraFollow = Camera.main.GetComponent<CameraFollow> ();

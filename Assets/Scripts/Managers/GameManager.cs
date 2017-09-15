@@ -50,6 +50,16 @@ public class GameManager : MonoBehaviour {
 		ingameMenuAnimator.SetTrigger ("OnOutro");
 		ingameCameraAnimator.SetTrigger ("OnOutro");
 		missionSuccessful = true;
+		missionManager.NotifyMissionEnd (loadedLevel);
+	}
+
+	public void NotifySecondaryTaskOneSuccessful() {
+	}
+
+	public void NotifySecondaryTaskTwoSuccessful() {
+	}
+
+	public void NotifySecondaryTaskThreeSuccessful() {
 	}
 
 	public void NotifyMissionFailed() {

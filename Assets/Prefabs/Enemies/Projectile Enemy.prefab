@@ -384,8 +384,8 @@ MonoBehaviour:
   actorExplosion: {fileID: 1336831399472072, guid: dc78a72f546571e489c235c0377d1c4d,
     type: 2}
   basePoints: 10
-  minStopDistance: 40
-  minMoveAwayDistance: 35
+  minStopDistance: 35
+  minMoveAwayDistance: 30
   projectile: {fileID: 54040912164438952, guid: b8f1fe6a37b9a274e94818fb3eb81a2d,
     type: 2}
   minShootDistance: 45

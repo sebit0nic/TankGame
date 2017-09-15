@@ -1,25 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+	
 public class EnemySpawner : MonoBehaviour {
 
 	public int maxSpawnedEnemies = 5;
-	public float spawnRate = 3f;
-	public bool hasPlayerTrigger;
+	public float firstSpawnedEnemy;
+	public float startSpawnRate = 3f;
 	public GameObject[] activatedSpawner;
+
+	[System.Serializable]
+	public struct SpawnRateManager {
+		public int remainingEnemies;
+		public float newSpawnRate;
+	}
+	public SpawnRateManager[] spawnRateManager;
 
 	private ObjectPool objectPool;
 	private float spawnTimer;
+	private float currentSpawnRate;
+	private int currentSpawnRateIndex;
 
 	private void Awake() {
 		objectPool = GetComponent<ObjectPool> ();
 	}
 
 	private void Start() {
-		if (!hasPlayerTrigger) {
-			spawnTimer = Time.time + spawnRate;
-		}
+		currentSpawnRate = startSpawnRate;
+		spawnTimer = Time.time + firstSpawnedEnemy;
+		currentSpawnRateIndex = 0;
 	}
 
 	private void Update() {
@@ -28,7 +37,7 @@ public class EnemySpawner : MonoBehaviour {
 			enemy.SetActive (true);
 			enemy.transform.position = transform.position;
 
-			spawnTimer = Time.time + spawnRate;
+			spawnTimer = Time.time + currentSpawnRate;
 			maxSpawnedEnemies--;
 		}
 
@@ -37,6 +46,13 @@ public class EnemySpawner : MonoBehaviour {
 				activatedSpawner [i].SetActive (true);
 			}
 			gameObject.SetActive (false);
+		}
+
+		if (spawnRateManager.Length != 0 && currentSpawnRateIndex < spawnRateManager.Length) {
+			if (maxSpawnedEnemies < spawnRateManager [currentSpawnRateIndex].remainingEnemies) {
+				currentSpawnRate = spawnRateManager [currentSpawnRateIndex].newSpawnRate;
+				currentSpawnRateIndex++;
+			}
 		}
 	}
 }

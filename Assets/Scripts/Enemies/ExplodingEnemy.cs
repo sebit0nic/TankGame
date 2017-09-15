@@ -14,7 +14,9 @@ public class ExplodingEnemy : MonoBehaviour, Enemy {
 	public GameObject warningRadius;
 	public MeshRenderer thisMeshRenderer;
 	public Animator bodyAnimator;
+	public int basePoints = 20;
 
+	private GameManager gameManager;
 	private NavMeshAgent agent;
 	private Rigidbody thisRigidbody;
 	private BoxCollider thisBoxcollider;
@@ -26,6 +28,8 @@ public class ExplodingEnemy : MonoBehaviour, Enemy {
 	private bool firstInitiation = true;
 
 	private void Start() {
+		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager>();
+
 		agent = GetComponent<NavMeshAgent> ();
 		thisRigidbody = GetComponent<Rigidbody> ();
 		thisBoxcollider = GetComponent<BoxCollider> ();
@@ -53,8 +57,11 @@ public class ExplodingEnemy : MonoBehaviour, Enemy {
 
 				explosionEngaged = false;
 				thisSpherecollider.enabled = false;
+				thisRigidbody.isKinematic = true;
+				thisRigidbody.useGravity = false;
 				fuseParticles.Stop ();
 				exploded = true;
+				gameManager.NotifyEnemyDestroyed (basePoints);
 				StartCoroutine (ShowParticles ());
 			}
 
@@ -67,6 +74,7 @@ public class ExplodingEnemy : MonoBehaviour, Enemy {
 
 	public void HitByProjectile() {
 		if (canEngage) {
+			basePoints *= 2;
 			EngageExplosion ();
 			canEngage = false;
 		}
@@ -107,9 +115,6 @@ public class ExplodingEnemy : MonoBehaviour, Enemy {
 			canEngage = true;
 			agent.enabled = true;
 
-			thisRigidbody.isKinematic = true;
-			thisRigidbody.useGravity = false;
-
 			thisBoxcollider.enabled = true;
 			wheels.SetActive (true);
 
@@ -117,6 +122,7 @@ public class ExplodingEnemy : MonoBehaviour, Enemy {
 			this.enabled = true;
 			warningRadius.SetActive (false);
 			fuseParticles.Play ();
+			basePoints = 10;
 
 			exploded = false;
 			bodyAnimator.SetBool ("Engaged", false);
