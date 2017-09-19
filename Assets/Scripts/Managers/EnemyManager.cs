@@ -4,7 +4,13 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour {
 
-	public void NotifyEnemyDestroyed(int points) {
+	private EnemySpawnManager enemySpawnManager;
 
+	public void Init(EnemySpawnManager enemySpawnManager) {
+		this.enemySpawnManager = enemySpawnManager;
+	}
+
+	public void NotifyEnemyDestroyed() {
+		enemySpawnManager.NotifyEnemyDestroyed ();
 	}
 }

@@ -8,9 +8,9 @@ public class ScoreManager : MonoBehaviour {
 	public Text scoreText;
 	public float comboDropTime = 2f;
 	public int currentCombo = 1;
+	public int currentScore = 0;
 	public Combometer combometer;
 
-	private int currentScore = 0;
 	private float comboDropTimer;
 
 	public void NotifyEnemyDestroyed(int points) {

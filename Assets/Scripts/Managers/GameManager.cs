@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour {
 	public int loadedLevel = 0;
 	public GameObject gameOverPanel, missionSuccessfulPanel;
 	public Animator ingameMenuAnimator, ingameCameraAnimator;
+	public EventSuccessfulScreen eventSuccessfulScreen;
 	public Text timerText;
 
 	private bool missionSuccessful;
@@ -53,15 +54,6 @@ public class GameManager : MonoBehaviour {
 		missionManager.NotifyMissionEnd (loadedLevel);
 	}
 
-	public void NotifySecondaryTaskOneSuccessful() {
-	}
-
-	public void NotifySecondaryTaskTwoSuccessful() {
-	}
-
-	public void NotifySecondaryTaskThreeSuccessful() {
-	}
-
 	public void NotifyMissionFailed() {
 		Time.timeScale = 0.2f;
 		Time.fixedDeltaTime = 0.2f * 0.02f;
@@ -73,6 +65,7 @@ public class GameManager : MonoBehaviour {
 		Time.timeScale = 0f;
 		if (missionSuccessful) {
 			missionSuccessfulPanel.SetActive (true);
+			missionManager.InitEventSuccessfulScreen (eventSuccessfulScreen);
 		} else {
 			gameOverPanel.SetActive (true);
 		}

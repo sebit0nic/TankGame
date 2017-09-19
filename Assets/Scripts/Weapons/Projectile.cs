@@ -18,15 +18,20 @@ public class Projectile : MonoBehaviour {
 	}
 
 	public void OnProjectileDestroy() {
-		particleCoroutine = WaitForParticleFinish (thisParticleSystem[0].main.duration);
+		if (thisParticleSystem.Length > 0) {
+			particleCoroutine = WaitForParticleFinish (thisParticleSystem [0].main.duration);
 
-		thisRenderer.SetActive (false);
-		thisRigidbody.isKinematic = true;
-		thisCollider.enabled = false;
-		for (int i = 0; i < thisParticleSystem.Length; i++) {
-			thisParticleSystem [i].Play ();
+			thisRenderer.SetActive (false);
+			thisRigidbody.isKinematic = true;
+			thisCollider.enabled = false;
+			for (int i = 0; i < thisParticleSystem.Length; i++) {
+				thisParticleSystem [i].Play ();
+			}
+			StartCoroutine (particleCoroutine);
+		} else {
+			thisRigidbody.isKinematic = true;
+			gameObject.SetActive (false);
 		}
-		StartCoroutine (particleCoroutine);
 	}
 
 	private IEnumerator WaitForParticleFinish(float waitTime) {

@@ -7,10 +7,11 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 
 	public Transform barrel;
 	public Transform barrelEnd;
-	public GameObject actorExplosion;
 	public int basePoints = 20;
 	public float minStopDistance = 15;
 	public float minMoveAwayDistance = 7;
+	public ParticleSystem[] thisParticleSystem;
+	public GameObject body;
 
 	[Header("Shooting Properties")]
 	public Rigidbody projectile;
@@ -26,10 +27,19 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 	private Transform target;
 	private ObjectPool objectPool;
 
+	private IEnumerator particleCoroutine;
+	private Rigidbody thisRigidbody;
+	private Collider thisCollider;
+	private MeshRenderer thisRenderer;
+
 	private void Awake() {
 		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager>();
 		target = GameObject.Find ("Player").transform;
 		objectPool = GetComponent<ObjectPool> ();
+
+		thisRigidbody = GetComponent<Rigidbody> ();
+		thisCollider = GetComponent<Collider> ();
+		thisRenderer = GetComponent<MeshRenderer> ();
 	}
 
 	private void Start() {
@@ -78,8 +88,35 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 	}
 
 	public void HitByProjectile() {
-		Instantiate (actorExplosion, transform.position, Quaternion.identity);
 		gameManager.NotifyEnemyDestroyed (basePoints);
+
+		particleCoroutine = WaitForParticleFinish (thisParticleSystem[0].main.duration);
+
+		this.enabled = false;
+		thisRenderer.enabled = false;
+		thisRigidbody.isKinematic = true;
+		thisCollider.enabled = false;
+		body.SetActive (false);
+		barrel.gameObject.SetActive (false);
+
+		for (int i = 0; i < thisParticleSystem.Length; i++) {
+			thisParticleSystem [i].Play ();
+		}
+		StartCoroutine (particleCoroutine);
+	}
+
+	private IEnumerator WaitForParticleFinish(float waitTime) {
+		yield return new WaitForSeconds (waitTime);
+		for (int i = 0; i < thisParticleSystem.Length; i++) {
+			thisParticleSystem [i].Clear ();
+		}
+
+		thisRenderer.enabled = true;
+		thisRigidbody.isKinematic = false;
+		thisCollider.enabled = true;
+		this.enabled = true;
+		body.SetActive (true);
+		barrel.gameObject.SetActive (true);
 		gameObject.SetActive (false);
 	}
 }

@@ -20,39 +20,58 @@ public class EnemySpawner : MonoBehaviour {
 	private float spawnTimer;
 	private float currentSpawnRate;
 	private int currentSpawnRateIndex;
+	private bool canSpawn = true;
+	public float tempTimeDifference;
+	private EnemySpawnManager enemySpawnManager;
 
 	private void Awake() {
 		objectPool = GetComponent<ObjectPool> ();
 	}
 
 	private void Start() {
+		enemySpawnManager = GetComponentInParent<EnemySpawnManager> ();
+
 		currentSpawnRate = startSpawnRate;
 		spawnTimer = Time.time + firstSpawnedEnemy;
 		currentSpawnRateIndex = 0;
 	}
 
 	private void Update() {
-		if (Time.time > spawnTimer && maxSpawnedEnemies > 0) {
-			GameObject enemy = objectPool.GetPooledObjects ();
-			enemy.SetActive (true);
-			enemy.transform.position = transform.position;
+		if (canSpawn) {
+			if (Time.time > spawnTimer && maxSpawnedEnemies > 0) {
+				GameObject enemy = objectPool.GetPooledObjects ();
+				enemy.SetActive (true);
+				enemy.transform.position = transform.position;
 
-			spawnTimer = Time.time + currentSpawnRate;
-			maxSpawnedEnemies--;
-		}
+				spawnTimer = Time.time + currentSpawnRate;
+				maxSpawnedEnemies--;
 
-		if (maxSpawnedEnemies == 0) {
-			for (int i = 0; i < activatedSpawner.Length; i++) {
-				activatedSpawner [i].SetActive (true);
+				enemySpawnManager.NotifyEnemySpawned ();
 			}
-			gameObject.SetActive (false);
-		}
 
-		if (spawnRateManager.Length != 0 && currentSpawnRateIndex < spawnRateManager.Length) {
-			if (maxSpawnedEnemies < spawnRateManager [currentSpawnRateIndex].remainingEnemies) {
-				currentSpawnRate = spawnRateManager [currentSpawnRateIndex].newSpawnRate;
-				currentSpawnRateIndex++;
+			if (maxSpawnedEnemies == 0) {
+				for (int i = 0; i < activatedSpawner.Length; i++) {
+					activatedSpawner [i].SetActive (true);
+				}
+				gameObject.SetActive (false);
+			}
+
+			if (spawnRateManager.Length != 0 && currentSpawnRateIndex < spawnRateManager.Length) {
+				if (maxSpawnedEnemies < spawnRateManager [currentSpawnRateIndex].remainingEnemies) {
+					currentSpawnRate = spawnRateManager [currentSpawnRateIndex].newSpawnRate;
+					currentSpawnRateIndex++;
+				}
 			}
 		}
+	}
+
+	public void StopSpawning() {
+		canSpawn = false;
+		tempTimeDifference = spawnTimer - Time.time;
+	}
+
+	public void ResumeSpawning() {
+		canSpawn = true;
+		spawnTimer = Time.time + tempTimeDifference;
 	}
 }

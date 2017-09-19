@@ -9,6 +9,8 @@ public class PlayerHealth : MonoBehaviour {
 	public float invincibleTime = 0.5f;
 	public GameObject actorExplosion;
 
+	public bool invincibility = false;
+
 	private GameManager gameManager;
 	private float invincibilityTimer;
 	private bool isInvincible = false;
@@ -26,7 +28,7 @@ public class PlayerHealth : MonoBehaviour {
 	}
 
 	public void DecreaseCurrentHealth(int value) {
-		if (!isInvincible) {
+		if (!isInvincible && !invincibility) {
 			currentHealth -= value;
 			UpdateText ();
 
