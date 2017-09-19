@@ -27,7 +27,7 @@
 		<CompletedOnce>false</CompletedOnce>
 		<PrimaryTask>
 			<Description>Destroy 20 tanks. Your first real challenge.</Description>
-			<EnemyCount>20</EnemyCount>
+			<EnemyCount>1</EnemyCount>
 			<TimeLimit>-1</TimeLimit>
 			<TimedSurvival>false</TimedSurvival>
 		</PrimaryTask>
