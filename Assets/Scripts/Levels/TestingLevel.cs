@@ -8,6 +8,10 @@ public class TestingLevel : MonoBehaviour, Level {
 
 	}
 
+	public void NotifyEnemyDestroyed() {
+		
+	}
+
 	public void OnLevelEnd () {
 
 	}

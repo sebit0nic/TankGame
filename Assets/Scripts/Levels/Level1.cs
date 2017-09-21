@@ -11,8 +11,13 @@ public class Level1 : MonoBehaviour, Level {
 
 	public int medalStep1, medalStep2, medalStep3;
 
+	private PrimaryTask primaryTask;
 	private bool ninerCombo = false;
 	private bool medal1Got, medal2Got, medal3Got;
+
+	private void Start() {
+		primaryTask = GetComponent<PrimaryTask> ();
+	}
 
 	private void FixedUpdate() {
 		if (scoreManager.currentCombo >= 9) {
@@ -34,6 +39,10 @@ public class Level1 : MonoBehaviour, Level {
 	}
 
 	public void OnLevelStart () {
+	}
+
+	public void NotifyEnemyDestroyed() {
+		primaryTask.NotifyEnemyDestroyed ();
 	}
 
 	public void OnLevelEnd () {

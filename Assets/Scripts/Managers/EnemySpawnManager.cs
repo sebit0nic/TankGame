@@ -8,7 +8,7 @@ public class EnemySpawnManager : MonoBehaviour {
 	public int concurrentAllowedEnemies;
 	public EnemySpawner[] enemySpawners;
 
-	public int currentConcurrentEnemies;
+	private int currentConcurrentEnemies;
 
 	private void Start() {
 		enemyManager.Init (this);

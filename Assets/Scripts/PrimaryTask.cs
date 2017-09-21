@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Xml;
 
-[System.Serializable]
-public class PrimaryTask {
+public class PrimaryTask : MonoBehaviour {
 
-	public string description;
 	[Tooltip("How many enemies are needed to be destroyed to complete this task? -1...modifier disabled")]
 	public int enemyCount;
 	[Tooltip("Is there a time constraint to complete this task? -1...modifier disabled")]
@@ -16,6 +14,15 @@ public class PrimaryTask {
 	private float startTime, endTime;
 	private GameManager gameManager;
 	private bool taskDone;
+
+	private void Start() {
+		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager> ();
+
+		if (timeLimit != -1) {
+			endTime = Time.time + timeLimit;
+		}
+		startTime = Time.time;
+	}
 
 	public void Update() {
 		if (!taskDone) {
@@ -38,21 +45,6 @@ public class PrimaryTask {
 		}
 	}
 
-	public void Init(GameManager gameManager, XmlNode primaryTask) {
-		description = primaryTask.ChildNodes [0].InnerText;
-		enemyCount = XmlConvert.ToInt32 (primaryTask.ChildNodes [1].InnerText);
-		timeLimit = XmlConvert.ToInt32 (primaryTask.ChildNodes [2].InnerText);
-		timedSurvival = XmlConvert.ToBoolean (primaryTask.ChildNodes [3].InnerText);
-
-		if (timeLimit != -1) {
-			endTime = Time.time + timeLimit;
-		}
-
-		this.gameManager = gameManager;
-		startTime = Time.time;
-		taskDone = false;
-	}
-
 	public void NotifyEnemyDestroyed() {
 		if (enemyCount != -1) {
 			enemyCount--;
@@ -60,17 +52,5 @@ public class PrimaryTask {
 				gameManager.NotifyMissionSuccessful ();
 			}
 		}
-	}
-
-	public void NotifyTargetEnemyDestroyed() {
-		gameManager.NotifyMissionSuccessful ();
-	}
-
-	public void NotifyEscortableReachedGoal() {
-		gameManager.NotifyMissionSuccessful ();
-	}
-
-	public void NotifyPlayerReachedGoal() {
-		gameManager.NotifyMissionSuccessful ();
 	}
 }

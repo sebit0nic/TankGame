@@ -32,14 +32,20 @@ public class EventSuccessfulScreen : MonoBehaviour {
 
 	private void Update() {
 		if (onIntro) {
-			if (tempScore < score) {
-				tempFloatScore += Time.unscaledDeltaTime * score;
-				tempScore = Mathf.RoundToInt (tempFloatScore);
-				scoreText.text = tempScore.ToString ();
-			} else {
+			if (score == 0) {
 				onIntro = false;
 				scoreText.text = score.ToString ();
-				StartCoroutine (NextAnimationStep (0.5f));
+				StartCoroutine (NextAnimationStep (1f));
+			} else {
+				if (tempScore < score) {
+					tempFloatScore += Time.unscaledDeltaTime * score;
+					tempScore = Mathf.RoundToInt (tempFloatScore);
+					scoreText.text = tempScore.ToString ();
+				} else {
+					onIntro = false;
+					scoreText.text = score.ToString ();
+					StartCoroutine (NextAnimationStep (0.5f));
+				}
 			}
 		}
 	}

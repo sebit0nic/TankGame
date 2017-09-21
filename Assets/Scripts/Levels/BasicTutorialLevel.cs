@@ -18,6 +18,10 @@ public class BasicTutorialLevel : MonoBehaviour, Level {
 		
 	}
 
+	public void NotifyEnemyDestroyed() {
+		
+	}
+
 	public void OnLevelEnd () {
 		
 	}

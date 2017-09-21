@@ -9,32 +9,20 @@ public class MissionManager : MonoBehaviour {
 	public TimeManager timeManager;
 	public PlayerManager playerManager;
 	public GameObject levelList;
-	public Mission mission;
 
-	private bool initDone = false;
 	private Level[] levels;
 	private bool medal1, medal2, medal3;
 	private bool task1, task2, task3;
 
 	public void Init(GameManager gameManager, int loadedLevel) {
-		mission.Init (gameManager, loadedLevel, playerManager);
-
 		levels = levelList.GetComponentsInChildren<Level> (true);
-
 		levels [loadedLevel].OnLevelStart ();
-		initDone = true;
 	}
 
-	private void Update() {
-		if (initDone) {
-			mission.Update ();
-		}
-	}
-
-	public void NotifyEnemyDestroyed(int points) {
+	public void NotifyEnemyDestroyed(int points, int loadedLevel) {
 		scoreManager.NotifyEnemyDestroyed (points);
 		enemyManager.NotifyEnemyDestroyed ();
-		mission.NotifyEnemyDestroyed ();
+		levels [loadedLevel].NotifyEnemyDestroyed ();
 	}
 
 	public void NotifyPlayerHit(int health) {

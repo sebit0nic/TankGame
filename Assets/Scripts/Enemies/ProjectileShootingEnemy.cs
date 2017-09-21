@@ -69,13 +69,16 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 		}
 
 		if (distance < minMoveAwayDistance) {
-			agent.ResetPath ();
 			//Move in the opposite direction of the player
-			agent.destination = (target.position - transform.position) * -10;
+			Vector3 toPlayer = target.position - transform.position;
+			Vector3 moveBackPosition = toPlayer.normalized * -minMoveAwayDistance;
+			agent.destination = moveBackPosition;
+			agent.Resume ();
 		} else if (distance >= minMoveAwayDistance && distance < minStopDistance) {
 			agent.Stop ();
 		} else if (distance >= minStopDistance) {
 			agent.destination = target.position;
+			agent.Resume ();
 		}
 
 		Vector3 enemyToTarget = target.position - transform.position;

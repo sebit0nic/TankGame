@@ -1,0 +1,33 @@
+<Player>
+	<Level>1</Level>
+	<Exp>0</Exp>
+</Player>
+<Missions>
+	<Mission index="0">
+		<Highscore>0</Highscore>
+		<MedalOne>false</MedalOne>
+		<MedalTwo>false</MedalTwo>
+		<MedalThree>false</MedalThree>
+		<SecondaryTaskOne>false</SecondaryTaskOne>
+		<SecondaryTaskTwo>false</SecondaryTaskTwo>
+		<SecondaryTaskThree>false</SecondaryTaskThree>
+	</Mission>
+	<Mission index="1">
+		<Highscore>0</Highscore>
+		<MedalOne>false</MedalOne>
+		<MedalTwo>false</MedalTwo>
+		<MedalThree>false</MedalThree>
+		<SecondaryTaskOne>false</SecondaryTaskOne>
+		<SecondaryTaskTwo>false</SecondaryTaskTwo>
+		<SecondaryTaskThree>false</SecondaryTaskThree>
+	</Mission>
+	<Mission index="2">
+		<Highscore>0</Highscore>
+		<MedalOne>false</MedalOne>
+		<MedalTwo>false</MedalTwo>
+		<MedalThree>false</MedalThree>
+		<SecondaryTaskOne>false</SecondaryTaskOne>
+		<SecondaryTaskTwo>false</SecondaryTaskTwo>
+		<SecondaryTaskThree>false</SecondaryTaskThree>
+	</Mission>
+</Missions>

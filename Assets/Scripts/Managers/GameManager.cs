@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void NotifyEnemyDestroyed(int points) {
-		missionManager.NotifyEnemyDestroyed (points);
+		missionManager.NotifyEnemyDestroyed (points, loadedLevel);
 	}
 
 	public void NotifyPlayerHit(int health) {

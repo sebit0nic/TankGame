@@ -474,7 +474,7 @@ MonoBehaviour:
   barrelEnd: {fileID: 4665919639839966}
   basePoints: 10
   minStopDistance: 35
-  minMoveAwayDistance: 30
+  minMoveAwayDistance: 25
   thisParticleSystem:
   - {fileID: 198556410137370674}
   - {fileID: 198144976698236468}
