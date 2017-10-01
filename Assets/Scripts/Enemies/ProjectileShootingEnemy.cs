@@ -67,15 +67,25 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 				shootTimer = Time.time + shootFrequency;
 			}
 		}
-
+			
 		if (distance < minMoveAwayDistance) {
-			//Move in the opposite direction of the player
-			Vector3 toPlayer = target.position - transform.position;
-			Vector3 moveBackPosition = toPlayer.normalized * -minMoveAwayDistance;
-			agent.destination = moveBackPosition;
-			agent.Resume ();
+			if (playerInSight) {
+				//Move in the opposite direction of the player
+				Vector3 toPlayer = target.position - transform.position;
+				Vector3 moveBackPosition = toPlayer.normalized * -minMoveAwayDistance;
+				agent.destination = moveBackPosition;
+				agent.Resume ();
+			} else {
+				agent.destination = target.position;
+				agent.Resume ();
+			}
 		} else if (distance >= minMoveAwayDistance && distance < minStopDistance) {
-			agent.Stop ();
+			if (playerInSight) {
+				agent.Stop ();
+			} else {
+				agent.destination = target.position;
+				agent.Resume ();
+			}
 		} else if (distance >= minStopDistance) {
 			agent.destination = target.position;
 			agent.Resume ();
