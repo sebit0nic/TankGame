@@ -83,11 +83,11 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 2100000, guid: ba10e18179cea09429d804334ed65db6, type: 2}
-  - {fileID: 2100000, guid: da88813952e5c51478a14beb3a771de4, type: 2}
+  - {fileID: 2100000, guid: 8cfe84aa71913bb478e14f21bf53e179, type: 2}
+  - {fileID: 2100000, guid: 94380ab0def2bc14fbe34a05dea2ba4f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
