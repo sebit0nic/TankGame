@@ -1065,10 +1065,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a22b3a7095a744a428c134b5e26ad68e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mode: 0
-  quality: 3
-  blurArea: 2.22
-  maxBlurSize: 25
+  mode: 1
+  quality: 2
+  blurArea: 2
+  maxBlurSize: 8
   downsample: 0
   tiltShiftShader: {fileID: 4800000, guid: bf34d2a25450349699e8ae6456fa7ca9, type: 3}
 --- !u!95 &110987508
