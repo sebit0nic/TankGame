@@ -1,23 +1,17 @@
 fileFormatVersion: 2
-guid: c9e56c947d6d6824e9b9980060cef106
-timeCreated: 1502744158
+guid: e362df4a2b174bc4ebd456cc26dfec09
+timeCreated: 1507405999
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Camera
-    100002: Cylinder
-    100004: Lamp
-    100006: //RootNode
-    400000: Camera
-    400002: Cylinder
-    400004: Lamp
-    400006: //RootNode
-    2300000: Cylinder
-    3300000: Cylinder
+    100000: //RootNode
+    400000: //RootNode
+    2300000: //RootNode
+    3300000: //RootNode
     4300000: Cylinder
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
@@ -45,7 +39,7 @@ ModelImporter:
     addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0

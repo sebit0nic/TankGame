@@ -12,6 +12,7 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 	public float minMoveAwayDistance = 7;
 	public ParticleSystem[] thisParticleSystem;
 	public GameObject body;
+	public TrailRenderer[] trails;
 
 	[Header("Shooting Properties")]
 	public Rigidbody projectile;
@@ -111,6 +112,8 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 		thisCollider.enabled = false;
 		body.SetActive (false);
 		barrel.gameObject.SetActive (false);
+		trails [0].enabled = false;
+		trails [1].enabled = false;
 
 		for (int i = 0; i < thisParticleSystem.Length; i++) {
 			thisParticleSystem [i].Play ();
@@ -131,5 +134,12 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 		body.SetActive (true);
 		barrel.gameObject.SetActive (true);
 		gameObject.SetActive (false);
+	}
+
+	private void OnEnable() {
+		trails [0].Clear ();
+		trails [0].enabled = true;
+		trails [1].Clear ();
+		trails [1].enabled = true;
 	}
 }

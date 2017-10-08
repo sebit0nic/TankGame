@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: cd738d5c05b01984b801074a0962f695
-timeCreated: 1506290053
+guid: 34f6edbaa4da5094990dfad480c52fd5
+timeCreated: 1507417637
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -18,7 +18,7 @@ ModelImporter:
     4300000: Barrel
     4300002: Body
   materials:
-    importMaterials: 1
+    importMaterials: 0
     materialName: 0
     materialSearch: 1
   animations:
