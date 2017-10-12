@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4168306210048040}
   - component: {fileID: 199045664700705162}
   - component: {fileID: 198335856416411848}
-  m_Layer: 2
+  m_Layer: 12
   m_Name: Particle Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 33937860779555950}
   - component: {fileID: 23739766248181900}
   - component: {fileID: 96314869939011124}
-  m_Layer: 2
+  m_Layer: 12
   m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -58,7 +58,7 @@ GameObject:
   - component: {fileID: 65827784815494666}
   - component: {fileID: 114555146856126640}
   - component: {fileID: 114011527189000338}
-  m_Layer: 2
+  m_Layer: 12
   m_Name: Simple Missile Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}

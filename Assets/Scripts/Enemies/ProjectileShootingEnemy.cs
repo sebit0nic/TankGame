@@ -23,6 +23,7 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 	private NavMeshAgent agent;
 	public float distance;
 	private float shootTimer;
+	private float randomShootDeviation;
 
 	private GameManager gameManager;
 	private Transform target;
@@ -33,6 +34,9 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 	private Collider thisCollider;
 	private MeshRenderer thisRenderer;
 
+	private enum ActorState {ACTOR_FOLLOW, ACTOR_STOP, ACTOR_AVOID};
+	private ActorState currentActorState = ActorState.ACTOR_FOLLOW;
+
 	private void Awake() {
 		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager>();
 		target = GameObject.Find ("Player").transform;
@@ -41,6 +45,10 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 		thisRigidbody = GetComponent<Rigidbody> ();
 		thisCollider = GetComponent<Collider> ();
 		thisRenderer = GetComponent<MeshRenderer> ();
+
+		//Give the shootTimer some sort of randomness so that each enemy doesn't fire at
+		//the exact same time
+		randomShootDeviation = Random.Range (1f, 2f);
 	}
 
 	private void Start() {
@@ -48,13 +56,16 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 	}
 
 	private void Update() {
+		//TODO: make this Update() more performant
+
 		//Check if player is in sight, otherwise move closer to player
 		bool playerInSight = false;
-		distance = Vector3.Distance (transform.position, target.position);
+		Vector3 rawTargetPosition = new Vector3 (target.position.x, transform.position.y, target.position.z);
+		distance = Vector3.Distance (transform.position, rawTargetPosition);
 
 		if (distance < minShootDistance) {
 			RaycastHit hit;
-			int layerMask = ~(1 << LayerMask.NameToLayer("Enemy"));
+			int layerMask = ~((1 << LayerMask.NameToLayer("Enemy")) | (1 << LayerMask.NameToLayer("Projectile")));
 			if (Physics.Raycast (barrelEnd.position, barrelEnd.transform.forward, out hit, 100.0f, layerMask)) {
 				if (hit.collider.gameObject.tag.Equals ("Player")) {
 					playerInSight = true;
@@ -65,34 +76,39 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 				GameObject newProjectile = objectPool.GetPooledObjects();
 				newProjectile.SetActive (true);
 				newProjectile.GetComponent<SimpleMissile> ().Init (barrelEnd.position, barrelEnd.rotation, barrelEnd.transform.forward * projectileSpeed, ForceMode.Force);
-				shootTimer = Time.time + shootFrequency;
+				shootTimer = Time.time + shootFrequency + randomShootDeviation;
 			}
 		}
 			
 		if (distance < minMoveAwayDistance) {
 			if (playerInSight) {
 				//Move in the opposite direction of the player
-				Vector3 toPlayer = target.position - transform.position;
-				Vector3 moveBackPosition = toPlayer.normalized * -minMoveAwayDistance;
-				agent.destination = moveBackPosition;
-				agent.Resume ();
+				currentActorState = ActorState.ACTOR_AVOID;
 			} else {
-				agent.destination = target.position;
-				agent.Resume ();
+				//Player uses ability, so don't follow
+				if (gameManager.GetPlayerState ().Equals ('A')) {
+					currentActorState = ActorState.ACTOR_AVOID;
+				} else {
+					currentActorState = ActorState.ACTOR_FOLLOW;
+				}
 			}
 		} else if (distance >= minMoveAwayDistance && distance < minStopDistance) {
 			if (playerInSight) {
-				agent.Stop ();
+				currentActorState = ActorState.ACTOR_STOP;
 			} else {
-				agent.destination = target.position;
-				agent.Resume ();
+				if (gameManager.GetPlayerState ().Equals ('A')) {
+					currentActorState = ActorState.ACTOR_STOP;
+				} else {
+					currentActorState = ActorState.ACTOR_FOLLOW;
+				}
 			}
 		} else if (distance >= minStopDistance) {
-			agent.destination = target.position;
-			agent.Resume ();
+			currentActorState = ActorState.ACTOR_FOLLOW;
 		}
 
-		Vector3 enemyToTarget = target.position - transform.position;
+		EvaluateActorState (rawTargetPosition);
+
+		Vector3 enemyToTarget = rawTargetPosition - transform.position;
 		enemyToTarget.y = barrel.position.y;
 
 		Quaternion barrelRotation = Quaternion.LookRotation (enemyToTarget);
@@ -134,6 +150,24 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 		body.SetActive (true);
 		barrel.gameObject.SetActive (true);
 		gameObject.SetActive (false);
+	}
+
+	private void EvaluateActorState(Vector3 rawTargetPosition) {
+		switch (currentActorState) {
+		case ActorState.ACTOR_FOLLOW:
+			agent.destination = rawTargetPosition;
+			agent.Resume ();
+			break;
+		case ActorState.ACTOR_STOP:
+			agent.Stop ();
+			break;
+		case ActorState.ACTOR_AVOID:
+			Vector3 toPlayer = rawTargetPosition - transform.position;
+			Vector3 moveBackPosition = toPlayer.normalized * -minMoveAwayDistance;
+			agent.destination = moveBackPosition;
+			agent.Resume ();
+			break;
+		}
 	}
 
 	private void OnEnable() {

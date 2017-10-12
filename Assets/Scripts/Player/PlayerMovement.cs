@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour {
 	private Rigidbody thisRigidbody;
 	private int floorMask, obscuranceMask;
 	private float camRayLength = 200f;
+	private bool usesAbility = false;
 
 	private void Awake() {
 		playerShootingScript = GetComponent<PlayerShootingScript> ();
@@ -28,18 +29,22 @@ public class PlayerMovement : MonoBehaviour {
 			playerShootingScript.Shoot ();
 		}
 
-		Turn ();
+		if (!usesAbility) {
+			Turn ();
+		}
 	}
 
 	private void FixedUpdate() {
-		float vertical = Input.GetAxis ("Vertical");
-		float horizontal = Input.GetAxis ("Horizontal");
-		Vector3 moveDirection = new Vector3 (horizontal, 0, vertical);
+		if (!usesAbility) {
+			float vertical = Input.GetAxis ("Vertical");
+			float horizontal = Input.GetAxis ("Horizontal");
+			Vector3 moveDirection = new Vector3 (horizontal, 0, vertical);
 
-		thisRigidbody.MovePosition (thisRigidbody.position + moveDirection * movementSpeed * Time.deltaTime);
-		if (moveDirection != Vector3.zero) {
-			Quaternion newRotation = Quaternion.LookRotation (moveDirection);
-			body.rotation = Quaternion.Slerp (body.rotation, newRotation, Time.deltaTime * rotationSpeed);
+			thisRigidbody.MovePosition (thisRigidbody.position + moveDirection * movementSpeed * Time.deltaTime);
+			if (moveDirection != Vector3.zero) {
+				Quaternion newRotation = Quaternion.LookRotation (moveDirection);
+				body.rotation = Quaternion.Slerp (body.rotation, newRotation, Time.deltaTime * rotationSpeed);
+			}
 		}
 	}
 
@@ -62,5 +67,9 @@ public class PlayerMovement : MonoBehaviour {
 				playerShootingScript.UpdateTargetingLine (floorHit, floorHit);
 			}
 		}
+	}
+
+	public void SetUsesAbility (bool newValue) {
+		usesAbility = newValue;
 	}
 }

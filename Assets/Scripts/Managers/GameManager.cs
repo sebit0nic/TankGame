@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour {
 	public Text timerText;
 
 	private bool missionSuccessful;
+	private char playerState = 'N';
 
 	private void Awake() {
 		LoadLevel (loadedLevel);
@@ -28,6 +29,25 @@ public class GameManager : MonoBehaviour {
 
 	public void UpdateTimer(float timer) {
 		timerText.text = Mathf.RoundToInt (timer).ToString();
+	}
+
+	/*
+	 * Notify message syntax:
+	 * 		1. char = which subsystem is being notified?
+	 * 			M = MapManager
+	 * 			I = MissionManager
+	 * 		
+	 * 		other chars = look at subsystem parsing
+	 */
+	public void Notify(string message) {
+		char firstChar = message.ToCharArray () [0];
+		switch (firstChar) {
+		case 'M':
+			mapManager.Notify (message);
+			break;
+		case 'I':
+			break;
+		}
 	}
 
 	public void NotifyEnemyDestroyed(int points) {
@@ -43,6 +63,14 @@ public class GameManager : MonoBehaviour {
 		Time.fixedDeltaTime = 0.2f * 0.02f;
 		ingameMenuAnimator.SetTrigger ("OnOutro");
 		ingameCameraAnimator.SetTrigger ("OnOutro");
+	}
+
+	public void NotifyPlayerStateChanged(char newState) {
+		playerState = newState;
+	}
+
+	public char GetPlayerState() {
+		return playerState;
 	}
 
 	public void NotifyMissionSuccessful() {

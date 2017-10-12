@@ -477,7 +477,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 1.75, z: 2}
+  m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 0.75, z: 0}
 --- !u!96 &96065133462068082
 TrailRenderer:
@@ -689,8 +689,8 @@ MonoBehaviour:
   barrel: {fileID: 4637435615677970}
   barrelEnd: {fileID: 4593977908989924}
   basePoints: 10
-  minStopDistance: 35
-  minMoveAwayDistance: 15
+  minStopDistance: 40
+  minMoveAwayDistance: 20
   thisParticleSystem:
   - {fileID: 198783422475062422}
   - {fileID: 198403537383856966}
@@ -700,7 +700,7 @@ MonoBehaviour:
   - {fileID: 96865773900652110}
   projectile: {fileID: 54040912164438952, guid: b8f1fe6a37b9a274e94818fb3eb81a2d,
     type: 2}
-  minShootDistance: 45
+  minShootDistance: 50
   shootFrequency: 3
   projectileSpeed: 1500
   distance: 0
@@ -734,8 +734,8 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 1.5
-  m_BaseOffset: 0
+  m_Height: 1
+  m_BaseOffset: -0.25
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
 --- !u!198 &198403537383856966

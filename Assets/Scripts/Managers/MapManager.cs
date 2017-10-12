@@ -9,4 +9,7 @@ public class MapManager : MonoBehaviour {
 	public void LoadLevel(int index) {
 		levels [index].SetActive (true);
 	}
+
+	public void Notify(string message) {
+	}
 }

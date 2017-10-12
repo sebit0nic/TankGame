@@ -45,4 +45,8 @@ public class PlayerHealth : MonoBehaviour {
 			gameObject.SetActive (false);
 		}
 	}
+
+	public void SetInvincible (bool newValue) {
+		isInvincible = newValue;
+	}
 }

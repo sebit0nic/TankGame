@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 4411526249459840}
   - component: {fileID: 199483080975286304}
   - component: {fileID: 198661634989447636}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Particle Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -38,7 +38,7 @@ GameObject:
   - component: {fileID: 4614757642797824}
   - component: {fileID: 199834364935176184}
   - component: {fileID: 198377693543575794}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Particle Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -57,7 +57,7 @@ GameObject:
   - component: {fileID: 135713187033514420}
   - component: {fileID: 114021448916709904}
   - component: {fileID: 114733754931563538}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Bomb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -74,7 +74,7 @@ GameObject:
   - component: {fileID: 4263144626878766}
   - component: {fileID: 33346623543517140}
   - component: {fileID: 23421178003185670}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Renderer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 114580457115028736}
   - component: {fileID: 33620987059456418}
   - component: {fileID: 23397699344045240}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}

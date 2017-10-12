@@ -18,6 +18,7 @@ public class PlayerShootingScript : MonoBehaviour {
 	private float shootTimer;
 	private Vector3 balisticVelocity;
 	private ObjectPool projectilePool;
+	private bool canShoot = true;
 
 	private void Awake() {
 		thisLineRenderer = GetComponent<LineRenderer> ();
@@ -41,7 +42,7 @@ public class PlayerShootingScript : MonoBehaviour {
 	}
 
 	public void Shoot() {
-		if (shootTimer < Time.time && this.enabled) {
+		if (shootTimer < Time.time && this.enabled && canShoot) {
 			GameObject newProjectile = projectilePool.GetPooledObjects ();
 			newProjectile.SetActive (true);
 			switch (currentWeaponType) {
@@ -102,6 +103,15 @@ public class PlayerShootingScript : MonoBehaviour {
 
 			position += velocity * timeDelta + 0.5f * gravity * timeDelta * timeDelta;
 			velocity += gravity * timeDelta;
+		}
+	}
+
+	public void SetCanShoot (bool newValue) {
+		canShoot = newValue;
+		if (canShoot) {
+			thisLineRenderer.enabled = true;
+		} else {
+			thisLineRenderer.enabled = false;
 		}
 	}
 }

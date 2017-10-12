@@ -19,6 +19,26 @@ public class MissionManager : MonoBehaviour {
 		levels [loadedLevel].OnLevelStart ();
 	}
 
+	/*
+	 * Notify message syntax:
+	 * 		1. char = for GameManager parsing
+	 * 		2. char = which method should be called
+	 * 			0 = Enemy destroyed
+	 * 			1 = Player Hit
+	 * 			2 = Mission End
+	 * 			3 = Medal Step
+	 * 			4 = Secondary Task Successful
+	 * 		
+	 * 		other characters = method specific
+	 */
+	public void Notify (string message) {
+		char secondChar = message.ToCharArray () [1];
+		switch (secondChar) {
+		case '0':
+			break;
+		}
+	}
+
 	public void NotifyEnemyDestroyed(int points, int loadedLevel) {
 		scoreManager.NotifyEnemyDestroyed (points);
 		enemyManager.NotifyEnemyDestroyed ();
