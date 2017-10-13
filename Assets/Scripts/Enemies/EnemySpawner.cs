@@ -12,7 +12,7 @@ public class EnemySpawner : MonoBehaviour {
 
 	public void Spawn() {
 		GameObject enemy = objectPool.GetPooledObjects ();
-		enemy.SetActive (true);
 		enemy.transform.position = transform.position;
+		enemy.SetActive (true);
 	}
 }

@@ -162,9 +162,11 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 			agent.Stop ();
 			break;
 		case ActorState.ACTOR_AVOID:
-			Vector3 toPlayer = rawTargetPosition - transform.position;
-			Vector3 moveBackPosition = toPlayer.normalized * -minMoveAwayDistance;
-			agent.destination = moveBackPosition;
+			transform.rotation = Quaternion.LookRotation (transform.position - rawTargetPosition);
+			Vector3 runTo = transform.position + transform.forward * 20f;
+			NavMeshHit hit;
+			NavMesh.SamplePosition (runTo, out hit, 5, 1 << NavMesh.GetAreaFromName ("Walkable"));
+			agent.SetDestination (hit.position);
 			agent.Resume ();
 			break;
 		}

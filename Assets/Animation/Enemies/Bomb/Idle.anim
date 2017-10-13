@@ -20,19 +20,19 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: {x: 70, y: 70, z: 70}
+        value: {x: 60, y: 60, z: 60}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
       - serializedVersion: 2
         time: 0.5
-        value: {x: 80, y: 80, z: 80}
+        value: {x: 70, y: 70, z: 70}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
       - serializedVersion: 2
         time: 1
-        value: {x: 70, y: 70, z: 70}
+        value: {x: 60, y: 60, z: 60}
         inSlope: {x: 0, y: 0, z: 0}
         outSlope: {x: 0, y: 0, z: 0}
         tangentMode: 0
@@ -44,9 +44,9 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 2100000, guid: a0bf65ce37b8861409be0f4eefee1350, type: 2}
+      value: {fileID: 2100000, guid: 0a01303492064fa46bf119149799e0f9, type: 2}
     - time: 1
-      value: {fileID: 2100000, guid: a0bf65ce37b8861409be0f4eefee1350, type: 2}
+      value: {fileID: 2100000, guid: 0a01303492064fa46bf119149799e0f9, type: 2}
     attribute: m_Materials.Array.data[0]
     path: 
     classID: 23
@@ -71,8 +71,8 @@ AnimationClip:
       customType: 21
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 2100000, guid: a0bf65ce37b8861409be0f4eefee1350, type: 2}
-    - {fileID: 2100000, guid: a0bf65ce37b8861409be0f4eefee1350, type: 2}
+    - {fileID: 2100000, guid: 0a01303492064fa46bf119149799e0f9, type: 2}
+    - {fileID: 2100000, guid: 0a01303492064fa46bf119149799e0f9, type: 2}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -99,19 +99,19 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: 70
+        value: 60
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
         time: 0.5
-        value: 80
+        value: 70
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
         time: 1
-        value: 70
+        value: 60
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -127,19 +127,19 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: 70
+        value: 60
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
         time: 0.5
-        value: 80
+        value: 70
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
         time: 1
-        value: 70
+        value: 60
         inSlope: 0
         outSlope: 0
         tangentMode: 136
@@ -155,19 +155,19 @@ AnimationClip:
       m_Curve:
       - serializedVersion: 2
         time: 0
-        value: 70
+        value: 60
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
         time: 0.5
-        value: 80
+        value: 70
         inSlope: 0
         outSlope: 0
         tangentMode: 136
       - serializedVersion: 2
         time: 1
-        value: 70
+        value: 60
         inSlope: 0
         outSlope: 0
         tangentMode: 136

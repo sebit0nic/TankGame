@@ -529,14 +529,14 @@ MonoBehaviour:
     enemySpawner:
     - {fileID: 1738365129}
     - {fileID: 1495765566}
-    beforeTimeout: 3
+    beforeTimeout: 5
     afterTimeout: 0
     enemyCount: 0
   - eventType: 0
     enemySpawner:
     - {fileID: 1843265401}
     - {fileID: 1119785515}
-    beforeTimeout: 3
+    beforeTimeout: 5
     afterTimeout: 0
     enemyCount: 0
   - eventType: 1
@@ -788,7 +788,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4440481428134016, guid: 8aa1162a51d4af04a90228d436df6c49, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 37.4
+      value: 31.5
       objectReference: {fileID: 0}
     - target: {fileID: 4440481428134016, guid: 8aa1162a51d4af04a90228d436df6c49, type: 2}
       propertyPath: m_LocalRotation.x
@@ -841,6 +841,12 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8aa1162a51d4af04a90228d436df6c49, type: 2}
   m_IsPrefabParent: 0
+--- !u!114 &83863021 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114656714280812816, guid: 70ef82b14df48c34ab6f1f674eb2fe9d,
+    type: 2}
+  m_PrefabInternal: {fileID: 514002399}
+  m_Script: {fileID: 11500000, guid: d33a4c253603b9147a1eb43729ee65b1, type: 3}
 --- !u!1 &92887495
 GameObject:
   m_ObjectHideFlags: 0
@@ -996,7 +1002,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scoreText: {fileID: 4373519}
-  comboDropTime: 3
+  comboDropTime: 2.5
   currentCombo: 1
   currentScore: 0
   combometer: {fileID: 1780012192}
@@ -1408,7 +1414,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &150027035
 Transform:
   m_ObjectHideFlags: 0
@@ -2847,6 +2853,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 383774675}
+--- !u!114 &384953298 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114656714280812816, guid: 70ef82b14df48c34ab6f1f674eb2fe9d,
+    type: 2}
+  m_PrefabInternal: {fileID: 482598218}
+  m_Script: {fileID: 11500000, guid: d33a4c253603b9147a1eb43729ee65b1, type: 3}
 --- !u!1001 &394032106
 Prefab:
   m_ObjectHideFlags: 0
@@ -9276,7 +9288,51 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyManager: {fileID: 223039012}
   concurrentAllowedEnemies: 5
-  events: []
+  events:
+  - eventType: 0
+    enemySpawner:
+    - {fileID: 1069080588}
+    beforeTimeout: 1
+    afterTimeout: 0
+    enemyCount: 0
+  - eventType: 0
+    enemySpawner:
+    - {fileID: 1992838924}
+    - {fileID: 83863021}
+    beforeTimeout: 5
+    afterTimeout: 0
+    enemyCount: 0
+  - eventType: 0
+    enemySpawner:
+    - {fileID: 1069080588}
+    - {fileID: 1992838924}
+    - {fileID: 384953298}
+    beforeTimeout: 6
+    afterTimeout: 0
+    enemyCount: 0
+  - eventType: 0
+    enemySpawner:
+    - {fileID: 1069080588}
+    - {fileID: 1992838924}
+    - {fileID: 384953298}
+    - {fileID: 83863021}
+    beforeTimeout: 6
+    afterTimeout: 0
+    enemyCount: 0
+  - eventType: 0
+    enemySpawner:
+    - {fileID: 1069080588}
+    - {fileID: 384953298}
+    beforeTimeout: 8
+    afterTimeout: 0
+    enemyCount: 0
+  - eventType: 0
+    enemySpawner:
+    - {fileID: 1992838924}
+    - {fileID: 83863021}
+    beforeTimeout: 2
+    afterTimeout: 0
+    enemyCount: 0
 --- !u!4 &976141803 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4440481428134016, guid: 8aa1162a51d4af04a90228d436df6c49,
@@ -9615,6 +9671,12 @@ Transform:
   m_PrefabParentObject: {fileID: 4938202812640732, guid: d13a80aa8bcedab4fb02104e6715f869,
     type: 2}
   m_PrefabInternal: {fileID: 1170571093}
+--- !u!114 &1069080588 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114656714280812816, guid: 70ef82b14df48c34ab6f1f674eb2fe9d,
+    type: 2}
+  m_PrefabInternal: {fileID: 1336539654}
+  m_Script: {fileID: 11500000, guid: d33a4c253603b9147a1eb43729ee65b1, type: 3}
 --- !u!4 &1069193889 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4390086551819488, guid: 46e875bf2b76c724d9a2eec90d409286,
@@ -11913,7 +11975,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1635328274
 Transform:
   m_ObjectHideFlags: 0
@@ -13234,7 +13296,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapManager: {fileID: 2054805671}
   missionManager: {fileID: 1225782671}
-  loadedLevel: 1
+  loadedLevel: 2
   gameOverPanel: {fileID: 273824407}
   missionSuccessfulPanel: {fileID: 2050072043}
   ingameMenuAnimator: {fileID: 1780060308}
@@ -13749,6 +13811,12 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1982542325}
+--- !u!114 &1992838924 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114656714280812816, guid: 70ef82b14df48c34ab6f1f674eb2fe9d,
+    type: 2}
+  m_PrefabInternal: {fileID: 394177723}
+  m_Script: {fileID: 11500000, guid: d33a4c253603b9147a1eb43729ee65b1, type: 3}
 --- !u!1 &1993502827
 GameObject:
   m_ObjectHideFlags: 0
