@@ -1,27 +1,22 @@
 fileFormatVersion: 2
-guid: 7ec33dfb160d1464aa68f9ae2a562c2b
-timeCreated: 1507936951
+guid: 51a612edb0848114c9f8b8a5419da2e0
+timeCreated: 1508280594
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
-    100000: Back Wheels
-    100002: Body
+    100000: Leaves
+    100002: Stem
     100004: //RootNode
-    100006: Front Wheels
-    400000: Back Wheels
-    400002: Body
+    400000: Leaves
+    400002: Stem
     400004: //RootNode
-    400006: Front Wheels
-    2300000: Back Wheels
-    2300002: Body
-    2300004: Front Wheels
-    3300000: Back Wheels
-    3300002: Body
-    3300004: Front Wheels
-    4300000: Back Wheels
-    4300002: Front Wheels
-    4300004: Body
+    2300000: Leaves
+    2300002: Stem
+    3300000: Leaves
+    3300002: Stem
+    4300000: Leaves
+    4300002: Stem
   materials:
     importMaterials: 0
     materialName: 0
@@ -46,12 +41,12 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1.5
+    globalScale: 250
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
-    generateSecondaryUV: 0
+    generateSecondaryUV: 1
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
