@@ -177,5 +177,7 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 		trails [0].enabled = true;
 		trails [1].Clear ();
 		trails [1].enabled = true;
+
+		shootTimer = Time.time + shootFrequency + randomShootDeviation;
 	}
 }

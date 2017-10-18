@@ -90,7 +90,8 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void NotifyCameraOutroAnimationFinished() {
-		Time.timeScale = 0f;
+		Time.timeScale = 1f;
+		Time.fixedDeltaTime = 0.02f;
 		if (missionSuccessful) {
 			missionSuccessfulPanel.SetActive (true);
 			missionManager.InitEventSuccessfulScreen (eventSuccessfulScreen);
