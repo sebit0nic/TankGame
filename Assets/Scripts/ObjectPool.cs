@@ -60,6 +60,7 @@ public class ObjectPool : MonoBehaviour {
 		}
 
 		//Create a new object if we run out of pooled ones
+		//Debug.Log ("New pooled object created: " + objectToPool.name + "; " + Time.time);
 		GameObject obj = (GameObject)Instantiate (objectToPool);
 		obj.transform.parent = dynamicObjects.transform;
 		obj.SetActive (false);
@@ -74,6 +75,7 @@ public class ObjectPool : MonoBehaviour {
 			}
 		}
 
+		//Debug.Log ("New pooled object created: " + objectsToPool[index].name + "; " + Time.time);
 		GameObject obj = (GameObject)Instantiate (objectsToPool[index], transform.position, Quaternion.identity);
 		obj.transform.parent = dynamicObjects.transform;
 		obj.SetActive(false);

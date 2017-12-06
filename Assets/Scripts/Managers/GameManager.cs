@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviour {
 	public EventSuccessfulScreen eventSuccessfulScreen;
 	public Text timerText;
 
-	private bool missionSuccessful;
+	private bool missionSuccessful = false;
 	private char playerState = 'N';
 
 	private void Awake() {
@@ -58,8 +58,8 @@ public class GameManager : MonoBehaviour {
 		missionManager.NotifyEnemyDestroyed (points, loadedLevel);
 	}
 
-	public void NotifyPlayerHit(int health) {
-		missionManager.NotifyPlayerHit (health);
+	public void NotifyPlayerHealthUpdate(float health, bool damaged) {
+		missionManager.NotifyPlayerHealthUpdate (health, damaged);
 	}
 
 	public void NotifyPlayerDestroyed() {
@@ -75,6 +75,10 @@ public class GameManager : MonoBehaviour {
 
 	public char GetPlayerState() {
 		return playerState;
+	}
+
+	public float GetCurrentHeatFactor() {
+		return missionManager.GetCurrentHeatFactor ();
 	}
 
 	/*public void NotifyMissionSuccessful() {

@@ -287,6 +287,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerFired: 0
+  damage: 20
+  timeout: 7
 --- !u!114 &114555146856126640
 MonoBehaviour:
   m_ObjectHideFlags: 1

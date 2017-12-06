@@ -6,6 +6,7 @@ public class SimpleMissile : MonoBehaviour {
 
 	public bool playerFired = true;
 	public int damage;
+	public float timeout = 10;
 
 	private Projectile thisProjectile;
 	private Rigidbody thisRigidbody;
@@ -23,6 +24,8 @@ public class SimpleMissile : MonoBehaviour {
 		thisRigidbody.isKinematic = false;
 		thisRigidbody.AddForce (force, mode);
 		thisCollider.enabled = true;
+
+		StartCoroutine (WaitForTimeout ());
 	}
 
 	private void OnTriggerEnter(Collider other) {
@@ -41,8 +44,13 @@ public class SimpleMissile : MonoBehaviour {
 				thisProjectile.OnProjectileDestroy ();
 
 				PlayerHealth ph = other.GetComponent<PlayerHealth> ();
-				ph.DecreaseCurrentHealth (1);
+				ph.DecreaseCurrentHealth (damage);
 			}
 		}
+	}
+
+	private IEnumerator WaitForTimeout() {
+		yield return new WaitForSeconds (timeout);
+		thisProjectile.OnProjectileDestroy ();
 	}
 }

@@ -1,18 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Healthbar : MonoBehaviour {
 
-	public GameObject[] healthSections;
+	public Text healthText;
 
-	public void UpdateUI (int currentHealth) {
-		foreach (GameObject g in healthSections) {
-			g.SetActive (false);
-		}
-
-		for (int i = 0; i < currentHealth; i++) {
-			healthSections [i].SetActive (true);
-		}
+	public void UpdateUI (float currentHealth) {
+		int healthRaw = Mathf.RoundToInt (currentHealth);
+		healthText.text = "" + healthRaw;
 	}
 }

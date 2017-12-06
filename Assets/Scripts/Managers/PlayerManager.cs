@@ -6,7 +6,7 @@ public class PlayerManager : MonoBehaviour {
 
 	public Healthbar healthbar;
 
-	private int currentHealth;
+	private float currentHealth;
 	private GameObject player;
 
 	private void Awake() {
@@ -18,7 +18,7 @@ public class PlayerManager : MonoBehaviour {
 		player.transform.position = startPosition;
 	}
 
-	public void NotifyPlayerHit(int health) {
+	public void NotifyPlayerHealthUpdate(float health) {
 		currentHealth = health;
 		healthbar.UpdateUI (currentHealth);
 	}

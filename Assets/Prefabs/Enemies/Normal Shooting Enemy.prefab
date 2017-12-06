@@ -702,7 +702,7 @@ MonoBehaviour:
   projectile: {fileID: 54040912164438952, guid: b8f1fe6a37b9a274e94818fb3eb81a2d,
     type: 2}
   minShootDistance: 60
-  shootFrequency: 2
+  shootFrequency: 3
   projectileSpeed: 2000
   distance: 0
 --- !u!114 &114680648050568104

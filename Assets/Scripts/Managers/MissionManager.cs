@@ -6,6 +6,7 @@ public class MissionManager : MonoBehaviour {
 
 	public EnemyManager enemyManager;
 	public ScoreManager scoreManager;
+	public ScoreManagerNew scoreManagerNew;
 	public TimeManager timeManager;
 	public PlayerManager playerManager;
 	public GameObject levelList;
@@ -41,13 +42,15 @@ public class MissionManager : MonoBehaviour {
 
 	public void NotifyEnemyDestroyed(int points, int loadedLevel) {
 		scoreManager.NotifyEnemyDestroyed (points);
+		scoreManagerNew.NotifyEnemyDestroyed (points);
 		enemyManager.NotifyEnemyDestroyed ();
 		//levels [loadedLevel].NotifyEnemyDestroyed ();
 	}
 
-	public void NotifyPlayerHit(int health) {
-		playerManager.NotifyPlayerHit (health);
+	public void NotifyPlayerHealthUpdate(float health, bool damaged) {
+		playerManager.NotifyPlayerHealthUpdate (health);
 		scoreManager.NotifyPlayerHit ();
+		scoreManagerNew.NotifyPlayerHealthUpdate (damaged);
 	}
 
 	public void NotifyMissionEnd(int loadedLevel) {
@@ -84,5 +87,9 @@ public class MissionManager : MonoBehaviour {
 
 	public void InitEventSuccessfulScreen (EventSuccessfulScreen eventSuccessfulScreen) {
 		eventSuccessfulScreen.Init (scoreManager.currentScore, medal1, medal2, medal3, task1, task2, task3);
+	}
+
+	public float GetCurrentHeatFactor() {
+		return scoreManagerNew.GetCurrentHeatFactor ();
 	}
 }
