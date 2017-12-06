@@ -29,12 +29,12 @@ public class PrimaryTask : MonoBehaviour {
 			if (timeLimit != -1) {
 				if (timedSurvival) {
 					if (Time.time > endTime) {
-						gameManager.NotifyMissionSuccessful ();
+						//gameManager.NotifyMissionSuccessful ();
 						taskDone = true;
 					}
 				} else {
 					if (Time.time > endTime) {
-						gameManager.NotifyMissionFailed ();
+						//gameManager.NotifyMissionFailed ();
 						taskDone = true;
 					}
 				}
@@ -49,7 +49,7 @@ public class PrimaryTask : MonoBehaviour {
 		if (enemyCount != -1) {
 			enemyCount--;
 			if (enemyCount == 0) {
-				gameManager.NotifyMissionSuccessful ();
+				//gameManager.NotifyMissionSuccessful ();
 			}
 		}
 	}

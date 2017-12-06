@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour {
 
+	public static GameManager INSTANCE;
+
 	public MapManager mapManager;
 	public MissionManager missionManager;
 
@@ -19,8 +21,18 @@ public class GameManager : MonoBehaviour {
 	private char playerState = 'N';
 
 	private void Awake() {
-		LoadLevel (loadedLevel);
-		missionManager.Init (this, loadedLevel);
+		INSTANCE = this;
+
+		//LoadLevel (loadedLevel);
+		//missionManager.Init (this, loadedLevel);
+	}
+
+	public static GameManager GetInstance() {
+		if (INSTANCE == null) {
+			INSTANCE = new GameManager ();
+		}
+
+		return INSTANCE;
 	}
 
 	public void LoadLevel(int index) {
@@ -30,15 +42,7 @@ public class GameManager : MonoBehaviour {
 	public void UpdateTimer(float timer) {
 		timerText.text = Mathf.RoundToInt (timer).ToString();
 	}
-
-	/*
-	 * Notify message syntax:
-	 * 		1. char = which subsystem is being notified?
-	 * 			M = MapManager
-	 * 			I = MissionManager
-	 * 		
-	 * 		other chars = look at subsystem parsing
-	 */
+		
 	public void Notify(string message) {
 		char firstChar = message.ToCharArray () [0];
 		switch (firstChar) {
@@ -73,7 +77,7 @@ public class GameManager : MonoBehaviour {
 		return playerState;
 	}
 
-	public void NotifyMissionSuccessful() {
+	/*public void NotifyMissionSuccessful() {
 		Time.timeScale = 0.2f;
 		Time.fixedDeltaTime = 0.2f * 0.02f;
 		ingameMenuAnimator.SetTrigger ("OnOutro");
@@ -87,7 +91,7 @@ public class GameManager : MonoBehaviour {
 		Time.fixedDeltaTime = 0.2f * 0.02f;
 		ingameMenuAnimator.SetTrigger ("OnOutro");
 		ingameCameraAnimator.SetTrigger ("OnOutro");
-	}
+	} */
 
 	public void NotifyCameraOutroAnimationFinished() {
 		Time.timeScale = 1f;

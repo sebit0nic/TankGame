@@ -8,6 +8,7 @@ public class BombExplosion : MonoBehaviour {
 	public float expansionSpeed = 2.5f;
 	public float fireballLength = 0.5f;
 	public bool hurtsPlayer;
+	public int damage = 10;
 
 	private SphereCollider thisSphereCollider;
 	private MeshRenderer thisMeshRenderer;
@@ -40,7 +41,7 @@ public class BombExplosion : MonoBehaviour {
 
 	private void OnTriggerEnter(Collider other) {
 		if (other.gameObject.tag.Equals ("Enemy")) {
-			other.GetComponent<Enemy> ().HitByProjectile ();
+			other.GetComponent<Enemy> ().HitByProjectile (damage);
 		}
 		if (other.gameObject.tag.Equals ("Player") && hurtsPlayer) {
 			other.GetComponent<PlayerHealth> ().DecreaseCurrentHealth (1);

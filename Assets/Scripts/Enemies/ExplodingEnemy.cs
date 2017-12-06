@@ -72,7 +72,7 @@ public class ExplodingEnemy : MonoBehaviour, Enemy {
 		}
 	}
 
-	public void HitByProjectile() {
+	public void HitByProjectile(int damage) {
 		if (canEngage) {
 			basePoints *= 2;
 			EngageExplosion ();

@@ -5,6 +5,7 @@ using UnityEngine;
 public class SimpleMissile : MonoBehaviour {
 
 	public bool playerFired = true;
+	public int damage;
 
 	private Projectile thisProjectile;
 	private Rigidbody thisRigidbody;
@@ -33,7 +34,7 @@ public class SimpleMissile : MonoBehaviour {
 			if (other.gameObject.tag.Equals ("Enemy")) {
 				thisProjectile.OnProjectileDestroy ();
 
-				other.GetComponent<Enemy> ().HitByProjectile ();
+				other.GetComponent<Enemy> ().HitByProjectile (damage);
 			}
 		} else {
 			if (other.gameObject.tag.Equals ("Player")) {

@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
+public class RotatingShootingEnemy : MonoBehaviour, Enemy {
 
-	public Transform barrel;
-	public Transform barrelEnd;
+	public Transform[] barrels;
+	public Transform[] barrelEnds;
 	public int basePoints = 20;
-	public int maxHealth = 30;
+	public int maxHealth = 50;
 	public float minStopDistance = 15;
 	public float minMoveAwayDistance = 7;
 	public ParticleSystem[] thisParticleSystem;
@@ -20,11 +20,13 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 	public float minShootDistance = 20;
 	public float shootFrequency = 1;
 	public float projectileSpeed = 10;
+	public float barrelRotationSpeed = 10;
+	public float shootDuration = 5;
+	public float shootPause = 5;
 
 	private NavMeshAgent agent;
 	public float distance;
 	private float shootTimer;
-	private float randomShootDeviation;
 	private int currentHealth;
 
 	private Transform target;
@@ -34,6 +36,7 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 	private Rigidbody thisRigidbody;
 	private Collider thisCollider;
 	private MeshRenderer thisRenderer;
+	private bool rotatingShooting, pausing;
 
 	private enum ActorState {ACTOR_FOLLOW, ACTOR_STOP, ACTOR_AVOID};
 	private ActorState currentActorState = ActorState.ACTOR_FOLLOW;
@@ -45,10 +48,6 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 		thisRigidbody = GetComponent<Rigidbody> ();
 		thisCollider = GetComponent<Collider> ();
 		thisRenderer = GetComponent<MeshRenderer> ();
-
-		//Give the shootTimer some sort of randomness so that each enemy doesn't fire at
-		//the exact same time
-		randomShootDeviation = Random.Range (0.1f, 1f);
 	}
 
 	private void Start() {
@@ -56,51 +55,24 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 	}
 
 	private void Update() {
-		//TODO: make this Update() more performant
-
-		//Check if player is in sight, otherwise move closer to player
-		bool playerInSight = false;
 		Vector3 rawTargetPosition = new Vector3 (target.position.x, transform.position.y, target.position.z);
 		distance = Vector3.Distance (transform.position, rawTargetPosition);
 
 		if (distance < minShootDistance) {
-			RaycastHit hit;
-			int layerMask = ~((1 << LayerMask.NameToLayer("Enemy")) | (1 << LayerMask.NameToLayer("Projectile")));
-			if (Physics.Raycast (barrelEnd.position, barrelEnd.transform.forward, out hit, 100.0f, layerMask)) {
-				if (hit.collider.gameObject.tag.Equals ("Player")) {
-					playerInSight = true;
-				}
-			}
-
-			if (shootTimer < Time.time && playerInSight) {
-				GameObject newProjectile = objectPool.GetPooledObjects();
-				newProjectile.SetActive (true);
-				newProjectile.GetComponent<SimpleMissile> ().Init (barrelEnd.position, barrelEnd.rotation, barrelEnd.transform.forward * projectileSpeed, ForceMode.Force);
-				shootTimer = Time.time + shootFrequency + randomShootDeviation;
-			}
+			rotatingShooting = true;
 		}
 			
 		if (distance < minMoveAwayDistance) {
-			if (playerInSight) {
-				//Move in the opposite direction of the player
+			if (GameManager.GetInstance().GetPlayerState().Equals('A')) {
 				currentActorState = ActorState.ACTOR_AVOID;
 			} else {
-				//Player uses ability, so don't follow
-				if (GameManager.GetInstance().GetPlayerState().Equals('A')) {
-					currentActorState = ActorState.ACTOR_AVOID;
-				} else {
-					currentActorState = ActorState.ACTOR_FOLLOW;
-				}
+				currentActorState = ActorState.ACTOR_FOLLOW;
 			}
 		} else if (distance >= minMoveAwayDistance && distance < minStopDistance) {
-			if (playerInSight) {
+			if (GameManager.GetInstance().GetPlayerState().Equals('A')) {
 				currentActorState = ActorState.ACTOR_STOP;
 			} else {
-				if (GameManager.GetInstance().GetPlayerState().Equals('A')) {
-					currentActorState = ActorState.ACTOR_STOP;
-				} else {
-					currentActorState = ActorState.ACTOR_FOLLOW;
-				}
+				currentActorState = ActorState.ACTOR_FOLLOW;
 			}
 		} else if (distance >= minStopDistance) {
 			currentActorState = ActorState.ACTOR_FOLLOW;
@@ -108,13 +80,19 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 
 		EvaluateActorState (rawTargetPosition);
 
-		Vector3 enemyToTarget = rawTargetPosition - transform.position;
-		enemyToTarget.y = barrel.position.y;
-
-		Quaternion barrelRotation = Quaternion.LookRotation (enemyToTarget);
-		barrelRotation.x = 0;
-		barrelRotation.z = 0;
-		barrel.rotation = barrelRotation;
+		for (int i = 0; i < barrels.Length; i++) {
+			barrels [i].Rotate (0, 0, barrelRotationSpeed * Time.deltaTime);
+		}
+		if (rotatingShooting) {
+			if (Time.time > shootTimer) {
+				for (int i = 0; i < barrelEnds.Length; i++) {
+					GameObject newProjectile = objectPool.GetPooledObjects();
+					newProjectile.SetActive (true);
+					newProjectile.GetComponent<SimpleMissile> ().Init (barrelEnds[i].position, barrelEnds[i].rotation, barrelEnds[i].transform.forward * projectileSpeed, ForceMode.Force);
+					shootTimer = Time.time + shootFrequency;
+				}
+			}
+		}
 	}
 
 	public void HitByProjectile(int damage) {
@@ -129,9 +107,13 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 			thisRigidbody.isKinematic = true;
 			thisCollider.enabled = false;
 			body.SetActive (false);
-			barrel.gameObject.SetActive (false);
-			trails [0].enabled = false;
-			trails [1].enabled = false;
+			for (int i = 0; i < barrels.Length; i++) {
+				barrels [i].gameObject.SetActive (false);
+			}
+			if (trails.Length > 0) {
+				trails [0].enabled = false;
+				trails [1].enabled = false;
+			}
 
 			for (int i = 0; i < thisParticleSystem.Length; i++) {
 				thisParticleSystem [i].Play ();
@@ -151,7 +133,9 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 		thisCollider.enabled = true;
 		this.enabled = true;
 		body.SetActive (true);
-		barrel.gameObject.SetActive (true);
+		for (int i = 0; i < barrels.Length; i++) {
+			barrels [i].gameObject.SetActive (false);
+		}
 		gameObject.SetActive (false);
 	}
 
@@ -176,12 +160,14 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 	}
 
 	private void OnEnable() {
-		trails [0].Clear ();
-		trails [0].enabled = true;
-		trails [1].Clear ();
-		trails [1].enabled = true;
+		if (trails.Length > 0) {
+			trails [0].Clear ();
+			trails [0].enabled = true;
+			trails [1].Clear ();
+			trails [1].enabled = true;
+		}
 
-		shootTimer = Time.time + shootFrequency + randomShootDeviation;
+		shootTimer = Time.time + shootFrequency;
 		currentHealth = maxHealth;
 	}
 }

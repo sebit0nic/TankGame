@@ -4,5 +4,5 @@ using UnityEngine;
 
 public interface Enemy {
 
-	void HitByProjectile();
+	void HitByProjectile(int damage);
 }

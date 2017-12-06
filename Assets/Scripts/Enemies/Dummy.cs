@@ -8,12 +8,10 @@ public class Dummy : MonoBehaviour, Enemy {
 	public float speed = 2.0f;
 	public float minX, maxX;
 
-	private GameManager gameManager;
 	private DummyManager dummyManager;
 	private bool dirRight = true;
 
 	private void Awake() {
-		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager> ();
 		dummyManager = transform.parent.parent.GetComponent<DummyManager> ();
 	}
 
@@ -34,10 +32,10 @@ public class Dummy : MonoBehaviour, Enemy {
 		}
 	}
 
-	public void HitByProjectile() {
+	public void HitByProjectile(int damage) {
 		//TODO: play destroyed animation/particle effect
 		dummyManager.NotifyDummyDestroyed();
-		gameManager.NotifyEnemyDestroyed (0);
+		GameManager.GetInstance ().NotifyEnemyDestroyed (0);
 		gameObject.SetActive (false);
 	}
 }

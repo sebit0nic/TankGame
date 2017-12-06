@@ -5,60 +5,54 @@ using UnityEngine;
 public class EnemySpawnManager : MonoBehaviour {
 
 	public EnemyManager enemyManager;
-	public int concurrentAllowedEnemies;
-	public EnemySpawnEvent[] events;
+	public SpawnLevel[] spawnLevels;
+	public EnemySpawner[] spawners;
 
+	private int currentSpawnLevel = 0;
 	private int currentConcurrentEnemies;
-	private int eventPointer;
-	private bool stoppedForEnemyCount, stoppedForWave;
+	private int concurrentAllowedEnemies;
+	private float spawnTimer;
+	private bool canSpawn = true;
 
 	private void Start() {
 		enemyManager.Init (this);
-		NextEvent ();
+		EvaluateSpawnLevel ();
 	}
 
-	private void NextEvent() {
-		if (eventPointer < events.Length) {
-			switch (events [eventPointer].eventType) {
-			case EnemySpawnEvent.EventType.SPAWN:
-				StartCoroutine (Spawn (events [eventPointer].enemySpawner, events[eventPointer].beforeTimeout, events[eventPointer].afterTimeout));
-				break;
-			case EnemySpawnEvent.EventType.WAIT_FOR_ENEMYCOUNT:
-				StartCoroutine (WaitForEnemycount (events [eventPointer].beforeTimeout));
-				break;
+	private void Update() {
+		if (currentSpawnLevel + 1 < spawnLevels.Length) {
+			if (Time.time > spawnLevels [currentSpawnLevel + 1].unlockTime) {
+				currentSpawnLevel++;
+				EvaluateSpawnLevel ();
 			}
 		}
-	}
 
-	private IEnumerator Spawn(EnemySpawner[] enemySpawner, float beforeTimeout, float afterTimeout) {
-		yield return new WaitForSeconds (beforeTimeout);
-		for (int i = 0; i < enemySpawner.Length; i++) {
-			enemySpawner[i].Spawn ();
-			currentConcurrentEnemies++;
+		if (Time.time > spawnTimer && canSpawn) {
+			int randomEnemy = spawnLevels [currentSpawnLevel].GetRandomEnemyType ();
+			Spawn (spawnLevels[currentSpawnLevel].enemyTypes[randomEnemy]);
+			spawnTimer = Time.time + Random.Range (spawnLevels [currentSpawnLevel].minSpawnRate, spawnLevels [currentSpawnLevel].maxSpawnRate);
 		}
-
-		StartCoroutine (WaitAfterEvent (afterTimeout));
 	}
 
-	private IEnumerator WaitForEnemycount(float beforeTimeout) {
-		yield return new WaitForSeconds (beforeTimeout);
-		stoppedForEnemyCount = true;
+	private void Spawn(SpawnLevel.EnemyTypes enemyType) {
+		currentConcurrentEnemies++;
+		int randomSpawner = Random.Range (0, spawners.Length);
+		spawners [randomSpawner].Spawn (enemyType);
+
+		if (currentConcurrentEnemies >= concurrentAllowedEnemies) {
+			canSpawn = false;
+		}
 	}
 
-	private IEnumerator WaitAfterEvent(float afterTimeout) {
-		yield return new WaitForSeconds (afterTimeout);
-		eventPointer++;
-		NextEvent ();
+	private void EvaluateSpawnLevel() {
+		concurrentAllowedEnemies = Random.Range (spawnLevels [currentSpawnLevel].minConcurrentEnemies, spawnLevels [currentSpawnLevel].maxConcurrentEnemies);
+		spawnTimer = Time.time + Random.Range (spawnLevels [currentSpawnLevel].minSpawnRate, spawnLevels [currentSpawnLevel].maxSpawnRate);
 	}
 
 	public void NotifyEnemyDestroyed() {
 		currentConcurrentEnemies--;
-
-		if (stoppedForEnemyCount) {
-			if (currentConcurrentEnemies <= events [eventPointer].enemyCount) {
-				stoppedForEnemyCount = false;
-				StartCoroutine (WaitAfterEvent (events[eventPointer].afterTimeout));
-			}
+		if (currentConcurrentEnemies < concurrentAllowedEnemies) {
+			canSpawn = true;
 		}
 	}
 }

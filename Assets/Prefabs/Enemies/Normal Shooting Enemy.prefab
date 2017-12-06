@@ -689,8 +689,9 @@ MonoBehaviour:
   barrel: {fileID: 4637435615677970}
   barrelEnd: {fileID: 4593977908989924}
   basePoints: 10
-  minStopDistance: 40
-  minMoveAwayDistance: 20
+  maxHealth: 20
+  minStopDistance: 35
+  minMoveAwayDistance: 5
   thisParticleSystem:
   - {fileID: 198783422475062422}
   - {fileID: 198403537383856966}
@@ -700,9 +701,9 @@ MonoBehaviour:
   - {fileID: 96865773900652110}
   projectile: {fileID: 54040912164438952, guid: b8f1fe6a37b9a274e94818fb3eb81a2d,
     type: 2}
-  minShootDistance: 50
-  shootFrequency: 3
-  projectileSpeed: 1500
+  minShootDistance: 60
+  shootFrequency: 2
+  projectileSpeed: 2000
   distance: 0
 --- !u!114 &114680648050568104
 MonoBehaviour:
@@ -717,6 +718,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectToPool: {fileID: 1654467384896416, guid: b8f1fe6a37b9a274e94818fb3eb81a2d,
     type: 2}
+  multiplePools: 0
+  objectsToPool: []
   amountToPool: 1
 --- !u!195 &195288854157627470
 NavMeshAgent:
@@ -726,7 +729,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 1499148620335188}
   m_Enabled: 1
   m_Radius: 1.5
-  m_Speed: 6
+  m_Speed: 8
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
