@@ -85,7 +85,7 @@ Transform:
   m_GameObject: {fileID: 1399491133098950}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -10.55325, y: -2.0659296e-17, z: 18.51236}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8, y: 0.8, z: 0.8}
   m_Children:
   - {fileID: 4713409173567344}
   - {fileID: 4471372695302930}
@@ -235,7 +235,7 @@ NavMeshObstacle:
   m_Enabled: 1
   serializedVersion: 3
   m_Shape: 0
-  m_Extents: {x: 2.5, y: 1, z: 2.5}
+  m_Extents: {x: 5, y: 1, z: 5}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1

@@ -5,50 +5,44 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour {
 
+	public Image heatMeter;
 	public Text scoreText;
-	public float comboDropTime = 2f;
-	public int currentCombo = 1;
+	public float heatDropFactor = 5;
 	public int currentScore = 0;
-	public Combometer combometer;
+	public float heatDropPauseTime = 1;
 
-	private float comboDropTimer;
-
-	public void NotifyEnemyDestroyed(int points) {
-		currentScore += (points * currentCombo);
-		string scoreString = currentScore.ToString ();
-		scoreText.text = scoreString.PadLeft (6, '0');
-
-		ComboUp ();
-	}
-
-	public void NotifyPlayerHit() {
-		currentCombo = 2;
-		ComboDown ();
-	}
+	private float currentHeatFactor = 1;
+	private bool canDrop = true;
 
 	private void Update() {
-		if (comboDropTimer < Time.time) {
-			ComboDown ();
-		} else {
-			combometer.UpdateUI (comboDropTimer, comboDropTime, currentCombo);
+		heatMeter.fillAmount = currentHeatFactor / 100;
+		if (canDrop) {
+			currentHeatFactor -= heatDropFactor * Time.deltaTime;
+		}
+
+		currentHeatFactor = Mathf.Clamp (currentHeatFactor, 1, 100);
+	}
+
+	public void NotifyEnemyDestroyed(int points) {
+		currentScore += points * (int)currentHeatFactor;
+		scoreText.text = currentScore.ToString ();
+		currentHeatFactor += points * 2;
+		StartCoroutine (WaitForDropPause ());
+	}
+
+	public void NotifyPlayerHealthUpdate(bool damaged) {
+		if (damaged) {
+			currentHeatFactor = currentHeatFactor / 3;
 		}
 	}
 
-	private void ComboUp() {
-		if (currentCombo < 9) {
-			currentCombo++;
-		}
-		comboDropTimer = Time.time + comboDropTime;
+	private IEnumerator WaitForDropPause() {
+		canDrop = false;
+		yield return new WaitForSeconds (heatDropPauseTime);
+		canDrop = true;
 	}
 
-	private void ComboDown() {
-		if (currentCombo != 1) {
-			currentCombo--;
-			if (currentCombo != 1) {
-				comboDropTimer = Time.time + comboDropTime;
-			}
-		} else {
-			combometer.UpdateUI (comboDropTimer, comboDropTime, currentCombo);
-		}
+	public float GetCurrentHeatFactor() {
+		return currentHeatFactor;
 	}
 }

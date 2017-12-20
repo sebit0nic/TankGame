@@ -44,6 +44,16 @@ public class EnemySpawnManager : MonoBehaviour {
 		}
 	}
 
+	private void Spawn(int index) {
+		currentConcurrentEnemies++;
+		int randomSpawner = Random.Range (0, spawners.Length);
+		spawners [randomSpawner].Spawn (index);
+
+		if (currentConcurrentEnemies >= concurrentAllowedEnemies) {
+			canSpawn = false;
+		}
+	}
+
 	private void EvaluateSpawnLevel() {
 		concurrentAllowedEnemies = Random.Range (spawnLevels [currentSpawnLevel].minConcurrentEnemies, spawnLevels [currentSpawnLevel].maxConcurrentEnemies);
 		spawnTimer = Time.time + Random.Range (spawnLevels [currentSpawnLevel].minSpawnRate, spawnLevels [currentSpawnLevel].maxSpawnRate);

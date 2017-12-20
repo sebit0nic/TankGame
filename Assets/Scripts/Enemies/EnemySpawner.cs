@@ -20,8 +20,17 @@ public class EnemySpawner : MonoBehaviour {
 		case SpawnLevel.EnemyTypes.EXPLODING_ENEMY:
 			enemy = objectPool.GetPooledObjectByIndex (1);
 			break;
+		case SpawnLevel.EnemyTypes.ROTATING_SHOOTING_ENEMY:
+			enemy = objectPool.GetPooledObjectByIndex (2);
+			break;
 		}
 
+		enemy.transform.position = transform.position;
+		enemy.SetActive (true);
+	}
+
+	public void Spawn(int index) {
+		GameObject enemy = objectPool.GetPooledObjectByIndex (index);
 		enemy.transform.position = transform.position;
 		enemy.SetActive (true);
 	}

@@ -8,7 +8,7 @@ public class SpawnLevel {
 	public float unlockTime;
 	public int minConcurrentEnemies, maxConcurrentEnemies;
 	public float minSpawnRate, maxSpawnRate;
-	public enum EnemyTypes {NORMAL_SHOOTING_ENEMY, EXPLODING_ENEMY}
+	public enum EnemyTypes {NORMAL_SHOOTING_ENEMY, EXPLODING_ENEMY, ROTATING_SHOOTING_ENEMY}
 	public EnemyTypes[] enemyTypes;
 	public int[] enemyOccurencePossibility;
 

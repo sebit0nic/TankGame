@@ -43,13 +43,15 @@ public class PlayerHealth : MonoBehaviour {
 			invincibilityTimer = Time.time + invincibleTime;
 			isInvincible = true;
 
-			StartCoroutine (OnSlowDownEffect ());
+			if (currentHealth > 0) {
+				StartCoroutine (OnSlowDownEffect ());
+			}
 		}
 	}
 
 	private void UpdateText(bool damaged) {
 		gameManager.NotifyPlayerHealthUpdate (currentHealth, damaged);
-		if (currentHealth == 0) {
+		if (currentHealth <= 0.99f) {
 			Instantiate (actorExplosion, transform.position, Quaternion.identity);
 			gameManager.NotifyPlayerDestroyed ();
 			gameObject.SetActive (false);

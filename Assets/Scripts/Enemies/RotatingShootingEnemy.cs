@@ -166,6 +166,9 @@ public class RotatingShootingEnemy : MonoBehaviour, Enemy {
 			trails [1].Clear ();
 			trails [1].enabled = true;
 		}
+		for (int i = 0; i < barrels.Length; i++) {
+			barrels [i].gameObject.SetActive (true);
+		}
 
 		shootTimer = Time.time + shootFrequency;
 		currentHealth = maxHealth;
