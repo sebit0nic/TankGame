@@ -1008,7 +1008,7 @@ MonoBehaviour:
   - {fileID: 4073544372213336}
   basePoints: 25
   maxHealth: 80
-  minStopDistance: 50
+  minStopDistance: 55
   minMoveAwayDistance: 2
   thisParticleSystem:
   - {fileID: 198282049098817130}
@@ -1017,11 +1017,11 @@ MonoBehaviour:
   trails: []
   projectile: {fileID: 54040912164438952, guid: b8f1fe6a37b9a274e94818fb3eb81a2d,
     type: 2}
-  minShootDistance: 50
-  shootFrequency: 0.75
+  minShootDistance: 70
+  shootCount: 7
+  shootInterval: 0.4
   projectileSpeed: 1350
-  barrelRotationSpeed: 50
-  shootDuration: 5
+  barrelRotationSpeed: 180
   shootPause: 5
   distance: 0
 --- !u!195 &195087638197873040

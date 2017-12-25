@@ -18,15 +18,16 @@ public class RotatingShootingEnemy : MonoBehaviour, Enemy {
 	[Header("Shooting Properties")]
 	public Rigidbody projectile;
 	public float minShootDistance = 20;
-	public float shootFrequency = 1;
+	public int shootCount = 5;
+	public float shootInterval = 1;
 	public float projectileSpeed = 10;
 	public float barrelRotationSpeed = 10;
-	public float shootDuration = 5;
 	public float shootPause = 5;
 
 	private NavMeshAgent agent;
 	public float distance;
-	private float shootTimer;
+	private int currentShootCount;
+	private float currentShootInterval;
 	private int currentHealth;
 
 	private Transform target;
@@ -38,7 +39,7 @@ public class RotatingShootingEnemy : MonoBehaviour, Enemy {
 	private MeshRenderer thisRenderer;
 	private bool rotatingShooting, pausing;
 
-	private enum ActorState {ACTOR_FOLLOW, ACTOR_STOP, ACTOR_AVOID};
+	private enum ActorState {ACTOR_FOLLOW, ACTOR_STOP};
 	private ActorState currentActorState = ActorState.ACTOR_FOLLOW;
 
 	private void Awake() {
@@ -58,39 +59,39 @@ public class RotatingShootingEnemy : MonoBehaviour, Enemy {
 		Vector3 rawTargetPosition = new Vector3 (target.position.x, transform.position.y, target.position.z);
 		distance = Vector3.Distance (transform.position, rawTargetPosition);
 
-		if (distance < minShootDistance) {
+		if ((distance < minShootDistance || rotatingShooting) && !pausing) {
 			rotatingShooting = true;
-		}
-			
-		if (distance < minMoveAwayDistance) {
-			if (GameManager.GetInstance().GetPlayerState().Equals('A')) {
-				currentActorState = ActorState.ACTOR_AVOID;
-			} else {
+			currentActorState = ActorState.ACTOR_STOP;
+		} else {
+			if (distance > minStopDistance) {
 				currentActorState = ActorState.ACTOR_FOLLOW;
-			}
-		} else if (distance >= minMoveAwayDistance && distance < minStopDistance) {
-			if (GameManager.GetInstance().GetPlayerState().Equals('A')) {
+			} else {
 				currentActorState = ActorState.ACTOR_STOP;
-			} else {
-				currentActorState = ActorState.ACTOR_FOLLOW;
 			}
-		} else if (distance >= minStopDistance) {
-			currentActorState = ActorState.ACTOR_FOLLOW;
 		}
 
 		EvaluateActorState (rawTargetPosition);
 
-		for (int i = 0; i < barrels.Length; i++) {
-			barrels [i].Rotate (0, 0, barrelRotationSpeed * Time.deltaTime);
-		}
 		if (rotatingShooting) {
-			if (Time.time > shootTimer) {
-				for (int i = 0; i < barrelEnds.Length; i++) {
-					GameObject newProjectile = objectPool.GetPooledObjects();
-					newProjectile.SetActive (true);
-					newProjectile.GetComponent<SimpleMissile> ().Init (barrelEnds[i].position, barrelEnds[i].rotation, barrelEnds[i].transform.forward * projectileSpeed, ForceMode.Force);
-					shootTimer = Time.time + shootFrequency;
+			for (int i = 0; i < barrels.Length; i++) {
+				barrels [i].Rotate (0, 0, barrelRotationSpeed * Time.deltaTime);
+			}
+
+			if (currentShootCount < shootCount) {
+				if (Time.time > currentShootInterval) {
+					for (int i = 0; i < barrelEnds.Length; i++) {
+						GameObject newProjectile = objectPool.GetPooledObjects ();
+						newProjectile.SetActive (true);
+						newProjectile.GetComponent<SimpleMissile> ().Init (barrelEnds [i].position, barrelEnds [i].rotation, barrelEnds [i].transform.forward * projectileSpeed, ForceMode.Force);
+					}
+					currentShootInterval = Time.time + shootInterval;
+					currentShootCount++;
 				}
+			} else {
+				currentShootCount = 0;
+				pausing = true;
+				rotatingShooting = false;
+				StartCoroutine (WaitForShootPause ());
 			}
 		}
 	}
@@ -139,6 +140,11 @@ public class RotatingShootingEnemy : MonoBehaviour, Enemy {
 		gameObject.SetActive (false);
 	}
 
+	private IEnumerator WaitForShootPause() {
+		yield return new WaitForSeconds (shootPause);
+		pausing = false;
+	}
+
 	private void EvaluateActorState(Vector3 rawTargetPosition) {
 		switch (currentActorState) {
 		case ActorState.ACTOR_FOLLOW:
@@ -147,14 +153,6 @@ public class RotatingShootingEnemy : MonoBehaviour, Enemy {
 			break;
 		case ActorState.ACTOR_STOP:
 			agent.Stop ();
-			break;
-		case ActorState.ACTOR_AVOID:
-			transform.rotation = Quaternion.LookRotation (transform.position - rawTargetPosition);
-			Vector3 runTo = transform.position + transform.forward * 20f;
-			NavMeshHit hit;
-			NavMesh.SamplePosition (runTo, out hit, 5, 1 << NavMesh.GetAreaFromName ("Walkable"));
-			agent.SetDestination (hit.position);
-			agent.Resume ();
 			break;
 		}
 	}
@@ -170,7 +168,9 @@ public class RotatingShootingEnemy : MonoBehaviour, Enemy {
 			barrels [i].gameObject.SetActive (true);
 		}
 
-		shootTimer = Time.time + shootFrequency;
+		currentShootCount = 0;
+		pausing = false;
+		rotatingShooting = false;
 		currentHealth = maxHealth;
 	}
 }
