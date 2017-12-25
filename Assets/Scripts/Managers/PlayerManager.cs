@@ -10,7 +10,7 @@ public class PlayerManager : MonoBehaviour {
 	private GameObject player;
 
 	private void Awake() {
-		healthbar.UpdateUI (currentHealth);
+		healthbar.UpdateUI (currentHealth, 100);
 		player = GameObject.Find ("Player").gameObject;
 	}
 
@@ -20,6 +20,6 @@ public class PlayerManager : MonoBehaviour {
 
 	public void NotifyPlayerHealthUpdate(float health) {
 		currentHealth = health;
-		healthbar.UpdateUI (currentHealth);
+		healthbar.UpdateUI (currentHealth, 100);
 	}
 }

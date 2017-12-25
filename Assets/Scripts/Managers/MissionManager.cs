@@ -21,4 +21,12 @@ public class MissionManager : MonoBehaviour {
 	public float GetCurrentHeatFactor() {
 		return scoreManager.GetCurrentHeatFactor ();
 	}
+
+	public bool CanUseSpecialAbility() {
+		return scoreManager.CanUseSpecialAbility ();
+	}
+
+	public void NotifyUseSpecialAbility() {
+		scoreManager.NotifyUseSpecialAbility ();
+	}
 }

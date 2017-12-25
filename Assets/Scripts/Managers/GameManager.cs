@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour {
 
 	public int loadedLevel = 0;
 	public GameObject gameOverPanel, missionSuccessfulPanel;
-	public Animator ingameMenuAnimator, ingameCameraAnimator;
+	public Animator ingameCameraAnimator;
 
 	private char playerState = 'N';
 
@@ -40,7 +40,6 @@ public class GameManager : MonoBehaviour {
 	public void NotifyPlayerDestroyed() {
 		Time.timeScale = 0.2f;
 		Time.fixedDeltaTime = 0.2f * 0.02f;
-		ingameMenuAnimator.SetTrigger ("OnOutro");
 		ingameCameraAnimator.SetTrigger ("OnOutro");
 	}
 
@@ -54,6 +53,14 @@ public class GameManager : MonoBehaviour {
 
 	public float GetCurrentHeatFactor() {
 		return missionManager.GetCurrentHeatFactor ();
+	}
+
+	public bool CanUseSpecialAbility() {
+		return missionManager.CanUseSpecialAbility ();
+	}
+
+	public void NotifyUseSpecialAbility() {
+		missionManager.NotifyUseSpecialAbility ();
 	}
 
 	public void NotifyCameraOutroAnimationFinished() {

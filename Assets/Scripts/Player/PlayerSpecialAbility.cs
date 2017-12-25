@@ -7,6 +7,7 @@ public class PlayerSpecialAbility : MonoBehaviour {
 	public enum AbilityType {DODGE_JUMP, BULLET_STOP, SHIELD};
 	public AbilityType currentAbilityType;
 	public ParticleSystem jumpParticles;
+	public bool alwaysAbilityAvailable;
 
 	[Header("Dodge Jump Variables")]
 	public float upwardsThrust = 125000f;
@@ -51,9 +52,12 @@ public class PlayerSpecialAbility : MonoBehaviour {
 	}
 
 	private void DoDodgeJump() {
-		thisAnimator.SetTrigger ("OnDodgeJump");
-		jumpParticles.Play ();
-		StartCoroutine (DodgeJumpCoroutine());
+		if (gameManager.CanUseSpecialAbility () || alwaysAbilityAvailable) {
+			thisAnimator.SetTrigger ("OnDodgeJump");
+			jumpParticles.Play ();
+			StartCoroutine (DodgeJumpCoroutine());
+			gameManager.NotifyUseSpecialAbility ();
+		}
 	}
 
 	private void DoBulletStop() {

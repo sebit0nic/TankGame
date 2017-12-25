@@ -5,10 +5,13 @@ using UnityEngine.UI;
 
 public class Healthbar : MonoBehaviour {
 
-	public Text healthText;
+	private Image healthBar;
 
-	public void UpdateUI (float currentHealth) {
-		int healthRaw = Mathf.RoundToInt (currentHealth);
-		healthText.text = "" + healthRaw;
+	private void Awake() {
+		healthBar = GetComponent<Image> ();
+	}
+
+	public void UpdateUI (float currentHealth, float maxHealth) {
+		healthBar.fillAmount = currentHealth / maxHealth;
 	}
 }

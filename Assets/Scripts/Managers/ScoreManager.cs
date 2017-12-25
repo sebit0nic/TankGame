@@ -10,6 +10,7 @@ public class ScoreManager : MonoBehaviour {
 	public float heatDropFactor = 5;
 	public int currentScore = 0;
 	public float heatDropPauseTime = 1;
+	public float heatSections = 3; //How much of the heat meter needs to be filled to activate the ability (e.g. 3 = one third, 4 = one fourth, ...)
 
 	private float currentHeatFactor = 1;
 	private bool canDrop = true;
@@ -34,6 +35,17 @@ public class ScoreManager : MonoBehaviour {
 		if (damaged) {
 			currentHeatFactor = currentHeatFactor / 3;
 		}
+	}
+
+	public bool CanUseSpecialAbility() {
+		if (currentHeatFactor >= 100 / currentHeatFactor) {
+			return true;
+		}
+		return false;
+	}
+
+	public void NotifyUseSpecialAbility() {
+		currentHeatFactor -= 100 / heatSections;
 	}
 
 	private IEnumerator WaitForDropPause() {
