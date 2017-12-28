@@ -133,7 +133,6 @@ GameObject:
   - component: {fileID: 65071854636499086}
   - component: {fileID: 114680648050568104}
   - component: {fileID: 114602841988223254}
-  - component: {fileID: 23903519206924646}
   m_Layer: 10
   m_Name: Normal Shooting Enemy
   m_TagString: Enemy
@@ -467,37 +466,6 @@ MeshRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
---- !u!23 &23903519206924646
-MeshRenderer:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1499148620335188}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 0
-  m_ReflectionProbeUsage: 0
-  m_Materials:
-  - {fileID: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
 --- !u!33 &33093786001923676
 MeshFilter:
   m_ObjectHideFlags: 1
@@ -746,7 +714,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dedbbe867afec844bedc139ee40d19b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  barrel: {fileID: 4637435615677970}
+  barrel: {fileID: 1477440606506350}
+  body: {fileID: 1557123111095846}
   barrelEnd: {fileID: 4593977908989924}
   basePoints: 10
   maxHealth: 20
@@ -756,10 +725,12 @@ MonoBehaviour:
   - {fileID: 198783422475062422}
   - {fileID: 198403537383856966}
   - {fileID: 198165987798444142}
-  body: {fileID: 1557123111095846}
   trails:
   - {fileID: 96065133462068082}
   - {fileID: 96865773900652110}
+  normalMaterial: {fileID: 2100000, guid: 0a01303492064fa46bf119149799e0f9, type: 2}
+  hitMaterial: {fileID: 2100000, guid: 4b6d5c6c398ab25478660a7a25f2646a, type: 2}
+  hitMaterialWaitTime: 0.05
   projectile: {fileID: 54040912164438952, guid: b8f1fe6a37b9a274e94818fb3eb81a2d,
     type: 2}
   minShootDistance: 70

@@ -5,15 +5,17 @@ using UnityEngine.AI;
 
 public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 
-	public Transform barrel;
+	public GameObject barrel;
+	public GameObject body;
 	public Transform barrelEnd;
 	public int basePoints = 20;
 	public int maxHealth = 30;
 	public float minStopDistance = 15;
 	public float minMoveAwayDistance = 7;
 	public ParticleSystem[] thisParticleSystem;
-	public GameObject body;
 	public TrailRenderer[] trails;
+	public Material normalMaterial, hitMaterial;
+	public float hitMaterialWaitTime = 0.5f;
 
 	[Header("Shooting Properties")]
 	public Rigidbody projectile;
@@ -33,7 +35,7 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 	private IEnumerator particleCoroutine;
 	private Rigidbody thisRigidbody;
 	private Collider thisCollider;
-	private MeshRenderer thisRenderer;
+	private MeshRenderer barrelRenderer, bodyRenderer;
 
 	private enum ActorState {ACTOR_FOLLOW, ACTOR_STOP, ACTOR_AVOID};
 	private ActorState currentActorState = ActorState.ACTOR_FOLLOW;
@@ -44,7 +46,9 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 
 		thisRigidbody = GetComponent<Rigidbody> ();
 		thisCollider = GetComponent<Collider> ();
-		thisRenderer = GetComponent<MeshRenderer> ();
+
+		barrelRenderer = barrel.GetComponentInChildren<MeshRenderer> ();
+		bodyRenderer = body.GetComponent<MeshRenderer> ();
 
 		//Give the shootTimer some sort of randomness so that each enemy doesn't fire at
 		//the exact same time
@@ -109,23 +113,24 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 		EvaluateActorState (rawTargetPosition);
 
 		Vector3 enemyToTarget = rawTargetPosition - transform.position;
-		enemyToTarget.y = barrel.position.y;
+		enemyToTarget.y = barrel.transform.position.y;
 
 		Quaternion barrelRotation = Quaternion.LookRotation (enemyToTarget);
 		barrelRotation.x = 0;
 		barrelRotation.z = 0;
-		barrel.rotation = barrelRotation;
+		barrel.transform.rotation = barrelRotation;
 	}
 
 	public void HitByProjectile(int damage) {
 		currentHealth -= damage;
+		StartCoroutine (WaitForHitMaterial ());
+
 		if (currentHealth <= 0) {
 			GameManager.GetInstance ().NotifyEnemyDestroyed (basePoints);
 
 			particleCoroutine = WaitForParticleFinish (thisParticleSystem[0].main.duration);
 
 			this.enabled = false;
-			thisRenderer.enabled = false;
 			thisRigidbody.isKinematic = true;
 			thisCollider.enabled = false;
 			body.SetActive (false);
@@ -146,13 +151,20 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 			thisParticleSystem [i].Clear ();
 		}
 
-		thisRenderer.enabled = true;
 		thisRigidbody.isKinematic = false;
 		thisCollider.enabled = true;
 		this.enabled = true;
 		body.SetActive (true);
 		barrel.gameObject.SetActive (true);
 		gameObject.SetActive (false);
+	}
+
+	private IEnumerator WaitForHitMaterial() {
+		barrelRenderer.material = hitMaterial;
+		bodyRenderer.material = hitMaterial;
+		yield return new WaitForSeconds (hitMaterialWaitTime);
+		barrelRenderer.material = normalMaterial;
+		bodyRenderer.material = normalMaterial;
 	}
 
 	private void EvaluateActorState(Vector3 rawTargetPosition) {
@@ -183,5 +195,7 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 
 		shootTimer = Time.time + shootFrequency + randomShootDeviation;
 		currentHealth = maxHealth;
+		barrelRenderer.material = normalMaterial;
+		bodyRenderer.material = normalMaterial;
 	}
 }
