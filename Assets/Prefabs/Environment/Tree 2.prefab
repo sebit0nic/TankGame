@@ -59,7 +59,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1645231318389688
 GameObject:
   m_ObjectHideFlags: 1
@@ -87,7 +87,6 @@ GameObject:
   - component: {fileID: 4950636860054376}
   - component: {fileID: 54253726112979114}
   - component: {fileID: 136079885703968550}
-  - component: {fileID: 95000390230983426}
   - component: {fileID: 208903135304069498}
   m_Layer: 11
   m_Name: Tree 2
@@ -256,23 +255,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!95 &95000390230983426
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1881630674112716}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 377932601ab57cd44a016b1f43fc022a, type: 2}
-  m_CullingMode: 2
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!136 &136079885703968550
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -2945,8 +2927,8 @@ NavMeshObstacle:
   m_GameObject: {fileID: 1881630674112716}
   m_Enabled: 1
   serializedVersion: 3
-  m_Shape: 0
-  m_Extents: {x: 5, y: 1, z: 5}
+  m_Shape: 1
+  m_Extents: {x: 2.5, y: 0.5, z: 2.5}
   m_MoveThreshold: 0.1
   m_Carve: 1
   m_CarveOnlyStationary: 1

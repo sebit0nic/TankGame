@@ -81,15 +81,15 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 1.2
+    agentRadius: 1
     agentHeight: 2
-    agentSlope: 10
+    agentSlope: 0
     agentClimb: 0.4
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.4
+    cellSize: 0.33333334
     accuratePlacement: 0
   m_NavMeshData: {fileID: 23800000, guid: dfa03b8905f47ed49acf5ddb6b6629d1, type: 2}
 --- !u!1 &63535230
@@ -6377,6 +6377,14 @@ MonoBehaviour:
   tree2: {fileID: 1881630674112716, guid: 1b1cb5df2362ea44092dcf27a7cc1ab2, type: 2}
   tree3: {fileID: 1655174020409490, guid: fd57dc4503d9cff47b5ce82cccbf7caf, type: 2}
   grass1: {fileID: 1244883865795816, guid: aab5e7979232b154a9ef6ba3a4b48d0b, type: 2}
+  tree1MinPerl: 0.1
+  tree1MaxPerl: 0.2
+  tree2MinPerl: 0.2
+  tree2MaxPerl: 0.3
+  tree3MinPerl: 0.3
+  tree3MaxPerl: 0.4
+  minSpawnSafezone: {x: -15, y: 0, z: -15}
+  maxSpawnSafezone: {x: 15, y: 0, z: 15}
 --- !u!1 &2069063534
 GameObject:
   m_ObjectHideFlags: 0

@@ -36,14 +36,19 @@ public class PlayerMovement : MonoBehaviour {
 
 	private void FixedUpdate() {
 		if (!usesAbility) {
-			float vertical = Input.GetAxis ("Vertical");
-			float horizontal = Input.GetAxis ("Horizontal");
+			float vertical = Input.GetAxisRaw ("Vertical");
+			float horizontal = Input.GetAxisRaw ("Horizontal");
 			Vector3 moveDirection = new Vector3 (horizontal, 0, vertical);
+			bool stopped = false;
 
-			thisRigidbody.MovePosition (thisRigidbody.position + moveDirection * movementSpeed * Time.deltaTime);
-			if (moveDirection != Vector3.zero) {
+			if (vertical == 0 && horizontal == 0) {
+				stopped = true;
+			}
+
+			if (!stopped) {
 				Quaternion newRotation = Quaternion.LookRotation (moveDirection);
-				body.rotation = Quaternion.Slerp (body.rotation, newRotation, Time.deltaTime * rotationSpeed);
+				body.rotation = Quaternion.Slerp (body.rotation, newRotation, rotationSpeed * Time.fixedDeltaTime);
+				thisRigidbody.MovePosition (thisRigidbody.position + body.forward * movementSpeed * Time.fixedDeltaTime);
 			}
 		}
 	}
