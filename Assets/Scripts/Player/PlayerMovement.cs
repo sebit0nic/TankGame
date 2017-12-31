@@ -25,10 +25,6 @@ public class PlayerMovement : MonoBehaviour {
 	}
 
 	private void Update() {
-		if (Input.GetKey (KeyCode.Mouse0)) {
-			playerShootingScript.Shoot ();
-		}
-
 		if (!usesAbility) {
 			Turn ();
 		}

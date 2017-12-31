@@ -9,45 +9,46 @@ public class BombShotPlayer : MonoBehaviour, PlayerWeapon {
 
 	private ObjectPool projectilePool;
 	private Vector3 balisticVelocity;
+	private float shootForce = 10f, maxShootForce = 6000f, shootRamp = 6000f;
+	private bool charging = false, bombOut = false;
+	private GameObject newProjectile;
 
 	public void Init() {
 		projectilePool = GetComponent<ObjectPool> ();
 	}
 
-	public void Shoot(Transform barrelEnd) {
-		GameObject newProjectile = projectilePool.GetPooledObjects ();
-		newProjectile.SetActive (true);
-		newProjectile.GetComponent<BombShot> ().Init (barrelEnd.position, balisticVelocity);
+	public void Shoot(char mouseEvent, Transform barrelEnd) {
+		if (mouseEvent.Equals ('D')) {
+			if (bombOut) {
+				newProjectile.GetComponent<BombShot> ().Explode ();
+				bombOut = false;
+			} else {
+				charging = true;
+			}
+		}
+
+		if (mouseEvent.Equals ('U') && charging) {
+			charging = false;
+			newProjectile = projectilePool.GetPooledObjects ();
+			newProjectile.SetActive (true);
+			newProjectile.transform.rotation = barrelEnd.rotation;
+			newProjectile.GetComponent<BombShot> ().Init (barrelEnd, shootForce);
+			shootForce = 10f;
+			bombOut = true;
+		}
 	}
 
 	public void UpdateTargetingLine(Transform barrelEnd, LineRenderer thisLineRenderer, RaycastHit obscuranceHit, RaycastHit floorHit) {
-		CalculateBallisticVelocity (floorHit, barrelEnd, thisLineRenderer);
-	}
+		if (charging) {
+			shootForce += Time.deltaTime * shootRamp;
+			shootForce = Mathf.Clamp (shootForce, 10f, maxShootForce); 
+			thisLineRenderer.SetPosition (0, new Vector3 (barrelEnd.position.x, barrelEnd.position.y, barrelEnd.position.z));
+			thisLineRenderer.SetPosition (1, new Vector3 (floorHit.point.x, barrelEnd.position.y, floorHit.point.z));
 
-	private void CalculateBallisticVelocity(RaycastHit floorHit, Transform barrelEnd, LineRenderer thisLineRenderer) {
-		Vector3 dir = floorHit.point - barrelEnd.position;
-		dir.y = 0;
-		float dist = dir.magnitude;
-		float a = 30 * Mathf.Deg2Rad;
-		dir.y = dist * Mathf.Tan (a);
-		float vel = Mathf.Sqrt (dist * Physics.gravity.magnitude / Mathf.Sin (2 * a));
-		balisticVelocity = vel * dir.normalized;
-		UpdateTrajectory (barrelEnd.position, balisticVelocity, Physics.gravity, thisLineRenderer);
-	}
-
-	private void UpdateTrajectory (Vector3 initialPosition, Vector3 initialVelocity, Vector3 gravity, LineRenderer thisLineRenderer) {
-		int numSteps = 100; // for example
-		float timeDelta = 1.0f / initialVelocity.magnitude; // for example
-
-		thisLineRenderer.numPositions = numSteps;
-
-		Vector3 position = initialPosition;
-		Vector3 velocity = initialVelocity;
-		for (int i = 0; i < numSteps; ++i) {
-			thisLineRenderer.SetPosition(i, position);
-
-			position += velocity * timeDelta + 0.5f * gravity * timeDelta * timeDelta;
-			velocity += gravity * timeDelta;
+		} else {
+			thisLineRenderer.SetPosition (0, new Vector3 (barrelEnd.position.x, barrelEnd.position.y, barrelEnd.position.z));
+			thisLineRenderer.SetPosition (1, new Vector3 (floorHit.point.x, barrelEnd.position.y, floorHit.point.z));
+			thisLineRenderer.startColor = new Color (1, 1, 1, 0.35f);
 		}
 	}
 

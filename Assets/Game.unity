@@ -6680,7 +6680,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 0}
   m_Parameters:
     serializedVersion: 2
-    widthMultiplier: 0.3
+    widthMultiplier: 0.2
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -6690,9 +6690,15 @@ LineRenderer:
         inSlope: 0
         outSlope: 0
         tangentMode: 0
+      - serializedVersion: 2
+        time: 1
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
-      m_RotationOrder: 4
+      m_RotationOrder: 0
     colorGradient:
       key0:
         serializedVersion: 2
@@ -6740,7 +6746,7 @@ LineRenderer:
     numCornerVertices: 0
     numCapVertices: 0
     alignment: 0
-    textureMode: 0
+    textureMode: 1
   m_UseWorldSpace: 1
 --- !u!114 &2069063540
 MonoBehaviour:
@@ -6796,11 +6802,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   barrelEnd: {fileID: 1305474870}
   projectileSpeed: 3000
-  currentWeaponType: 0
+  currentWeaponType: 1
   playerWeapons:
   - {fileID: 1212106838}
   - {fileID: 862471658}
-  cooldown: {fileID: 252833973}
 --- !u!114 &2069063543
 MonoBehaviour:
   m_ObjectHideFlags: 0

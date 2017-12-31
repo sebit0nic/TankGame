@@ -5,7 +5,8 @@ using UnityEngine;
 public interface PlayerWeapon {
 
 	void Init();
-	void Shoot(Transform barrelEnd);
+	//mouseEvent = D: mouseDown, H: mouseHold, U: mouseUp
+	void Shoot(char mouseEvent, Transform barrelEnd);
 	void UpdateTargetingLine(Transform barrelEnd, LineRenderer thisLineRenderer, RaycastHit obscuranceHit, RaycastHit floorHit);
 	float GetWeaponCooldown();
 }

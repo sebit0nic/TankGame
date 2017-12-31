@@ -11,7 +11,6 @@ public class PlayerShootingScript : MonoBehaviour {
 	public enum WeaponType {NORMAL_MISSILE, BOMB_SHOT};
 	public WeaponType currentWeaponType;
 	public GameObject[] playerWeapons;
-	public Image cooldown;
 
 	private LineRenderer thisLineRenderer;
 	private PlayerWeapon currentPlayerWeapon;
@@ -24,12 +23,10 @@ public class PlayerShootingScript : MonoBehaviour {
 
 		switch (currentWeaponType) {
 		case WeaponType.NORMAL_MISSILE:
-			thisLineRenderer.numPositions = 2;
 			playerWeapons [0].SetActive (true);
 			currentPlayerWeapon = playerWeapons [0].GetComponent<PlayerWeapon> ();
 			break;
 		case WeaponType.BOMB_SHOT:
-			thisLineRenderer.numPositions = 20;
 			playerWeapons [1].SetActive (true);
 			currentPlayerWeapon = playerWeapons [1].GetComponent<PlayerWeapon> ();
 			break;
@@ -40,14 +37,20 @@ public class PlayerShootingScript : MonoBehaviour {
 	}
 
 	private void Update() {
-		float fillAmount = (shootTimer - Time.time) / weaponCooldown;
-		cooldown.fillAmount = fillAmount;
-	}
+		if (this.enabled && canShoot) {
+			if (Input.GetKeyDown (KeyCode.Mouse0)) {
+				currentPlayerWeapon.Shoot ('D', barrelEnd);
+				shootTimer = Time.time + weaponCooldown;
+			}
 
-	public void Shoot() {
-		if (shootTimer < Time.time && this.enabled && canShoot) {
-			currentPlayerWeapon.Shoot (barrelEnd);
-			shootTimer = Time.time + weaponCooldown;
+			if (Input.GetKey (KeyCode.Mouse0)) {
+				currentPlayerWeapon.Shoot ('H', barrelEnd);
+				shootTimer = Time.time + weaponCooldown;
+			}
+
+			if (Input.GetKeyUp (KeyCode.Mouse0)) {
+				currentPlayerWeapon.Shoot ('U', barrelEnd);
+			}
 		}
 	}
 
