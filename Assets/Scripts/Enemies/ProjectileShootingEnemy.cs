@@ -79,7 +79,7 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 			if (shootTimer < Time.time && playerInSight) {
 				GameObject newProjectile = objectPool.GetPooledObjects();
 				newProjectile.SetActive (true);
-				newProjectile.GetComponent<SimpleMissile> ().Init (barrelEnd.position, barrelEnd.rotation, barrelEnd.transform.forward * projectileSpeed, ForceMode.Force);
+				newProjectile.GetComponent<NormalMissileCollision> ().Init (barrelEnd.position, barrelEnd.rotation, barrelEnd.transform.forward * projectileSpeed, ForceMode.Force);
 				shootTimer = Time.time + shootFrequency + randomShootDeviation;
 			}
 		}

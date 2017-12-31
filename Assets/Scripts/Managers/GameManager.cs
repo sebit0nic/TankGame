@@ -9,16 +9,20 @@ public class GameManager : MonoBehaviour {
 	public static GameManager INSTANCE;
 
 	public MapManager mapManager;
-	public MissionManager missionManager;
+	public EnemyManager enemyManager;
+	public ScoreManager scoreManager;
+	public PlayerManager playerManager;
+	public GameObject gameOverPanel;
 
-	public int loadedLevel = 0;
-	public GameObject gameOverPanel, missionSuccessfulPanel;
-	public Animator ingameCameraAnimator;
-
+	private Animator ingameCameraAnimator;
 	private char playerState = 'N';
 
 	private void Awake() {
 		INSTANCE = this;
+	}
+
+	private void Start() {
+		ingameCameraAnimator = Camera.main.GetComponent<Animator> ();
 	}
 
 	public static GameManager GetInstance() {
@@ -30,11 +34,13 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void NotifyEnemyDestroyed(int points) {
-		missionManager.NotifyEnemyDestroyed (points, loadedLevel);
+		scoreManager.NotifyEnemyDestroyed (points);
+		enemyManager.NotifyEnemyDestroyed ();
 	}
 
 	public void NotifyPlayerHealthUpdate(float health, bool damaged) {
-		missionManager.NotifyPlayerHealthUpdate (health, damaged);
+		playerManager.NotifyPlayerHealthUpdate (health);
+		scoreManager.NotifyPlayerHealthUpdate (damaged);
 	}
 
 	public void NotifyPlayerDestroyed() {
@@ -52,15 +58,15 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public float GetCurrentHeatFactor() {
-		return missionManager.GetCurrentHeatFactor ();
+		return scoreManager.GetCurrentHeatFactor ();
 	}
 
 	public bool CanUseSpecialAbility() {
-		return missionManager.CanUseSpecialAbility ();
+		return scoreManager.CanUseSpecialAbility ();
 	}
 
 	public void NotifyUseSpecialAbility() {
-		missionManager.NotifyUseSpecialAbility ();
+		scoreManager.NotifyUseSpecialAbility ();
 	}
 
 	public void NotifyCameraOutroAnimationFinished() {

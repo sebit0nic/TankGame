@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SimpleMissile : MonoBehaviour {
+public class NormalMissileCollision : MonoBehaviour {
 
 	public bool playerFired = true;
 	public int damage;

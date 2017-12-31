@@ -7,11 +7,12 @@ public class ObjectPool : MonoBehaviour {
 	public static ObjectPool sharedInstance;
 
 	public GameObject objectToPool;
+	public int amountToPool;
 
 	[Header("Multiple Objects in pool")]
 	public bool multiplePools;
 	public GameObject[] objectsToPool;
-	public int amountToPool;
+
 
 	private List<GameObject> pooledObjects;
 	private List<KeyValuePair<int, GameObject>> multiplePooledObjects;
@@ -19,11 +20,6 @@ public class ObjectPool : MonoBehaviour {
 
 	private void Awake() {
 		sharedInstance = this;
-	}
-
-	//Only used for player projectile at runtime
-	public void Init(GameObject template) {
-		objectToPool = template;
 	}
 
 	private void Start() {

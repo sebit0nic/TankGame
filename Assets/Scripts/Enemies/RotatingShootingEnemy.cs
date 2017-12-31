@@ -90,7 +90,7 @@ public class RotatingShootingEnemy : MonoBehaviour, Enemy {
 					for (int i = 0; i < barrelEnds.Length; i++) {
 						GameObject newProjectile = objectPool.GetPooledObjects ();
 						newProjectile.SetActive (true);
-						newProjectile.GetComponent<SimpleMissile> ().Init (barrelEnds [i].position, barrelEnds [i].rotation, barrelEnds [i].transform.forward * projectileSpeed, ForceMode.Force);
+						newProjectile.GetComponent<NormalMissileCollision> ().Init (barrelEnds [i].position, barrelEnds [i].rotation, barrelEnds [i].transform.forward * projectileSpeed, ForceMode.Force);
 					}
 					currentShootInterval = Time.time + shootInterval;
 					currentShootCount++;

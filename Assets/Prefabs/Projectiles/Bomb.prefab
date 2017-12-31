@@ -305,6 +305,7 @@ MonoBehaviour:
   expansionSpeed: 5
   fireballLength: 0.05
   hurtsPlayer: 0
+  damage: 20
 --- !u!114 &114733754931563538
 MonoBehaviour:
   m_ObjectHideFlags: 1
