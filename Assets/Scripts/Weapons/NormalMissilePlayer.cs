@@ -6,6 +6,7 @@ public class NormalMissilePlayer : MonoBehaviour, PlayerWeapon {
 
 	public float projectileSpeed = 500f;
 	public float weaponCooldown = 1f;
+	public LineRenderer thisLineRenderer;
 
 	private ObjectPool projectilePool;
 	private float shootTimer;
@@ -25,7 +26,7 @@ public class NormalMissilePlayer : MonoBehaviour, PlayerWeapon {
 		}
 	}
 
-	public void UpdateTargetingLine(Transform barrelEnd, LineRenderer thisLineRenderer, RaycastHit obscuranceHit, RaycastHit floorHit) {
+	public void UpdateTargetingLine(Transform barrelEnd, RaycastHit obscuranceHit, RaycastHit floorHit) {
 		thisLineRenderer.SetPosition (0, new Vector3 (barrelEnd.position.x, barrelEnd.position.y, barrelEnd.position.z));
 		thisLineRenderer.SetPosition (1, new Vector3 (obscuranceHit.point.x, barrelEnd.position.y, obscuranceHit.point.z));
 	}

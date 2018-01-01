@@ -6,6 +6,8 @@ public class BombShotPlayer : MonoBehaviour, PlayerWeapon {
 
 	public float projectileSpeed = 500f;
 	public float weaponCooldown = 1f;
+	public ParticleSystem thisParticleSystem;
+	public Animator targetingAnimator;
 
 	private ObjectPool projectilePool;
 	private Vector3 balisticVelocity;
@@ -22,8 +24,13 @@ public class BombShotPlayer : MonoBehaviour, PlayerWeapon {
 			if (bombOut) {
 				newProjectile.GetComponent<BombShot> ().Explode ();
 				bombOut = false;
+				thisParticleSystem.Play ();
 			} else {
 				charging = true;
+				thisParticleSystem.Stop ();
+				thisParticleSystem.Clear ();
+				thisParticleSystem.Play ();
+				targetingAnimator.SetTrigger ("OnExtend");
 			}
 		}
 
@@ -35,20 +42,16 @@ public class BombShotPlayer : MonoBehaviour, PlayerWeapon {
 			newProjectile.GetComponent<BombShot> ().Init (barrelEnd, shootForce);
 			shootForce = 10f;
 			bombOut = true;
+			targetingAnimator.SetTrigger ("OnIdle");
+			thisParticleSystem.Clear ();
+			thisParticleSystem.Stop ();
 		}
 	}
 
-	public void UpdateTargetingLine(Transform barrelEnd, LineRenderer thisLineRenderer, RaycastHit obscuranceHit, RaycastHit floorHit) {
+	public void UpdateTargetingLine(Transform barrelEnd, RaycastHit obscuranceHit, RaycastHit floorHit) {
 		if (charging) {
 			shootForce += Time.deltaTime * shootRamp;
-			shootForce = Mathf.Clamp (shootForce, 10f, maxShootForce); 
-			thisLineRenderer.SetPosition (0, new Vector3 (barrelEnd.position.x, barrelEnd.position.y, barrelEnd.position.z));
-			thisLineRenderer.SetPosition (1, new Vector3 (floorHit.point.x, barrelEnd.position.y, floorHit.point.z));
-
-		} else {
-			thisLineRenderer.SetPosition (0, new Vector3 (barrelEnd.position.x, barrelEnd.position.y, barrelEnd.position.z));
-			thisLineRenderer.SetPosition (1, new Vector3 (floorHit.point.x, barrelEnd.position.y, floorHit.point.z));
-			thisLineRenderer.startColor = new Color (1, 1, 1, 0.35f);
+			shootForce = Mathf.Clamp (shootForce, 10f, maxShootForce);
 		}
 	}
 

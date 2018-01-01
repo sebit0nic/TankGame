@@ -12,15 +12,12 @@ public class PlayerShootingScript : MonoBehaviour {
 	public WeaponType currentWeaponType;
 	public GameObject[] playerWeapons;
 
-	private LineRenderer thisLineRenderer;
 	private PlayerWeapon currentPlayerWeapon;
 	private float weaponCooldown;
 	private float shootTimer;
 	private bool canShoot = true;
 
 	private void Awake() {
-		thisLineRenderer = GetComponent<LineRenderer> ();
-
 		switch (currentWeaponType) {
 		case WeaponType.NORMAL_MISSILE:
 			playerWeapons [0].SetActive (true);
@@ -56,16 +53,16 @@ public class PlayerShootingScript : MonoBehaviour {
 
 	public void UpdateTargetingLine(RaycastHit floorHit, RaycastHit obscuranceHit) {
 		if (this.enabled) {
-			currentPlayerWeapon.UpdateTargetingLine (barrelEnd, thisLineRenderer, obscuranceHit, floorHit);
+			currentPlayerWeapon.UpdateTargetingLine (barrelEnd, obscuranceHit, floorHit);
 		}
 	}
 
 	public void SetCanShoot (bool newValue) {
 		canShoot = newValue;
 		if (canShoot) {
-			thisLineRenderer.enabled = true;
+			//thisLineRenderer.enabled = true;
 		} else {
-			thisLineRenderer.enabled = false;
+			//thisLineRenderer.enabled = false;
 		}
 	}
 }

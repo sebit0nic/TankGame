@@ -36,7 +36,6 @@ public class PlayerSpecialAbility : MonoBehaviour {
 
 	private void Update () {
 		if (Input.GetKeyDown (KeyCode.Mouse1) && !usesAbility) {
-			usesAbility = true;
 			switch (currentAbilityType) {
 			case AbilityType.DODGE_JUMP:
 				DoDodgeJump ();
@@ -53,6 +52,7 @@ public class PlayerSpecialAbility : MonoBehaviour {
 
 	private void DoDodgeJump() {
 		if (gameManager.CanUseSpecialAbility () || alwaysAbilityAvailable) {
+			usesAbility = true;
 			thisAnimator.SetTrigger ("OnDodgeJump");
 			jumpParticles.Play ();
 			StartCoroutine (DodgeJumpCoroutine());
