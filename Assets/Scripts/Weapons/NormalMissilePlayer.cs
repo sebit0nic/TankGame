@@ -30,8 +30,4 @@ public class NormalMissilePlayer : MonoBehaviour, PlayerWeapon {
 		thisLineRenderer.SetPosition (0, new Vector3 (barrelEnd.position.x, barrelEnd.position.y, barrelEnd.position.z));
 		thisLineRenderer.SetPosition (1, new Vector3 (obscuranceHit.point.x, barrelEnd.position.y, obscuranceHit.point.z));
 	}
-
-	public float GetWeaponCooldown() {
-		return weaponCooldown;
-	}
 }

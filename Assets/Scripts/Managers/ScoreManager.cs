@@ -38,7 +38,6 @@ public class ScoreManager : MonoBehaviour {
 	}
 
 	public bool CanUseSpecialAbility() {
-		Debug.Log ("CurrenHeatFactor: " + currentHeatFactor + ", CompareValue: " + 100 / heatSections);
 		if (currentHeatFactor >= 100 / heatSections) {
 			return true;
 		}

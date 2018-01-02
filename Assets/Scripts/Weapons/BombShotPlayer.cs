@@ -54,8 +54,4 @@ public class BombShotPlayer : MonoBehaviour, PlayerWeapon {
 			shootForce = Mathf.Clamp (shootForce, 10f, maxShootForce);
 		}
 	}
-
-	public float GetWeaponCooldown() {
-		return weaponCooldown;
-	}
 }
