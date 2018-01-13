@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: adaf2beb6e74e534f8e1ba6fe4348b27
-timeCreated: 1507418709
+guid: 6474ca35eebf5f24db7e79c16a772815
+timeCreated: 1515157755
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Cylinder
+    4300000: Bomb
   materials:
     importMaterials: 0
     materialName: 0
@@ -39,7 +39,7 @@ ModelImporter:
     addColliders: 0
     importBlendShapes: 1
     swapUVChannels: 0
-    generateSecondaryUV: 1
+    generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0

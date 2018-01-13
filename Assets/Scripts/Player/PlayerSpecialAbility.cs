@@ -19,8 +19,8 @@ public class PlayerSpecialAbility : MonoBehaviour {
 	private Rigidbody thisRigidbody;
 	private Animator thisAnimator;
 	private PlayerMovement playerMovement;
-	private PlayerHealth playerHealth;
 	private PlayerShootingScript playerShootingScript;
+	private BoxCollider playerBoxCollider;
 	private GameManager gameManager;
 
 	private bool usesAbility = false;
@@ -29,9 +29,9 @@ public class PlayerSpecialAbility : MonoBehaviour {
 		thisRigidbody = GetComponent<Rigidbody> ();
 		thisAnimator = GetComponentInParent<Animator> ();
 		playerMovement = GetComponent<PlayerMovement> ();
-		playerHealth = GetComponent<PlayerHealth> ();
 		playerShootingScript = GetComponent<PlayerShootingScript> ();
-		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager> ();
+		playerBoxCollider = GetComponent<BoxCollider> ();
+		gameManager = GameManager.GetInstance ();
 	}
 
 	private void Update () {
@@ -70,7 +70,7 @@ public class PlayerSpecialAbility : MonoBehaviour {
 
 	private IEnumerator DodgeJumpCoroutine() {
 		playerMovement.SetUsesAbility (true);
-		playerHealth.SetInvincible (true);
+		playerBoxCollider.enabled = false;
 		playerShootingScript.SetCanShoot (false);
 		gameManager.NotifyPlayerStateChanged ('A');
 		thisRigidbody.AddForce (new Vector3(Input.GetAxis("Horizontal") * sidewaysThrust, upwardsThrust, Input.GetAxis("Vertical") * sidewaysThrust), ForceMode.Impulse);
@@ -81,7 +81,7 @@ public class PlayerSpecialAbility : MonoBehaviour {
 
 		yield return new WaitForSeconds (fallTime);
 
-		playerHealth.SetInvincible (false);
+		playerBoxCollider.enabled = true;
 		playerMovement.SetUsesAbility (false);
 		usesAbility = false;
 		gameManager.NotifyPlayerStateChanged ('N');

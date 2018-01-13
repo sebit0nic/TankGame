@@ -12,7 +12,7 @@ public class BombShotPlayer : MonoBehaviour, PlayerWeapon {
 	private ObjectPool projectilePool;
 	private Vector3 balisticVelocity;
 	private float shootForce = 10f, maxShootForce = 6000f, shootRamp = 6000f;
-	private bool charging = false, bombOut = false;
+	private bool charging = false, bombOut = false, stopped = false;
 	private GameObject newProjectile;
 
 	public void Init() {
@@ -20,11 +20,12 @@ public class BombShotPlayer : MonoBehaviour, PlayerWeapon {
 	}
 
 	public void Shoot(char mouseEvent, Transform barrelEnd) {
-		if (mouseEvent.Equals ('D')) {
+		if (mouseEvent.Equals ('D') && !stopped) {
 			if (bombOut) {
 				newProjectile.GetComponent<BombShot> ().Explode ();
 				bombOut = false;
 				thisParticleSystem.Play ();
+				StartCoroutine (WaitForWeaponCooldown ());
 			} else {
 				charging = true;
 				thisParticleSystem.Stop ();
@@ -53,5 +54,11 @@ public class BombShotPlayer : MonoBehaviour, PlayerWeapon {
 			shootForce += Time.deltaTime * shootRamp;
 			shootForce = Mathf.Clamp (shootForce, 10f, maxShootForce);
 		}
+	}
+
+	private IEnumerator WaitForWeaponCooldown() {
+		stopped = true;
+		yield return new WaitForSeconds (weaponCooldown);
+		stopped = false;
 	}
 }
