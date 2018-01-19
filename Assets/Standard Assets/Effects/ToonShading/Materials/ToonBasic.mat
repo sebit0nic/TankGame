@@ -93,7 +93,7 @@ Material:
       second: 1
     - first:
         name: _Glossiness
-      second: 0.5
+      second: 0
     - first:
         name: _GlossyReflections
       second: 1
@@ -108,7 +108,7 @@ Material:
       second: 1
     - first:
         name: _Outline
-      second: 0.007018868
+      second: 0.002
     - first:
         name: _Parallax
       second: 0.02
@@ -133,7 +133,7 @@ Material:
     m_Colors:
     - first:
         name: _Color
-      second: {r: 0.42352942, g: 0.6627451, b: 0.3647059, a: 1}
+      second: {r: 1, g: 1, b: 1, a: 1}
     - first:
         name: _Emission
       second: {r: 0, g: 0, b: 0, a: 0}
