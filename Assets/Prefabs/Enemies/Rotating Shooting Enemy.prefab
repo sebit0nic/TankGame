@@ -950,9 +950,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectToPool: {fileID: 1654467384896416, guid: b8f1fe6a37b9a274e94818fb3eb81a2d,
     type: 2}
+  amountToPool: 10
   multiplePools: 0
   objectsToPool: []
-  amountToPool: 10
 --- !u!114 &114935748484068602
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1010,7 +1010,7 @@ NavMeshAgent:
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
-  m_AutoRepath: 1
+  m_AutoRepath: 0
   m_Height: 1
   m_BaseOffset: -0.25
   m_WalkableMask: 4294967295
