@@ -35,20 +35,26 @@ public class EnemySpawnManager : MonoBehaviour {
 	}
 
 	private void Spawn(SpawnLevel.EnemyTypes enemyType) {
-		currentConcurrentEnemies++;
-		int randomSpawner = Random.Range (0, spawners.Length);
-		spawners [randomSpawner].Spawn (enemyType);
+		bool spawned = false;
+		while (!spawned) {
+			int randomSpawner = Random.Range (0, spawners.Length);
+			spawned = spawners [randomSpawner].Spawn (enemyType);
+		}
 
+		currentConcurrentEnemies++;
 		if (currentConcurrentEnemies >= concurrentAllowedEnemies) {
 			canSpawn = false;
 		}
 	}
 
 	private void Spawn(int index) {
-		currentConcurrentEnemies++;
-		int randomSpawner = Random.Range (0, spawners.Length);
-		spawners [randomSpawner].Spawn (index);
+		bool spawned = false;
+		while (!spawned) {
+			int randomSpawner = Random.Range (0, spawners.Length);
+			spawned = spawners [randomSpawner].Spawn (index);
+		}
 
+		currentConcurrentEnemies++;
 		if (currentConcurrentEnemies >= concurrentAllowedEnemies) {
 			canSpawn = false;
 		}
