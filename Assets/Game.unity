@@ -172,7 +172,7 @@ LineRenderer:
         rgba: 553648127
       key2:
         serializedVersion: 2
-        rgba: 16777215
+        rgba: 0
       key3:
         serializedVersion: 2
         rgba: 0
@@ -198,7 +198,7 @@ LineRenderer:
       ctime7: 0
       atime0: 0
       atime1: 65535
-      atime2: 0
+      atime2: 65535
       atime3: 0
       atime4: 0
       atime5: 0
@@ -1171,6 +1171,7 @@ Transform:
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 31833802}
+  - {fileID: 1992767492}
   m_Father: {fileID: 1782134790}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5214,7 +5215,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &986698260
 Transform:
   m_ObjectHideFlags: 0
@@ -6944,7 +6945,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1782134789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6956,15 +6957,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4de5139bec56254397e8bb923b1472a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 25
+  range: 200
   minTargetOpen: 1
   maxTargetOpen: 60
+  minTargetOpenChargedShot: 5
+  shotTime: 0.1
   targetOpenCloseSpeed: 120
   expansionOffset: 20
   expansionSpeed: 250
   waitCloseTimeout: 0.6
   waitOpenTimeout: 0.25
   thisLineRenderer: {fileID: 31833801}
+  chargedShotLineRenderer: {fileID: 1992767493}
   head: {fileID: 1558820790}
+  normalShotColor: {r: 1, g: 1, b: 1, a: 0.20392157}
+  chargedShotColor: {r: 1, g: 0, b: 0, a: 0.20392157}
 --- !u!4 &1782134790
 Transform:
   m_ObjectHideFlags: 0
@@ -7590,6 +7598,133 @@ Transform:
   m_PrefabParentObject: {fileID: 4997941192961754, guid: e357f901417924a4daa61f25336a0d23,
     type: 2}
   m_PrefabInternal: {fileID: 1291154475}
+--- !u!1 &1992767491
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1992767492}
+  - component: {fileID: 1992767493}
+  m_Layer: 9
+  m_Name: Charged Shot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1992767492
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1992767491}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 30}
+  m_LocalScale: {x: 0.25, y: 30, z: 0.25}
+  m_Children: []
+  m_Father: {fileID: 415998457}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!120 &1992767493
+LineRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1992767491}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_MotionVectors: 0
+  m_LightProbeUsage: 0
+  m_ReflectionProbeUsage: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 4b6d5c6c398ab25478660a7a25f2646a, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_Positions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 100}
+  m_Parameters:
+    serializedVersion: 2
+    widthMultiplier: 0.75
+    widthCurve:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 2
+        time: 0
+        value: 1
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    colorGradient:
+      key0:
+        serializedVersion: 2
+        rgba: 4284999653
+      key1:
+        serializedVersion: 2
+        rgba: 3481305216
+      key2:
+        serializedVersion: 2
+        rgba: 0
+      key3:
+        serializedVersion: 2
+        rgba: 0
+      key4:
+        serializedVersion: 2
+        rgba: 0
+      key5:
+        serializedVersion: 2
+        rgba: 0
+      key6:
+        serializedVersion: 2
+        rgba: 0
+      key7:
+        serializedVersion: 2
+        rgba: 0
+      ctime0: 0
+      ctime1: 32768
+      ctime2: 65535
+      ctime3: 0
+      ctime4: 0
+      ctime5: 0
+      ctime6: 0
+      ctime7: 0
+      atime0: 0
+      atime1: 32768
+      atime2: 65535
+      atime3: 0
+      atime4: 0
+      atime5: 0
+      atime6: 0
+      atime7: 0
+      m_Mode: 0
+      m_NumColorKeys: 3
+      m_NumAlphaKeys: 3
+    numCornerVertices: 0
+    numCapVertices: 0
+    alignment: 0
+    textureMode: 0
+  m_UseWorldSpace: 1
 --- !u!1001 &2005703817
 Prefab:
   m_ObjectHideFlags: 0
@@ -7985,7 +8120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d889bbb2e179d741828e78a9978d699, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 50
+  movementSpeed: 15
   rotationSpeed: 5
   body: {fileID: 320908009}
   barrel: {fileID: 1558820790}
@@ -8147,7 +8282,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   barrelEnd: {fileID: 1305474870}
-  currentWeaponType: 1
+  currentWeaponType: 2
   playerWeapons:
   - {fileID: 1212106838}
   - {fileID: 862471658}
