@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: e7744803ec0e3a14d813158be6996c47
-timeCreated: 1516480795
+guid: ec78b5389ff20154c96dfa41ab7a0d27
+timeCreated: 1517606567
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -9,7 +9,7 @@ ModelImporter:
     400000: //RootNode
     2300000: //RootNode
     3300000: //RootNode
-    4300000: Plane
+    4300000: Target Triangle
   materials:
     importMaterials: 0
     materialName: 0
@@ -34,7 +34,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 13000
+    globalScale: 100
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
