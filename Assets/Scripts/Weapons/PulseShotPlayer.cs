@@ -54,7 +54,6 @@ public class PulseShotPlayer : MonoBehaviour, PlayerWeapon {
 	}
 
 	private IEnumerator OpenShotEffect() {
-		//shotParticle.Clear ();
 		shotParticle.Play ();
 		targetingTriangle.GetComponent<MeshCollider> ().enabled = true;
 		yield return new WaitForSeconds (shotParticle.main.duration);
