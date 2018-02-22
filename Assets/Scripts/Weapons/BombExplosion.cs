@@ -44,7 +44,7 @@ public class BombExplosion : MonoBehaviour {
 			other.GetComponent<Enemy> ().HitByProjectile (damage);
 		}
 		if (other.gameObject.tag.Equals ("Player") && hurtsPlayer) {
-			other.GetComponent<PlayerHealth> ().DecreaseCurrentHealth (1);
+			other.GetComponent<PlayerHealth> ().DecreaseCurrentHealth (damage);
 		}
 	}
 

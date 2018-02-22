@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour {
 
+	public enum PlayerBody {BODY_1, BODY_2, BODY_3, BODY_4, BODY_5}
+	public PlayerBody currentPlayerBody;
+	public GameObject[] playerBodies;
+
 	public float movementSpeed = 1;
 	public float rotationSpeed = 1;
 	public Transform body;
@@ -22,6 +26,24 @@ public class PlayerMovement : MonoBehaviour {
 
 		floorMask = LayerMask.GetMask ("Floor");
 		obscuranceMask = LayerMask.GetMask ("Enemy", "Environment");
+
+		switch (currentPlayerBody) {
+		case PlayerBody.BODY_1:
+			playerBodies [0].SetActive (true);
+			break;
+		case PlayerBody.BODY_2:
+			playerBodies [1].SetActive (true);
+			break;
+		case PlayerBody.BODY_3:
+			playerBodies [2].SetActive (true);
+			break;
+		case PlayerBody.BODY_4:
+			playerBodies [3].SetActive (true);
+			break;
+		case PlayerBody.BODY_5:
+			playerBodies [4].SetActive (true);
+			break;
+		}
 	}
 
 	private void Update() {

@@ -602,7 +602,7 @@ MonoBehaviour:
   expansionSpeed: 5
   fireballLength: 0.1
   hurtsPlayer: 1
-  damage: 10
+  damage: 40
 --- !u!135 &135411389555290598
 SphereCollider:
   m_ObjectHideFlags: 1

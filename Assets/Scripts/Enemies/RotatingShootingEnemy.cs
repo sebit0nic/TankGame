@@ -40,7 +40,7 @@ public class RotatingShootingEnemy : MonoBehaviour, Enemy {
 	private Collider thisCollider;
 	private MeshRenderer[] barrelRenderer;
 	private MeshRenderer bodyRenderer;
-	private bool rotatingShooting, pausing;
+	private bool rotatingShooting, pausing, targetable = true;
 
 	private enum ActorState {ACTOR_FOLLOW, ACTOR_STOP};
 	private ActorState currentActorState = ActorState.ACTOR_FOLLOW;
@@ -128,8 +128,13 @@ public class RotatingShootingEnemy : MonoBehaviour, Enemy {
 			for (int i = 0; i < thisParticleSystem.Length; i++) {
 				thisParticleSystem [i].Play ();
 			}
+			targetable = false;
 			StartCoroutine (particleCoroutine);
 		}
+	}
+
+	public bool IsTargetable() {
+		return targetable;
 	}
 
 	private IEnumerator WaitForParticleFinish(float waitTime) {
@@ -197,5 +202,6 @@ public class RotatingShootingEnemy : MonoBehaviour, Enemy {
 			barrelRenderer [i].material = normalMaterial;
 		}
 		bodyRenderer.material = normalMaterial;
+		targetable = true;
 	}
 }

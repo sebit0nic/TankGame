@@ -12,7 +12,13 @@ public class PulseShotPlayer : MonoBehaviour, PlayerWeapon {
 	public Transform head;
 	public ParticleSystem shotParticle;
 
+	private Animator targetingTriangleAnimator;
+
 	private bool stopped = false, chargedShot = false;
+
+	private void Start() {
+		targetingTriangleAnimator = GetComponent<Animator> ();
+	}
 
 	public void Init() {
 	}
@@ -32,11 +38,11 @@ public class PulseShotPlayer : MonoBehaviour, PlayerWeapon {
 				chargedShotLineRenderer.SetPosition (0, barrelEnd.position);
 				chargedShotLineRenderer.SetPosition (1, new Vector3 (barrelEnd.position.x + (head.forward.x * range), barrelEnd.position.y, barrelEnd.position.z + (head.forward.z * range)));
 				StartCoroutine (ChargedShotEffect ());
-				StartCoroutine (WaitForCooldown ());
 			} else {
 				StartCoroutine (OpenShotEffect ());
-				StartCoroutine (WaitForCooldown ());
 			}
+			targetingTriangleAnimator.enabled = false;
+			StartCoroutine (WaitForCooldown ());
 		}
 	}
 
@@ -56,14 +62,21 @@ public class PulseShotPlayer : MonoBehaviour, PlayerWeapon {
 	private IEnumerator OpenShotEffect() {
 		shotParticle.Play ();
 		targetingTriangle.GetComponent<MeshCollider> ().enabled = true;
+
 		yield return new WaitForSeconds (shotParticle.main.duration);
+
 		targetingTriangle.GetComponent<MeshCollider> ().enabled = false;
 	}
 
 	private IEnumerator WaitForCooldown() {
 		stopped = true;
 		targetingTriangle.GetComponent<MeshRenderer>().enabled = false;
+
 		yield return new WaitForSeconds (cooldown);
+
+		targetingTriangleAnimator.enabled = true;
+		targetingTriangleAnimator.Play ("Pulsing", -1, 0f);
+		chargedShot = false;
 		stopped = false;
 		targetingTriangle.GetComponent<MeshRenderer> ().enabled = true;
 	}

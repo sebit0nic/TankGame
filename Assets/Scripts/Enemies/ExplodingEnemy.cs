@@ -24,7 +24,7 @@ public class ExplodingEnemy : MonoBehaviour, Enemy {
 	private Transform target;
 	private float distance;
 	private float explosionTimer;
-	private bool explosionEngaged, canEngage = true, exploded;
+	private bool explosionEngaged, canEngage = true, exploded, targetable = true;
 	private bool firstInitiation = true;
 
 	private void Start() {
@@ -48,6 +48,7 @@ public class ExplodingEnemy : MonoBehaviour, Enemy {
 			distance = Vector3.Distance (transform.position, target.position);
 			if (explosionEngaged && explosionTimer <= Time.time) {
 				bombExplosion.Explode ();
+				targetable = false;
 				DisableComponents ();
 				transform.rotation = Quaternion.identity;
 
@@ -78,6 +79,10 @@ public class ExplodingEnemy : MonoBehaviour, Enemy {
 			EngageExplosion ();
 			canEngage = false;
 		}
+	}
+
+	public bool IsTargetable() {
+		return targetable;
 	}
 
 	private void EngageExplosion() {
@@ -125,6 +130,7 @@ public class ExplodingEnemy : MonoBehaviour, Enemy {
 			basePoints = 10;
 
 			exploded = false;
+			targetable = true;
 			bodyAnimator.SetBool ("Engaged", false);
 		}
 	}

@@ -5,4 +5,5 @@ using UnityEngine;
 public interface Enemy {
 
 	void HitByProjectile(int damage);
+	bool IsTargetable();
 }

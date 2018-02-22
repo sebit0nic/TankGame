@@ -5,28 +5,41 @@ using UnityEngine.UI;
 
 public class PlayerShootingScript : MonoBehaviour {
 
-	public Transform barrelEnd;
-
-	public enum WeaponType {NORMAL_MISSILE, BOMB_SHOT, PULSE_SHOT};
+	public enum WeaponType {NORMAL_MISSILE, BOMB_SHOT, PULSE_SHOT, LOCKON_SHOT, LASER_SHOT};
 	public WeaponType currentWeaponType;
+	public Transform[] barrelEnds;
 	public GameObject[] playerWeapons;
 
 	private PlayerWeapon currentPlayerWeapon;
 	private bool canShoot = true;
+	private Transform barrelEnd;
 
 	private void Awake() {
 		switch (currentWeaponType) {
 		case WeaponType.NORMAL_MISSILE:
 			playerWeapons [0].SetActive (true);
 			currentPlayerWeapon = playerWeapons [0].GetComponent<PlayerWeapon> ();
+			barrelEnd = barrelEnds [0];
 			break;
 		case WeaponType.BOMB_SHOT:
 			playerWeapons [1].SetActive (true);
 			currentPlayerWeapon = playerWeapons [1].GetComponent<PlayerWeapon> ();
+			barrelEnd = barrelEnds [1];
 			break;
 		case WeaponType.PULSE_SHOT:
 			playerWeapons [2].SetActive (true);
 			currentPlayerWeapon = playerWeapons [2].GetComponent<PlayerWeapon> ();
+			barrelEnd = barrelEnds [2];
+			break;
+		case WeaponType.LOCKON_SHOT:
+			playerWeapons [3].SetActive (true);
+			currentPlayerWeapon = playerWeapons [3].GetComponent<PlayerWeapon> ();
+			barrelEnd = barrelEnds [3];
+			break;
+		case WeaponType.LASER_SHOT:
+			playerWeapons [4].SetActive (true);
+			currentPlayerWeapon = playerWeapons [4].GetComponent<PlayerWeapon> ();
+			barrelEnd = barrelEnds [4];
 			break;
 		}
 			

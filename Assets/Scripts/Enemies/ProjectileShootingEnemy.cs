@@ -28,6 +28,7 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 	private float shootTimer;
 	private float randomShootDeviation;
 	private int currentHealth;
+	private bool targetable = true;
 
 	private Transform target;
 	private ObjectPool objectPool;
@@ -141,8 +142,13 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 			for (int i = 0; i < thisParticleSystem.Length; i++) {
 				thisParticleSystem [i].Play ();
 			}
+			targetable = false;
 			StartCoroutine (particleCoroutine);
 		}
+	}
+
+	public bool IsTargetable() {
+		return targetable;
 	}
 
 	private IEnumerator WaitForParticleFinish(float waitTime) {
@@ -197,5 +203,6 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 		currentHealth = maxHealth;
 		barrelRenderer.material = normalMaterial;
 		bodyRenderer.material = normalMaterial;
+		targetable = true;
 	}
 }

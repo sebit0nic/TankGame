@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerSpecialAbility : MonoBehaviour {
 
-	public enum AbilityType {DODGE_JUMP, BULLET_STOP, SHIELD};
+	public enum AbilityType {DODGE_JUMP, BULLET_STOP, SHIELD, SHOCKWAVE, TIME_STOP};
 	public AbilityType currentAbilityType;
 	public ParticleSystem jumpParticles;
 	public bool alwaysAbilityAvailable;
