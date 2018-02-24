@@ -1333,7 +1333,7 @@ ParticleSystem:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 391663155}
   serializedVersion: 5
-  lengthInSec: 0.75
+  lengthInSec: 0.95
   speed: 1
   looping: 1
   prewarm: 1
@@ -1381,12 +1381,12 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1056672971
+  randomSeed: -1149149160
   InitialModule:
     serializedVersion: 3
     enabled: 1
     startLifetime:
-      scalar: 0.75
+      scalar: 0.95
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -1425,7 +1425,7 @@ ParticleSystem:
         m_RotationOrder: 4
       minMaxState: 0
     startSpeed:
-      scalar: 130
+      scalar: 150
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -4989,7 +4989,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 802154718
+  randomSeed: 1092265438
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -8994,7 +8994,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1184111857
 Transform:
   m_ObjectHideFlags: 0
@@ -10298,7 +10298,7 @@ ParticleSystem:
   moveWithTransform: 1
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 629462268
+  randomSeed: 1212798497
   InitialModule:
     serializedVersion: 3
     enabled: 1
@@ -13020,7 +13020,7 @@ LineRenderer:
   m_SortingOrder: 0
   m_Positions:
   - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 100}
+  - {x: 0, y: 0, z: 150}
   m_Parameters:
     serializedVersion: 2
     widthMultiplier: 0.75
@@ -13164,6 +13164,35 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 962698165}
   m_Script: {fileID: 11500000, guid: d33a4c253603b9147a1eb43729ee65b1, type: 3}
+--- !u!1 &1643302817
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1643302818}
+  m_Layer: 9
+  m_Name: Special Ability
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1643302818
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1643302817}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1817214051}
+  m_Father: {fileID: 2069063535}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1644684807
 GameObject:
   m_ObjectHideFlags: 0
@@ -16446,6 +16475,35 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e357f901417924a4daa61f25336a0d23, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1817214050
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1817214051}
+  m_Layer: 9
+  m_Name: Dodge Jump
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1817214051
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1817214050}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 2036155031}
+  m_Father: {fileID: 1643302818}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1834521021 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4997941192961754, guid: e357f901417924a4daa61f25336a0d23,
@@ -17473,13 +17531,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2036155030}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 708347998}
-  m_Father: {fileID: 2069063535}
-  m_RootOrder: 2
+  m_Father: {fileID: 1817214051}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2039757716
 Prefab:
@@ -17662,7 +17720,7 @@ Transform:
   m_Children:
   - {fileID: 1558820790}
   - {fileID: 320908009}
-  - {fileID: 2036155031}
+  - {fileID: 1643302818}
   - {fileID: 70894597}
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -17899,7 +17957,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentAbilityType: 0
   jumpParticles: {fileID: 708348000}
-  alwaysAbilityAvailable: 0
+  dynamicObjects: {fileID: 868409927}
+  alwaysAbilityAvailable: 1
   upwardsThrust: 125000
   sidewaysThrust: 90000
   downwardsThrust: -90000
@@ -20785,7 +20844,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fc4421ae2df3afc4da1b9d972f79f4a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 100
+  range: 150
   damage: 1
   damageDelay: 0.025
   overheatTreshold: 4

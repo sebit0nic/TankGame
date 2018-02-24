@@ -58,6 +58,7 @@ public class PlayerHealth : MonoBehaviour {
 		}
 	}
 
+	//Short slow down of time when player is hit by a projectile
 	private IEnumerator OnSlowDownEffect() {
 		Time.timeScale = slowDownValue;
 		yield return new WaitForSecondsRealtime (slowDownDuration);

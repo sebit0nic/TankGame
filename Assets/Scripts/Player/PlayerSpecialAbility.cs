@@ -7,14 +7,18 @@ public class PlayerSpecialAbility : MonoBehaviour {
 	public enum AbilityType {DODGE_JUMP, BULLET_STOP, SHIELD, SHOCKWAVE, TIME_STOP};
 	public AbilityType currentAbilityType;
 	public ParticleSystem jumpParticles;
+	public GameObject dynamicObjects;
 	public bool alwaysAbilityAvailable;
 
-	[Header("Dodge Jump Variables")]
+	[Header("DODGE_JUMP Variables")]
 	public float upwardsThrust = 125000f;
 	public float sidewaysThrust = 50000f;
 	public float downwardsThrust = -90000f;
 	public float airTime = 0.5f;
 	public float fallTime = 1.2f;
+
+	[Header("BULLET_STOP Variables")]
+
 
 	private Rigidbody thisRigidbody;
 	private Animator thisAnimator;
@@ -61,7 +65,9 @@ public class PlayerSpecialAbility : MonoBehaviour {
 	}
 
 	private void DoBulletStop() {
-		//TODO: Implement BulletStop
+		if (gameManager.CanUseSpecialAbility () || alwaysAbilityAvailable) {
+			
+		}
 	}
 
 	private void DoShield() {
