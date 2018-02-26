@@ -32,6 +32,7 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 
 	private Transform target;
 	private ObjectPool objectPool;
+	private ObjectPool effectPool;
 
 	private IEnumerator particleCoroutine;
 	private Rigidbody thisRigidbody;
@@ -44,6 +45,7 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 	private void Awake() {
 		target = GameObject.Find ("Player").transform;
 		objectPool = GetComponent<ObjectPool> ();
+		effectPool = GameObject.Find ("Effect Pool").GetComponent<ObjectPool> ();
 
 		thisRigidbody = GetComponent<Rigidbody> ();
 		thisCollider = GetComponent<Collider> ();
@@ -143,6 +145,12 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 				thisParticleSystem [i].Play ();
 			}
 			targetable = false;
+
+			GameObject pointText = effectPool.GetPooledObjectByIndex (0);
+			pointText.transform.position = transform.position;
+			pointText.GetComponent<PointsText> ().SetText (basePoints.ToString ());
+			pointText.SetActive (true);
+
 			StartCoroutine (particleCoroutine);
 		}
 	}
