@@ -274,7 +274,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bf7fa73709c7f342986bed46b1800d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
+  damage: 25
   turnTime: 0.5
   selfDestructTimeout: 6
   turnDamper: 0.08

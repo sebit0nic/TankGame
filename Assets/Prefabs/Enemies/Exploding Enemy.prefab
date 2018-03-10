@@ -575,6 +575,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c53e51a11f5ed64e838f442e15d333c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 25
+  baseSpeed: 15
+  basePoints: 10
   minExplosionDistance: 8
   timeToExplode: 1
   bombExplosion: {fileID: 114235631420605972}
@@ -586,7 +589,9 @@ MonoBehaviour:
   warningRadius: {fileID: 1798323268325430}
   thisMeshRenderer: {fileID: 23708564636196874}
   bodyAnimator: {fileID: 95457269350322638}
-  basePoints: 10
+  normalMaterial: {fileID: 2100000, guid: 0a01303492064fa46bf119149799e0f9, type: 2}
+  hitMaterial: {fileID: 2100000, guid: 4b6d5c6c398ab25478660a7a25f2646a, type: 2}
+  hitMaterialWaitTime: 0.05
 --- !u!114 &114235631420605972
 MonoBehaviour:
   m_ObjectHideFlags: 1

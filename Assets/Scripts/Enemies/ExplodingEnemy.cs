@@ -4,7 +4,10 @@ using UnityEngine;
 using UnityEngine.AI;
 
 public class ExplodingEnemy : MonoBehaviour, Enemy {
-
+	
+	public float maxHealth = 20;
+	public float baseSpeed = 15;
+	public int basePoints = 20;
 	public float minExplosionDistance = 15;
 	public float timeToExplode = 1;
 	public BombExplosion bombExplosion;
@@ -14,7 +17,8 @@ public class ExplodingEnemy : MonoBehaviour, Enemy {
 	public GameObject warningRadius;
 	public MeshRenderer thisMeshRenderer;
 	public Animator bodyAnimator;
-	public int basePoints = 20;
+	public Material normalMaterial, hitMaterial;
+	public float hitMaterialWaitTime = 0.1f;
 
 	private GameManager gameManager;
 	private NavMeshAgent agent;
@@ -26,6 +30,7 @@ public class ExplodingEnemy : MonoBehaviour, Enemy {
 	private float explosionTimer;
 	private bool explosionEngaged, canEngage = true, exploded, targetable = true;
 	private bool firstInitiation = true;
+	private float currentSpeed, currentHealth;
 
 	private void Start() {
 		gameManager = GameObject.Find ("Game Manager").GetComponent<GameManager>();
@@ -74,11 +79,17 @@ public class ExplodingEnemy : MonoBehaviour, Enemy {
 	}
 
 	public void HitByProjectile(int damage) {
-		if (canEngage) {
+		currentHealth -= damage;
+		currentHealth = Mathf.Clamp (currentHealth, 0, 1000);
+		StartCoroutine (WaitForHitMaterial ());
+
+		if (canEngage && currentHealth <= 0) {
 			basePoints *= 2;
 			EngageExplosion ();
 			canEngage = false;
 		}
+		currentSpeed = ((1f - (currentHealth / maxHealth)) + 1f) * baseSpeed;
+		agent.speed = currentSpeed;	
 	}
 
 	public bool IsTargetable() {
@@ -110,12 +121,21 @@ public class ExplodingEnemy : MonoBehaviour, Enemy {
 		warningRadius.SetActive (false);
 	}
 
+	private IEnumerator WaitForHitMaterial() {
+		thisMeshRenderer.material = hitMaterial;
+		yield return new WaitForSeconds (hitMaterialWaitTime);
+		thisMeshRenderer.material = normalMaterial;
+	}
+
 	private IEnumerator ShowParticles() {
 		yield return new WaitForSeconds (explosionParticles [0].main.startLifetime.constant);
 		gameObject.SetActive (false);
 	}
 
 	private void OnEnable() {
+		currentHealth = maxHealth;
+		currentSpeed = baseSpeed;
+
 		if (!firstInitiation) {
 			canEngage = true;
 			agent.enabled = true;

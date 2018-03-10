@@ -9148,7 +9148,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileSpeed: 3000
-  weaponCooldown: 0.35
+  weaponCooldown: 0.3
   thisLineRenderer: {fileID: 789817517}
 --- !u!1 &1221486418
 GameObject:
