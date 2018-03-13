@@ -12,6 +12,7 @@ public class LasershotPlayer : MonoBehaviour, PlayerWeapon {
 	public float overheatCooldownFactor = 2f;
 	public LineRenderer laserLineRenderer;
 	public GameObject laserParticles, laserEndParticles;
+	public ParticleSystem laserOverheatParticles;
 	public Image overheatMeter;
 
 	private bool onDamageDelay, overheated, shooting;
@@ -66,6 +67,7 @@ public class LasershotPlayer : MonoBehaviour, PlayerWeapon {
 				currentOverheatFactor -= Time.deltaTime;
 				currentOverheatFactor = Mathf.Clamp (currentOverheatFactor, 0, overheatTreshold);
 				if (currentOverheatFactor <= 0) {
+					laserOverheatParticles.Stop ();
 					overheated = false;
 				}
 			} else {
@@ -73,6 +75,7 @@ public class LasershotPlayer : MonoBehaviour, PlayerWeapon {
 				currentOverheatFactor = Mathf.Clamp (currentOverheatFactor, 0, overheatTreshold);
 				if (currentOverheatFactor >= overheatTreshold) {
 					overheated = true;
+					laserOverheatParticles.Play ();
 					laserParticles.SetActive (false);
 					laserEndParticles.SetActive (false);
 					laserLineRenderer.enabled = false;
@@ -86,6 +89,7 @@ public class LasershotPlayer : MonoBehaviour, PlayerWeapon {
 			}
 			currentOverheatFactor = Mathf.Clamp (currentOverheatFactor, 0, overheatTreshold);
 			if (currentOverheatFactor <= 0) {
+				laserOverheatParticles.Stop ();
 				overheated = false;
 			}
 		}

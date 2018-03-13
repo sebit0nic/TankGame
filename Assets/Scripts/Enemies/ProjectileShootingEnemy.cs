@@ -148,7 +148,7 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 
 			GameObject pointText = effectPool.GetPooledObjectByIndex (0);
 			pointText.transform.position = transform.position;
-			pointText.GetComponent<PointsText> ().SetText (basePoints.ToString ());
+			pointText.GetComponentInChildren<PointsText> ().SetText (basePoints.ToString ());
 			pointText.SetActive (true);
 
 			StartCoroutine (particleCoroutine);

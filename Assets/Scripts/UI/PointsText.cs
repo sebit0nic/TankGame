@@ -5,15 +5,19 @@ using UnityEngine;
 public class PointsText : MonoBehaviour {
 
 	public float floatSpeed = 1, floatTime = 1;
+	public Transform thisTransform;
 
 	private TextMesh thisText;
+	private Transform cameraTransform;
 
 	private void Awake() {
 		thisText = GetComponent<TextMesh> ();
+		cameraTransform = Camera.main.transform;
 	}
 
 	private void Update() {
-		transform.Translate (0, Time.deltaTime * floatSpeed, 0);
+		thisTransform.Translate (0, Time.deltaTime * floatSpeed, 0);
+		thisTransform.LookAt (cameraTransform);
 		StartCoroutine (WaitForFloatTime());
 	}
 
