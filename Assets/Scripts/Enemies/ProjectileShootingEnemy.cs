@@ -146,10 +146,18 @@ public class ProjectileShootingEnemy : MonoBehaviour, Enemy {
 			}
 			targetable = false;
 
+			//Spawn a score text above the destroyed enemy
 			GameObject pointText = effectPool.GetPooledObjectByIndex (0);
 			pointText.transform.position = transform.position;
 			pointText.GetComponentInChildren<PointsText> ().SetText (basePoints.ToString ());
 			pointText.SetActive (true);
+
+			//Spawn a crater model around the enemy
+			GameObject gravel = effectPool.GetPooledObjectByIndex (1);
+			gravel.transform.position = transform.position;
+			gravel.SetActive (true);
+			gravel.transform.rotation = Quaternion.identity;
+			gravel.transform.Rotate (-270, 0, Random.Range(0, 360f));
 
 			StartCoroutine (particleCoroutine);
 		}
